@@ -32,9 +32,9 @@ Pick the script for the chunk size you want:
 
 | Script | Chunk size | API calls per run |
 |---|---|---|
-| `python run_one_shot.py` | all 60 questions in one call | 5 |
-| `python run_chunks_of_5.py` | 5 questions per call | 60 |
-| `python run_one_by_one.py` | 1 question per call | 300 |
+| `python src/run_one_shot.py` | all 60 questions in one call | 5 |
+| `python src/run_chunks_of_5.py` | 5 questions per call | 60 |
+| `python src/run_one_by_one.py` | 1 question per call | 300 |
 
 With no arguments, the script shows a menu to pick a model, then a persona.
 The persona menu shows how many repetitions are already done:
@@ -50,7 +50,7 @@ Number or name (blank to cancel):
 Or skip the menus by naming both:
 
 ```
-python run_one_shot.py age_60 --model gpt-5-mini
+python src/run_one_shot.py age_60 --model gpt-5-mini
 ```
 
 Results are saved after every repetition, so if a run is interrupted, the
@@ -60,27 +60,27 @@ repetitions; it doesn't overwrite earlier results.
 ## Checking progress
 
 ```
-python progress.py               # overview of every model and chunk size
-python progress.py gpt-5-mini    # every persona for one model
+python src/progress.py               # overview of every model and chunk size
+python src/progress.py gpt-5-mini    # every persona for one model
 ```
 
 ## Making graphs
 
 ```
-python plot_results.py
+python src/plot_results.py
 ```
 
 This reads everything in `experiment_data/` and redraws all the charts in
-`figures/`. A chart only appears once there is data for it, so run this
+`graphs/`. A chart only appears once there is data for it, so run this
 whenever you like.
 
 | File | What it shows |
 |---|---|
-| `figures/compare_models/<mode>/base_persona.png` | every model's result for the base persona |
-| `figures/compare_models/<mode>/shift_by_<attribute>.png` | heatmap: how much each change to the persona moves each model's result, compared with the base persona |
-| `figures/per_model/<model>/mode_comparison.png` | whether chunk size changes one model's result |
-| `figures/per_model/<model>/by_<attribute>.png` | one attribute across all three chunk sizes, for one model |
-| `figures/summary.csv` | every mean and 95% confidence interval as a table |
+| `graphs/compare_models/<mode>/base_persona.png` | every model's result for the base persona |
+| `graphs/compare_models/<mode>/shift_by_<attribute>.png` | heatmap: how much each change to the persona moves each model's result, compared with the base persona |
+| `graphs/per_model/<model>/mode_comparison.png` | whether chunk size changes one model's result |
+| `graphs/per_model/<model>/by_<attribute>.png` | one attribute across all three chunk sizes, for one model |
+| `graphs/summary.csv` | every mean and 95% confidence interval as a table |
 
 In the heatmaps, **bold** numbers are shifts larger than the 95% confidence
 interval, i.e. unlikely to be just run-to-run noise.
@@ -97,15 +97,15 @@ and you don't need all of them. Start cheap and expand:
 3. **Base persona with `chunks_of_5` and `one_by_one`, on 2–3 models**.
    Checks whether chunk size changes the conclusions.
 
-After each step, run `python progress.py` to see what's left and
-`python plot_results.py` to look at the results.
+After each step, run `python src/progress.py` to see what's left and
+`python src/plot_results.py` to look at the results.
 
 ## Changing the experiment
 
 All settings live in two JSON files and one constant; no other code needs to
 change.
 
-**Personas: [`personas.json`](personas.json)**
+**Personas: [`config/personas.json`](config/personas.json)**
 ```json
 {
   "base": {"age": 40, "gender": "female", "nationality": "Singaporean", "occupation": "software engineer"},
@@ -120,7 +120,7 @@ any difference in the result comes from that one attribute. Adding a value to
 a list adds a persona (e.g. adding `"Japanese"` creates
 `nationality_japanese`).
 
-**Models: [`models.json`](models.json)**
+**Models: [`config/models.json`](config/models.json)**
 ```json
 "gpt-5-mini": {"response_format": "json_schema"}
 ```
@@ -133,28 +133,33 @@ answers in JSON:
 - `none`: for models that support neither; the code finds the answers in the
   reply text.
 
-If you're unsure, try `json_schema` with `run_one_shot.py base`. If it fails,
-switch to `json_object`. Retries are recorded in the `retries` column of the
-results.
+If you're unsure, try `json_schema` with `python src/run_one_shot.py base`. If
+it fails, switch to `json_object`. Retries are recorded in the `retries`
+column of the results.
 
 **Repetitions:** `NUM_REPETITIONS` near the top of
-[`personality_lab.py`](personality_lab.py) (default 5).
+[`src/personality_lab.py`](src/personality_lab.py) (default 5).
 
 ## File layout
 
 ```
-personality_lab.py      shared code: questions, prompts, scoring, API calls
-run_one_shot.py         \
-run_chunks_of_5.py       } one script per chunk size
-run_one_by_one.py       /
-progress.py             what has been run so far
-plot_results.py         charts and summary table
-personas.json           persona settings
-models.json             model settings
-
+config/
+  personas.json           persona settings
+  models.json             model settings
+src/
+  personality_lab.py      shared code: questions, prompts, scoring, API calls
+  run_one_shot.py         \
+  run_chunks_of_5.py       } one script per chunk size
+  run_one_by_one.py       /
+  progress.py             what has been run so far
+  plot_results.py         charts and summary table
 experiment_data/<model>/<mode>/<persona>/<timestamp>.csv   raw results
-figures/                                                    generated charts
+graphs/                                                     generated charts
 ```
+
+Run the scripts from the project folder (e.g. `python src/run_one_shot.py`).
+They find `config/`, `experiment_data/` and `graphs/` on their own, so they
+also work from VS Code's Run button.
 
 Folders in `experiment_data/` that start with `_` are ignored by the charts.
 `_old_prompt/` holds early results from a version of the prompt that didn't

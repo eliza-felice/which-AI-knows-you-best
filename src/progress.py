@@ -1,8 +1,8 @@
 """Show which experiments have been run so far.
 
 Usage:
-    python progress.py               # overview: every model x chunk size
-    python progress.py gpt-5-mini    # detail: every persona for one model
+    python src/progress.py               # overview: every model x chunk size
+    python src/progress.py gpt-5-mini    # detail: every persona for one model
 
 An experiment is one persona x one model x one chunk size, and counts as
 complete once it has NUM_REPETITIONS repetitions saved.
@@ -40,7 +40,7 @@ def show_overview(models, personas):
 
     total = len(models) * len(MODE_NAMES) * len(personas)
     print(f"\n{finished} of {total} experiments complete.")
-    print("For one model's details: python progress.py <model>")
+    print("For one model's details: python src/progress.py <model>")
 
 
 def show_model(model, personas):

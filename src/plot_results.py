@@ -1,9 +1,9 @@
 """Graph every result collected so far in experiment_data/.
 
 Usage:
-    python plot_results.py
+    python src/plot_results.py
 
-Writes to figures/:
+Writes to graphs/:
     summary.csv                               the numbers behind every chart
     compare_models/<mode>/base_persona.png    every model's result for the
                                               base persona
@@ -29,8 +29,8 @@ from matplotlib.colors import LinearSegmentedColormap
 
 from personality_lab import load_models, load_persona_config, project_file_location
 
-PROJECT_DIR = Path(__file__).resolve().parent
-FIGURES_DIR = PROJECT_DIR / "figures"
+PROJECT_DIR = Path(__file__).resolve().parent.parent  # src/ is one level down
+GRAPHS_DIR = PROJECT_DIR / "graphs"
 
 # Mode order and colours: the first three slots of a colourblind-checked
 # categorical palette. Keep them fixed so a mode is the same colour everywhere.
@@ -187,7 +187,7 @@ def plot_base_persona_by_model(df, mode, models, rng):
                "confidence interval. Dashed line: 50% (no lean).",
                gap=0.06 + 0.4 / len(present))
     fig.tight_layout(rect=(0, 0, 1, 0.86 - 0.3 / len(present)))
-    save(fig, FIGURES_DIR / "compare_models" / mode / "base_persona.png")
+    save(fig, GRAPHS_DIR / "compare_models" / mode / "base_persona.png")
 
 
 def plot_shift_heatmap(df, mode, models, attribute, values, base_value):
@@ -256,7 +256,7 @@ def plot_shift_heatmap(df, mode, models, attribute, values, base_value):
         gap=0.012 + 0.3 / fig.get_figheight(),
     )
     fig.tight_layout(rect=(0, 0, 1, 1 - 1.15 / fig.get_figheight()))
-    save(fig, FIGURES_DIR / "compare_models" / mode / f"shift_by_{attribute}.png")
+    save(fig, GRAPHS_DIR / "compare_models" / mode / f"shift_by_{attribute}.png")
 
 
 # ─────────────── One model at a time ───────────────
@@ -280,7 +280,7 @@ def plot_mode_comparison(df, model, rng):
                "Faint dots: repetitions. Solid dot and bar: mean with 95% "
                "confidence interval. Dashed line: 50% (no lean).", gap=0.1)
     fig.tight_layout(rect=(0, 0, 1, 0.86))
-    save(fig, FIGURES_DIR / "per_model" / model / "mode_comparison.png")
+    save(fig, GRAPHS_DIR / "per_model" / model / "mode_comparison.png")
 
 
 def plot_attribute_by_mode(df, model, attribute, values, base_value):
@@ -338,7 +338,7 @@ def plot_attribute_by_mode(df, model, attribute, values, base_value):
     fig.legend(handles=handles, loc="upper left", ncol=len(handles),
                frameon=False, bbox_to_anchor=(0.005, 0.958))
     fig.tight_layout(rect=(0, 0, 1, 0.925))
-    save(fig, FIGURES_DIR / "per_model" / model / f"by_{attribute}.png")
+    save(fig, GRAPHS_DIR / "per_model" / model / f"by_{attribute}.png")
 
 
 # ─────────────── Summary table ───────────────
@@ -360,7 +360,7 @@ def write_summary(df):
         if "retries" in group:
             record["retries"] = int(group["retries"].sum())
         records.append(record)
-    path = FIGURES_DIR / "summary.csv"
+    path = GRAPHS_DIR / "summary.csv"
     pd.DataFrame(records).to_csv(path, index=False)
     print(f"Saved {path.relative_to(PROJECT_DIR)}")
 
@@ -376,8 +376,8 @@ def main():
 
     # Start clean so charts for deleted data don't linger.
     for folder in ("compare_models", "per_model"):
-        shutil.rmtree(FIGURES_DIR / folder, ignore_errors=True)
-    FIGURES_DIR.mkdir(exist_ok=True)
+        shutil.rmtree(GRAPHS_DIR / folder, ignore_errors=True)
+    GRAPHS_DIR.mkdir(exist_ok=True)
 
     rng = np.random.default_rng(0)
     for mode in MODES:

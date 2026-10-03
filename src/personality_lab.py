@@ -1,17 +1,17 @@
 """Shared logic for the personality experiment.
 
 Don't run this file directly. Run one of the mode scripts instead:
-    python run_one_by_one.py
-    python run_chunks_of_5.py
-    python run_one_shot.py
+    python src/run_one_by_one.py
+    python src/run_chunks_of_5.py
+    python src/run_one_shot.py
 
 Each run tests ONE persona with ONE model. With no arguments the script shows
 menus (with what is already done); or name them directly:
-    python run_one_shot.py age_60 --model gpt-5-mini
+    python src/run_one_shot.py age_60 --model gpt-5-mini
 
 What to edit:
-    personas.json   base persona + the values to vary
-    models.json     models to test, and how each returns structured answers
+    config/personas.json   base persona + the values to vary
+    config/models.json     models to test, and how each returns structured answers
     NUM_REPETITIONS below
 
 Results are saved as experiment_data/<model>/<mode>/<persona>/<timestamp>.csv.
@@ -29,12 +29,12 @@ import pandas as pd
 from dotenv import dotenv_values
 from openai import OpenAI
 
-PROJECT_DIR = Path(__file__).resolve().parent
-# Store outputs beside this script so running it from VS Code uses a stable path
-# regardless of the current working directory.
+PROJECT_DIR = Path(__file__).resolve().parent.parent  # src/ is one level down
+# Store outputs in the project folder so running from VS Code uses a stable
+# path regardless of the current working directory.
 project_file_location = PROJECT_DIR / "experiment_data"
-PERSONAS_FILE = PROJECT_DIR / "personas.json"
-MODELS_FILE = PROJECT_DIR / "models.json"
+PERSONAS_FILE = PROJECT_DIR / "config" / "personas.json"
+MODELS_FILE = PROJECT_DIR / "config" / "models.json"
 
 def get_current_date_time() -> str:
   current_datetime = datetime.now()
