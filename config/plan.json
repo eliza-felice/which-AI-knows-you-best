@@ -1,26 +1,100 @@
 {
   "1": {
     "description": "Base persona, one shot: do the models disagree at all?",
-    "modes": ["one_shot"],
-    "personas": ["base"],
+    "modes": [
+      "one_shot"
+    ],
+    "personas": [
+      "base"
+    ],
+    "models": "all"
+  },
+  "1b": {
+    "description": "Control: no persona, one shot. What is each model's own default personality?",
+    "modes": [
+      "one_shot"
+    ],
+    "personas": [
+      "no_persona"
+    ],
     "models": "all"
   },
   "2": {
     "description": "Base persona, other chunk sizes: does chunk size change the result?",
-    "modes": ["chunks_of_5", "one_by_one"],
-    "personas": ["base"],
+    "modes": [
+      "chunks_of_5",
+      "one_by_one"
+    ],
+    "personas": [
+      "base"
+    ],
     "models": "all"
   },
-  "3": {
-    "description": "Every persona, chunks of 5: how does each persona change shift each model? (main result)",
-    "modes": ["chunks_of_5"],
-    "personas": "all",
+  "3a": {
+    "description": "Age personas: how does age shift each model?",
+    "modes": [
+      "one_shot"
+    ],
+    "personas": [
+      "base",
+      "age"
+    ],
+    "models": "all"
+  },
+  "3b": {
+    "description": "Gender personas: how does gender shift each model?",
+    "modes": [
+      "one_shot"
+    ],
+    "personas": [
+      "base",
+      "gender"
+    ],
+    "models": "all"
+  },
+  "3c": {
+    "description": "Nationality personas: how does nationality shift each model?",
+    "modes": [
+      "one_shot"
+    ],
+    "personas": [
+      "base",
+      "nationality"
+    ],
+    "models": "all"
+  },
+  "3d": {
+    "description": "Occupation personas: how does occupation shift each model?",
+    "modes": [
+      "one_shot"
+    ],
+    "personas": [
+      "base",
+      "occupation"
+    ],
+    "models": "all"
+  },
+  "3e": {
+    "description": "Check: age personas with chunks of 5. Are the age shifts the same as in 3a (one shot)?",
+    "modes": [
+      "chunks_of_5"
+    ],
+    "personas": [
+      "base",
+      "age"
+    ],
     "models": "all"
   },
   "4": {
     "description": "Every persona, one by one (optional, slow): do step 3's conclusions hold?",
-    "modes": ["one_by_one"],
+    "modes": [
+      "one_by_one"
+    ],
     "personas": "all",
-    "models": ["gpt-5-mini", "gemini-3.5-flash-lite", "deepseek-v4-flash"]
+    "models": [
+      "gpt-5-mini",
+      "gemini-3.5-flash-lite",
+      "deepseek-v4-flash"
+    ]
   }
 }

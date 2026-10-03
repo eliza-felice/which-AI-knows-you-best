@@ -5,8 +5,14 @@ Usage:
 
 Writes to graphs/:
     summary.csv                               the numbers behind every chart
+    compare_models/chunk_size_lines.png       line graph: chunk size vs result,
+                                              one line per model
+    compare_models/<mode>/age_lines.png       line graph: age vs result, one
+                                              line per model
     compare_models/<mode>/base_persona.png    every model's result for the
                                               base persona
+    compare_models/<mode>/no_persona_vs_base.png  each model's default (no
+                                              persona) next to the base persona
     compare_models/<mode>/shift_by_<attr>.png how much changing one attribute
                                               shifts each model's result
     per_model/<model>/mode_comparison.png     does chunk size matter?
@@ -47,6 +53,14 @@ DIMENSIONS = {
     "percentage_AT_A": "Assertive (A) vs Turbulent (T)",
 }
 SINGLE_SERIES = "#2a78d6"
+# One colour and marker per model, in models.json order (colourblind-checked
+# as adjacent pairs for line charts). Models past the 7th share grey.
+MODEL_COLOURS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4",
+                 "#008300", "#4a3aa7"]
+MODEL_MARKERS = ["o", "s", "^", "D", "v", "P", "X"]
+EXTRA_MODEL_COLOUR = "#8a8985"
+# Chunk sizes as an ordered axis for line graphs: questions per API call.
+CHUNK_AXIS = {"one_by_one": "1", "chunks_of_5": "5", "one_shot": "All 60"}
 TEXT_PRIMARY = "#0b0b0b"
 TEXT_SECONDARY = "#52514e"
 GRID = "#e6e5e1"
@@ -86,14 +100,22 @@ def load_results(config):
     if not frames:
         raise SystemExit(f"No results found in {project_file_location}")
     df = pd.concat(frames, ignore_index=True)
+    # Whole-number columns with gaps (the no-persona control has no age) would
+    # otherwise become decimals (40.0); keep them as whole numbers.
+    for column in df.columns:
+        if (column.startswith("persona_") and pd.api.types.is_float_dtype(df[column])
+                and (df[column].dropna() % 1 == 0).all()):
+            df[column] = df[column].astype("Int64")
 
     # Work out which single attribute each row differs from the base persona
     # in, from the attribute values themselves (so renamed personas still fit).
     base = config["base"]
     def varied_attribute(row):
+        if row["persona_name"] == "no_persona":
+            return "none"
         differing = [
             attribute for attribute, value in base.items()
-            if str(row[f"persona_{attribute}"]) != str(value)
+            if as_text(row[f"persona_{attribute}"]) != as_text(value)
         ]
         if not differing:
             return "base"
@@ -103,15 +125,40 @@ def load_results(config):
     return df[df["varied_attribute"].notna()]
 
 
+# Two-sided 95% critical values of Student's t, by degrees of freedom (n - 1).
+# With only a handful of repetitions the usual 1.96 makes intervals too narrow.
+T_CRITICAL_95 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447,
+                 7: 2.365, 8: 2.306, 9: 2.262, 10: 2.228, 15: 2.131, 20: 2.086,
+                 30: 2.042}
+
+
+def t_critical(degrees_of_freedom):
+    """Critical t value; for df between table entries, use the next lower
+    entry (slightly wider, i.e. cautious). Large samples use 1.96."""
+    if degrees_of_freedom > 30:
+        return 1.96
+    return T_CRITICAL_95[max(k for k in T_CRITICAL_95 if k <= degrees_of_freedom)]
+
+
 def summarise(values):
+    """Mean and the half-width of its 95% confidence interval."""
     n = len(values)
     mean = values.mean()
-    ci = 1.96 * values.std(ddof=1) / np.sqrt(n) if n > 1 else 0.0
+    ci = t_critical(n - 1) * values.std(ddof=1) / np.sqrt(n) if n > 1 else 0.0
     return mean, ci, n
 
 
+def as_text(value):
+    """Compare persona values as text, treating 40 and 40.0 as the same
+    (pandas turns whole numbers into decimals when a column has gaps, e.g.
+    the no-persona control has no age)."""
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value)
+
+
 def rows_with_value(df, attribute, value):
-    return df[df[f"persona_{attribute}"].astype(str) == str(value)]
+    return df[df[f"persona_{attribute}"].map(as_text) == as_text(value)]
 
 
 def ordered_present(order, present):
@@ -122,15 +169,34 @@ def ordered_present(order, present):
 # ─────────────── Shared drawing helpers ───────────────
 
 def style_axis(ax, title, horizontal=False):
-    ax.set_title(title, loc="left", fontsize=10, color=TEXT_PRIMARY)
-    limits, set_ticks, reference, grid_axis = (
-        (ax.set_xlim, ax.set_xticks, ax.axvline, "x") if horizontal
-        else (ax.set_ylim, ax.set_yticks, ax.axhline, "y")
-    )
-    limits(0, 100)
-    set_ticks([0, 25, 50, 75, 100])
-    reference(50, color=TEXT_SECONDARY, linewidth=1, linestyle=(0, (4, 3)))
-    ax.grid(axis=grid_axis, color=GRID, linewidth=0.8)
+    """A 0-100 axis for one dimension, labelled with its two traits.
+
+    The data is "% of the first-named trait" (e.g. % Extraverted). The axis
+    puts each trait on the side where it is named: horizontally, the first
+    trait is on the LEFT (so "Extraverted vs Introverted" reads left to
+    right); vertically, the first trait is at the TOP.
+    """
+    first, second = [part.split(" (")[0] for part in title.split(" vs ")]
+    ticks = [0, 25, 50, 75, 100]
+    tick_labels = ["100%", "75%", "50/50", "75%", "100%"]
+    reference = dict(color=TEXT_SECONDARY, linewidth=1, linestyle=(0, (4, 3)))
+    if horizontal:
+        ax.set_xlim(100, 0)  # Reversed: 100% of the first trait on the left.
+        ax.set_xticks(ticks, tick_labels)
+        ax.axvline(50, **reference)
+        ax.set_title(f"← {first}", loc="left", fontsize=10, color=TEXT_PRIMARY)
+        ax.set_title(f"{second} →", loc="right", fontsize=10, color=TEXT_PRIMARY)
+    else:
+        ax.set_ylim(0, 100)
+        ax.set_yticks(ticks, tick_labels)
+        ax.axhline(50, **reference)
+        ax.set_title(f"{first} vs {second}", loc="left", fontsize=10,
+                     color=TEXT_PRIMARY)
+        for y, va, label in ((0.98, "top", f"▲ {first}"),
+                             (0.02, "bottom", f"▼ {second}")):
+            ax.text(0.01, y, label, transform=ax.transAxes, va=va,
+                    fontsize=8.5, color=TEXT_SECONDARY)
+    ax.grid(axis="x" if horizontal else "y", color=GRID, linewidth=0.8)
     ax.set_axisbelow(True)
     ax.tick_params(length=0)
 
@@ -181,13 +247,56 @@ def plot_base_persona_by_model(df, mode, models, rng):
         style_axis(ax, title, horizontal=True)
     axes[0].set_yticks(range(len(present)), present)
     axes[0].set_ylim(len(present) - 0.5, -0.5)  # First model at the top.
-    fig.supxlabel("% towards the first letter", color=TEXT_SECONDARY, fontsize=10)
+    fig.supxlabel("How strongly the model leans to each trait (50/50 = no lean)",
+                  color=TEXT_SECONDARY, fontsize=10)
     add_titles(fig, f"Base persona, every model ({MODES[mode][0].lower()})",
                "Faint dots: repetitions. Solid dot and bar: mean with 95% "
                "confidence interval. Dashed line: 50% (no lean).",
                gap=0.06 + 0.4 / len(present))
     fig.tight_layout(rect=(0, 0, 1, 0.86 - 0.3 / len(present)))
     save(fig, GRAPHS_DIR / "compare_models" / mode / "base_persona.png")
+
+
+def plot_persona_vs_default(df, mode, models, rng):
+    """Each model with no persona (its own default) next to the base persona:
+    how far does the persona move the model away from its default?"""
+    rows = df[df["experiment_mode"] == mode]
+    groups = {
+        "No persona (model's default)": ("none", "#eb6834", 0.18),
+        "Base persona": ("base", "#2a78d6", -0.18),
+    }
+    present = ordered_present(models, rows.loc[rows["varied_attribute"] == "none", "model"])
+    present = [m for m in present
+               if not rows[(rows["model"] == m) & (rows["varied_attribute"] == "base")].empty]
+    if not present:
+        return
+
+    fig, axes = plt.subplots(1, len(DIMENSIONS), sharey=True,
+                             figsize=(16, 1.8 + 0.6 * len(present)))
+    for ax, (column, title) in zip(axes, DIMENSIONS.items()):
+        for y, model in enumerate(present):
+            for attribute, colour, offset in groups.values():
+                values = rows.loc[(rows["model"] == model)
+                                  & (rows["varied_attribute"] == attribute), column]
+                draw_strip(ax, y + offset, values, colour, rng, horizontal=True)
+        style_axis(ax, title, horizontal=True)
+    axes[0].set_yticks(range(len(present)), present)
+    axes[0].set_ylim(len(present) - 0.5, -0.5)  # First model at the top.
+    fig.supxlabel("How strongly the model leans to each trait (50/50 = no lean)",
+                  color=TEXT_SECONDARY, fontsize=10)
+    add_titles(fig, f"No persona vs base persona ({MODES[mode][0].lower()})",
+               "Orange: no system prompt, the model's own default. Blue: "
+               "the base persona. The gap is how far the persona moves the "
+               "model.\nFaint dots: repetitions. Solid dot and bar: mean "
+               "with 95% confidence interval.",
+               gap=0.05 + 0.3 / len(present))
+    handles = [plt.Line2D([], [], marker="o", linestyle="", markersize=7,
+                          color=colour, label=label)
+               for label, (_, colour, _) in groups.items()]
+    fig.legend(handles=handles, loc="upper right", ncol=2, frameon=False,
+               bbox_to_anchor=(0.995, 0.995))
+    fig.tight_layout(rect=(0, 0, 1, 0.84 - 0.3 / len(present)))
+    save(fig, GRAPHS_DIR / "compare_models" / mode / "no_persona_vs_base.png")
 
 
 def plot_shift_heatmap(df, mode, models, attribute, values, base_value):
@@ -221,7 +330,8 @@ def plot_shift_heatmap(df, mode, models, attribute, values, base_value):
                     continue
                 mean, ci, _ = summarise(cell[column])
                 shifts[i, j] = mean - base_mean
-                # Larger than the combined uncertainty of the two means.
+                # Larger than the combined uncertainty of the two means (a
+                # slightly cautious test of whether the shift is real).
                 clear[i, j] = abs(shifts[i, j]) > np.hypot(ci, base_ci)
 
         ax.imshow(shifts, cmap=SHIFT_CMAP, vmin=-SHIFT_LIMIT, vmax=SHIFT_LIMIT,
@@ -251,8 +361,10 @@ def plot_shift_heatmap(df, mode, models, attribute, values, base_value):
         fig,
         f"How {attribute} shifts each model ({MODES[mode][0].lower()})",
         f"Change from the base persona ({base_value}), in percentage points "
-        "towards the first letter.\nBlue: more of the first letter. Red: more "
-        "of the second. Bold: larger than the 95% CI. –: not run yet.",
+        "(rows: personas, columns: models).\nBlue: shifted towards the "
+        "first-named trait (e.g. more Extraverted). Red: towards the second "
+        "(e.g. more Introverted).\n"
+        "Bold: larger than the 95% CI. –: not run yet.",
         gap=0.012 + 0.3 / fig.get_figheight(),
     )
     fig.tight_layout(rect=(0, 0, 1, 1 - 1.15 / fig.get_figheight()))
@@ -275,7 +387,7 @@ def plot_mode_comparison(df, model, rng):
         style_axis(ax, title)
         ax.set_xticks(range(len(modes)), [MODES[m][0] for m in modes])
         ax.set_xlim(-0.6, len(modes) - 0.4)
-    axes[0].set_ylabel("% towards the first letter")
+    axes[0].set_ylabel("Lean (50/50 = no lean)")
     add_titles(fig, f"{model}: does chunk size change the base persona's result?",
                "Faint dots: repetitions. Solid dot and bar: mean with 95% "
                "confidence interval. Dashed line: 50% (no lean).", gap=0.1)
@@ -324,7 +436,7 @@ def plot_attribute_by_mode(df, model, attribute, values, base_value):
         for tick in axes[-1].get_xticklabels():
             tick.set_ha("right")
     axes[-1].set_xlabel(attribute.capitalize())
-    fig.supylabel("% towards the first letter", color=TEXT_SECONDARY,
+    fig.supylabel("Lean (50/50 = no lean)", color=TEXT_SECONDARY,
                   fontsize=10)
 
     add_titles(fig, f"{model}: how {attribute} shifts the result",
@@ -341,6 +453,94 @@ def plot_attribute_by_mode(df, model, attribute, values, base_value):
     save(fig, GRAPHS_DIR / "per_model" / model / f"by_{attribute}.png")
 
 
+# ─────────────── Line graphs (ordered x-axis only) ───────────────
+
+def model_style(models, model):
+    index = models.index(model)
+    if index < len(MODEL_COLOURS):
+        return MODEL_COLOURS[index], MODEL_MARKERS[index]
+    return EXTRA_MODEL_COLOUR, "o"
+
+
+def plot_model_lines(models, x_labels, cell_rows, title, subtitle, x_label, path):
+    """One panel per dimension; one line per model across an ordered x-axis.
+
+    cell_rows(model, x_index) returns the result rows for that point.
+    Models with fewer than two points are left out (a line needs two).
+    """
+    lines = {}
+    for model in models:
+        points = []
+        for x in range(len(x_labels)):
+            rows = cell_rows(model, x)
+            if not rows.empty:
+                points.append((x, rows))
+        if len(points) >= 2:
+            lines[model] = points
+    if not lines:
+        return
+
+    # Nudge each model sideways a little so the error bars don't overlap.
+    offsets = np.linspace(-0.1, 0.1, len(lines)) if len(lines) > 1 else [0]
+    fig, axes = plt.subplots(1, len(DIMENSIONS), figsize=(16, 4.6), sharey=True)
+    for ax, (column, dimension_title) in zip(axes, DIMENSIONS.items()):
+        for offset, (model, points) in zip(offsets, lines.items()):
+            colour, marker = model_style(models, model)
+            xs = [x + offset for x, _ in points]
+            means, cis = zip(*[summarise(rows[column])[:2] for _, rows in points])
+            ax.errorbar(xs, means, yerr=cis, color=colour, linewidth=2,
+                        marker=marker, markersize=6, elinewidth=1, capsize=2.5,
+                        label=model)
+        style_axis(ax, dimension_title)
+        ax.set_xticks(range(len(x_labels)), x_labels)
+        ax.set_xlim(-0.3, len(x_labels) - 0.7)
+        ax.set_xlabel(x_label)
+    axes[0].set_ylabel("Lean (50/50 = no lean)")
+
+    add_titles(fig, title, subtitle, gap=0.075)
+    fig.legend(*axes[0].get_legend_handles_labels(), loc="upper left",
+               ncol=min(len(lines), 7), frameon=False,
+               bbox_to_anchor=(0.005, 0.86))
+    fig.tight_layout(rect=(0, 0, 1, 0.78))
+    save(fig, path)
+
+
+def plot_chunk_size_lines(df, models):
+    """Base persona: how each model's result changes with chunk size."""
+    base_rows = df[df["varied_attribute"] == "base"]
+    modes = list(CHUNK_AXIS)
+    plot_model_lines(
+        models,
+        list(CHUNK_AXIS.values()),
+        lambda model, x: base_rows[(base_rows["model"] == model)
+                                   & (base_rows["experiment_mode"] == modes[x])],
+        "How chunk size changes each model's result (base persona)",
+        "Mean with 95% confidence interval. Dashed line: 50% (no lean).",
+        "Questions per API call",
+        GRAPHS_DIR / "compare_models" / "chunk_size_lines.png",
+    )
+
+
+def plot_attribute_lines(df, mode, models, attribute, values, base_value):
+    """One numeric attribute (e.g. age) as a line per model, for one mode."""
+    rows = df[(df["experiment_mode"] == mode)
+              & df["varied_attribute"].isin([attribute, "base"])]
+    if attribute not in set(rows["varied_attribute"]):
+        return
+    plot_model_lines(
+        models,
+        [f"{v}\n(base)" if str(v) == str(base_value) else str(v) for v in values],
+        lambda model, x: rows_with_value(rows[rows["model"] == model],
+                                         attribute, values[x]),
+        f"How {attribute} changes each model's result "
+        f"({MODES[mode][0].lower()})",
+        "Mean with 95% confidence interval; every other attribute held at the "
+        "base persona.",
+        attribute.capitalize(),
+        GRAPHS_DIR / "compare_models" / mode / f"{attribute}_lines.png",
+    )
+
+
 # ─────────────── Summary table ───────────────
 
 def write_summary(df):
@@ -348,7 +548,8 @@ def write_summary(df):
     group_columns = ["model", "experiment_mode", "varied_attribute",
                      "persona_age", "persona_gender", "persona_nationality",
                      "persona_occupation"]
-    for keys, group in df.groupby(group_columns):
+    # dropna=False keeps the no-persona control, which has no persona values.
+    for keys, group in df.groupby(group_columns, dropna=False):
         record = dict(zip(group_columns, keys))
         record["n"] = len(group)
         for column in DIMENSIONS:
@@ -380,11 +581,17 @@ def main():
     GRAPHS_DIR.mkdir(exist_ok=True)
 
     rng = np.random.default_rng(0)
+    plot_chunk_size_lines(df, models)
     for mode in MODES:
         plot_base_persona_by_model(df, mode, models, rng)
+        plot_persona_vs_default(df, mode, models, rng)
         for attribute, values in config["variations"].items():
             plot_shift_heatmap(df, mode, models, attribute, values,
                                config["base"][attribute])
+            # Lines only make sense when the values have an order.
+            if all(isinstance(value, (int, float)) for value in values):
+                plot_attribute_lines(df, mode, models, attribute, values,
+                                     config["base"][attribute])
     for model in ordered_present(models, df["model"]):
         plot_mode_comparison(df, model, rng)
         for attribute, values in config["variations"].items():

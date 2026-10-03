@@ -17,12 +17,13 @@ What to edit:
     config/models.json     models to test, and how each returns structured answers
     NUM_REPETITIONS below
 
-Results are saved as experiment_data/<model>/<mode>/<persona>/<timestamp>.csv.
+Results are saved as experiment_data/<model>/<mode>/<persona>/<date>.csv.
 See progress.py for what has been run and plot_results.py for graphs.
 """
 import argparse
 import json
 import re
+import threading
 import time
 from collections import Counter
 from datetime import datetime
@@ -40,12 +41,6 @@ PERSONAS_FILE = PROJECT_DIR / "config" / "personas.json"
 MODELS_FILE = PROJECT_DIR / "config" / "models.json"
 PLAN_FILE = PROJECT_DIR / "config" / "plan.json"
 
-def get_current_date_time() -> str:
-  current_datetime = datetime.now()
-
-  # Format the datetime as a string
-  return current_datetime.strftime("%Y%m%d_%H%M%S")
-
 # Read the key directly from this project's .env file.
 api_key = dotenv_values(PROJECT_DIR / ".env").get("AI_LODGE_API_KEY")
 
@@ -57,6 +52,19 @@ client = OpenAI(
 
 NUM_REPETITIONS = 5
 MAX_ATTEMPTS = 3  # Per batch, for API errors or unusable answers.
+# How many models run_step.py runs at the same time. Lower it if the API
+# provider starts rejecting requests for being too frequent.
+MAX_PARALLEL_MODELS = 7
+
+# Set (by Ctrl+C in run_step.py) to make running experiments stop at the
+# next API call.
+STOP = threading.Event()
+
+
+class Stopped(Exception):
+    pass
+
+
 # Questions per API call for each mode (None = all of them in one call).
 CHUNK_SIZES = {"one_by_one": 1, "chunks_of_5": 5, "one_shot": None}
 MODE_NAMES = list(CHUNK_SIZES)
@@ -450,6 +458,9 @@ dimension_counts = Counter(
 )
 
 def build_system_prompt(persona):
+    """The persona as a system prompt, or None for the no-persona control."""
+    if not persona:
+        return None
     gender = persona["gender"].lower()
     gender_word, pronoun = {
         "female": ("woman", "her"),
@@ -506,7 +517,8 @@ def validate_responses(responses, questions):
 
     # Check that every answer is between -3 and +3
     for question_id, answer in responses.items():
-        if not isinstance(answer, int):
+        # bool is a kind of int in Python, so rule out true/false explicitly.
+        if not isinstance(answer, int) or isinstance(answer, bool):
             print(f"Question {question_id} has a non-integer answer: {answer}")
             return False
 
@@ -546,7 +558,10 @@ def calculate_percentages(scores):
     percentages = {}
 
     for dimension, score in scores.items():
-        percentage = 50 + (score / 36) * 50
+        # Each answer is worth up to 3 points, so the most extreme possible
+        # score depends on how many questions this dimension has.
+        max_score = 3 * dimension_counts[dimension]
+        percentage = 50 + (score / max_score) * 50
 
         first_side = dimension[0]
         second_side = dimension[1]
@@ -616,12 +631,12 @@ def ask_batch(client, model, model_settings, system_prompt, batch):
     extra = {"response_format": request_format} if request_format else {}
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
+            messages = [{"role": "user", "content": build_user_prompt(batch)}]
+            if system_prompt:  # None for the no-persona control.
+                messages.insert(0, {"role": "system", "content": system_prompt})
             result = client.chat.completions.create(
                 model=model,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": build_user_prompt(batch)},
-                ],
+                messages=messages,
                 **extra,
             )
             answers = parse_answers(result.choices[0].message.content)
@@ -630,12 +645,14 @@ def ask_batch(client, model, model_settings, system_prompt, batch):
             problem = "invalid answers"
         except Exception as error:  # API error or unparseable reply.
             problem = str(error)[:200]
-        print(f"    Attempt {attempt}/{MAX_ATTEMPTS} failed: {problem}")
-        time.sleep(2 * attempt)
+        print(f"    [{model}] Attempt {attempt}/{MAX_ATTEMPTS} failed: {problem}")
+        if STOP.wait(2 * attempt):  # Pause before retrying, unless stopping.
+            raise Stopped()
     raise RuntimeError(f"{model} gave no usable answer after {MAX_ATTEMPTS} attempts.")
 
 
-def run_persona_experiment(client, model, model_settings, system_prompt, questions, chunk_size):
+def run_persona_experiment(client, model, model_settings, system_prompt, questions,
+                           chunk_size, quiet=False):
     """Run the questions in batches and calculate the resulting percentages."""
     batch_size = chunk_size or len(questions)
     responses = {}
@@ -643,7 +660,10 @@ def run_persona_experiment(client, model, model_settings, system_prompt, questio
     batches = [questions[i:i + batch_size] for i in range(0, len(questions), batch_size)]
 
     for batch_number, batch in enumerate(batches, start=1):
-        print(f"  Answering batch {batch_number}/{len(batches)}...")
+        if STOP.is_set():
+            raise Stopped()
+        if not quiet:
+            print(f"  Answering batch {batch_number}/{len(batches)}...")
         answers, attempts = ask_batch(client, model, model_settings, system_prompt, batch)
         responses.update(answers)
         retries += attempts - 1
@@ -680,11 +700,15 @@ def generate_personas(config):
     """Build personas from personas.json: the base persona, plus one persona
     per variation that changes a single attribute and keeps the rest at base.
 
+    Also includes "no_persona", a control with no system prompt at all, which
+    measures each model's own default personality.
+
     Returns {persona_name: (varied_attribute, persona)}, e.g.
-    "base" -> ("base", {...}), "age_60" -> ("age", {..., "age": 60}).
+    "base" -> ("base", {...}), "age_60" -> ("age", {..., "age": 60}),
+    "no_persona" -> ("none", {}).
     """
     base = config["base"]
-    personas = {"base": ("base", dict(base))}
+    personas = {"base": ("base", dict(base)), "no_persona": ("none", {})}
     for attribute, values in config["variations"].items():
         for value in values:
             if value == base[attribute]:
@@ -747,9 +771,28 @@ def step_experiments(step, models, personas):
     return [
         (model, mode, persona_name)
         for mode in step["modes"]
-        for persona_name in pick(step["personas"], personas)
+        for persona_name in expand_persona_selection(step["personas"], personas)
         for model in pick(step["models"], models)
     ]
+
+
+def expand_persona_selection(selection, personas):
+    """Turn a plan's "personas" entry into persona names. It can be "all",
+    or a list of persona names ("age_60") and attribute names ("age" = every
+    persona that varies age)."""
+    if selection == "all":
+        return list(personas)
+    names = []
+    for entry in selection:
+        if entry in personas:
+            matches = [entry]
+        else:
+            matches = [name for name, (attribute, _) in personas.items()
+                       if attribute == entry and name != "base"]
+        if not matches:
+            raise SystemExit(f"Unknown persona or attribute in plan.json: {entry!r}")
+        names += [name for name in matches if name not in names]
+    return names
 
 
 def calls_per_repetition(mode_name):
@@ -791,26 +834,45 @@ def run_mode(mode_name, chunk_size):
                    persona_name, personas[persona_name], NUM_REPETITIONS)
 
 
+def dated_csv_path(folder):
+    """Today's date as the file name, numbered if that name is taken:
+    2026-10-03.csv, then 2026-10-03-1.csv, 2026-10-03-2.csv, ..."""
+    today = f"{datetime.now():%Y-%m-%d}"
+    path = folder / f"{today}.csv"
+    number = 1
+    while path.exists():
+        path = folder / f"{today}-{number}.csv"
+        number += 1
+    return path
+
+
 def run_experiment(model, model_settings, mode_name, chunk_size, persona_name,
-                   persona_entry, repetitions):
+                   persona_entry, repetitions, quiet=False):
     """Run `repetitions` repetitions of one persona with one model.
 
-    Results go to experiment_data/<model>/<mode_name>/<persona_name>/. The CSV
-    is rewritten after every repetition, so a crash halfway through keeps the
-    finished runs.
+    Results go to experiment_data/<model>/<mode_name>/<persona_name>/<date>.csv,
+    e.g. 2026-10-03.csv; later runs on the same day get 2026-10-03-1.csv,
+    2026-10-03-2.csv, ... The CSV is rewritten after every repetition, so a
+    crash halfway through keeps the finished runs.
+
+    quiet: one line per repetition instead of per batch (for when several
+    models run at once and their output would be mixed together).
     """
     varied_attribute, persona = persona_entry
     system_prompt = build_system_prompt(persona)
-    print(f"\nModel: {model}, mode: {mode_name}, persona: {persona_name}")
-    print(f"System prompt: {system_prompt}")
+    label = f"[{model}] {mode_name} / {persona_name}"
+    if not quiet:
+        print(f"\nModel: {model}, mode: {mode_name}, persona: {persona_name}")
+        print(f"System prompt: {system_prompt or '(none: no-persona control)'}")
 
     output_dir = results_folder(model, mode_name, persona_name)
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / f"{get_current_date_time()}.csv"
+    output_path = dated_csv_path(output_dir)
 
     experiment_results = []
     for run_id in range(1, repetitions + 1):
-        print(f"Repetition {run_id}/{repetitions}...")
+        if not quiet:
+            print(f"Repetition {run_id}/{repetitions}...")
         result = run_persona_experiment(
             client,
             model,
@@ -818,7 +880,11 @@ def run_experiment(model, model_settings, mode_name, chunk_size, persona_name,
             system_prompt,
             questions,
             chunk_size,
+            quiet,
         )
+        if quiet:
+            print(f"{label}: repetition {run_id}/{repetitions} done "
+                  f"({result['personality_type']})")
 
         flattened_result = {
             "run_id": run_id,
@@ -839,6 +905,8 @@ def run_experiment(model, model_settings, mode_name, chunk_size, persona_name,
         experiment_results.append(flattened_result)
         pd.DataFrame(experiment_results).to_csv(output_path, index=False)
 
+    if quiet:
+        return
     df_results = pd.DataFrame(experiment_results)
     print(f"\nResults for {persona_name} ({model}, {mode_name}):")
     print(df_results[["run_id", "personality_type"]].to_string(index=False))

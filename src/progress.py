@@ -32,7 +32,7 @@ def show_plan(models, personas):
     for number, step in load_plan().items():
         experiments = step_experiments(step, models, personas)
         done = sum(is_complete(*experiment) for experiment in experiments)
-        print(f"  Step {number}: {done:>3}/{len(experiments):<3} {step['description']}")
+        print(f"  Step {number + ':':<4} {done:>3}/{len(experiments):<3} {step['description']}")
     print("Run a step with: python src/run_step.py <step>\n")
 
 

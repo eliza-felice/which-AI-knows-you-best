@@ -28,40 +28,65 @@ The experiment compares three things:
 ## Running the plan
 
 An **experiment** is one persona × one model × one chunk size, repeated 5
-times. Experiments are grouped into four steps in
+times. Experiments are grouped into steps in
 [`config/plan.json`](config/plan.json). Run them in order, looking at the
-graphs between steps:
+graphs between steps. Times are estimates with all 7 models running at once:
 
-| Step | What | Experiments | API calls | What it tells you |
+| Step | What | API calls | Time | What it tells you |
 |---|---|---|---|---|
-| 1 | base persona, `one_shot`, every model | 7 | ~35 | whether the models disagree at all |
-| 2 | base persona, `chunks_of_5` and `one_by_one`, every model | 14 | ~2,500 | whether chunk size changes the result |
-| 3 | every persona, `chunks_of_5`, every model | 133 | ~8,000 | how each persona change shifts each model (the main result) |
-| 4 | every persona, `one_by_one`, 3 models (optional, slow) | 57 | ~17,000 | whether step 3's conclusions hold when each question is asked on its own |
+| 1 | base persona, `one_shot`, every model | ~35 | ~5 min | whether the models disagree at all |
+| 1b | no persona (control), `one_shot`, every model | ~35 | ~2 min | each model's own default personality, to compare the personas against |
+| 2 | base persona, `chunks_of_5` and `one_by_one`, every model | ~2,500 | ~20 min | whether chunk size changes the result |
+| 3a | age personas, `one_shot`, every model | ~175 | ~7 min | how age shifts each model |
+| 3b | gender personas, `one_shot`, every model | ~35 | ~2 min | how gender shifts each model |
+| 3c | nationality personas, `one_shot`, every model | ~140 | ~6 min | how nationality shifts each model |
+| 3d | occupation personas, `one_shot`, every model | ~245 | ~10 min | how occupation shifts each model |
+| 3e | age personas, `chunks_of_5`, every model (check) | ~2,100 | ~30 min | whether the age shifts from 3a are the same at a different chunk size |
+| 4 | every persona, `one_by_one`, 3 models (optional) | ~15,300 | ~3 hours | whether step 3's conclusions hold when each question is asked on its own |
+
+Steps 3a–3e are independent: run them in any order, whenever you like. Each
+attribute's graphs appear as soon as its sub-step is done.
+
+**Why step 3 uses `one_shot`, with a check in 3e.** Step 2 showed that
+`one_shot` and `chunks_of_5` give the same overall picture for the base
+persona (mostly within ±5 points, never flipping which side a model leans
+to), while `one_shot` needs 12× fewer API calls. Step 3 measures how each
+persona *shifts* a model compared with the base persona at the same chunk
+size, so an overall offset between chunk sizes largely cancels out. Step 3e
+checks this directly: it re-runs the age personas with `chunks_of_5`. Compare
+`graphs/compare_models/one_shot/age_lines.png` with
+`graphs/compare_models/chunks_of_5/age_lines.png` (or the two
+`shift_by_age.png` heatmaps). If the shifts match, the step 3 results don't
+depend on chunk size.
 
 ```
-python src/run_step.py                        # pick a step from a menu
-python src/run_step.py 3                      # run step 3
-python src/run_step.py 3 --model gpt-5-mini   # only the gpt-5-mini part of step 3
+python src/run_step.py                         # pick a step from a menu
+python src/run_step.py 3a                      # run step 3a
+python src/run_step.py 3a --model gpt-5-mini   # only the gpt-5-mini part of step 3a
+python src/run_step.py 2 --parallel 3          # at most 3 models at once
 ```
 
 Before starting, it shows how many experiments and API calls are left and
-asks you to confirm. Experiments that are already complete are skipped, so
-**you can stop at any time with Ctrl+C and run the same command later to
-carry on**. If a model keeps failing, the step continues with the rest and
-lists the failures at the end; running the command again retries them.
+asks you to confirm. **All models run at the same time**, each working
+through its own experiments, so a step takes about as long as its slowest
+model. If the API provider starts rejecting requests, use `--parallel` with
+a lower number (or change `MAX_PARALLEL_MODELS` in `src/personality_lab.py`).
 
-Use `--model` to split a long step into smaller sessions, one model at a
-time.
+Experiments that are already complete are skipped, so **you can stop at any
+time with Ctrl+C and run the same command later to carry on**. (A repetition
+that was halfway through when you stopped is discarded and run again.) If a
+model keeps failing, the step continues with the rest and lists the failures
+at the end; running the command again retries them.
 
 Each heatmap compares personas with the base persona **under the same chunk
-size**, which is why every step that runs other personas also runs the base
-persona. Don't compare results across chunk sizes; chunk size alone can move
-scores by several points.
+size**, which is why every step that runs other personas also includes the
+base persona (it is skipped if it's already done). Don't compare results
+across chunk sizes; chunk size alone can move scores by several points.
 
 To change which models step 4 uses, or to add a step, edit `plan.json`.
 `"all"` means every model in `models.json` or every persona generated from
-`personas.json`.
+`personas.json`. In `"personas"`, you can list persona names (`"age_60"`) or
+attribute names (`"age"` = every age persona).
 
 ## Running a single experiment
 
@@ -114,7 +139,10 @@ whenever you like.
 
 | File | What it shows |
 |---|---|
+| `graphs/compare_models/chunk_size_lines.png` | line graph: how each model's result changes with chunk size (base persona) |
+| `graphs/compare_models/<mode>/age_lines.png` | line graph: how each model's result changes with age |
 | `graphs/compare_models/<mode>/base_persona.png` | every model's result for the base persona |
+| `graphs/compare_models/<mode>/no_persona_vs_base.png` | each model's default (no persona) next to the base persona: how far the persona moves the model |
 | `graphs/compare_models/<mode>/shift_by_<attribute>.png` | heatmap: how much each change to the persona moves each model's result, compared with the base persona |
 | `graphs/per_model/<model>/mode_comparison.png` | whether chunk size changes one model's result |
 | `graphs/per_model/<model>/by_<attribute>.png` | one attribute across all three chunk sizes, for one model |
@@ -178,7 +206,7 @@ src/
   run_one_by_one.py       /
   progress.py             what has been run so far
   plot_results.py         charts and summary table
-experiment_data/<model>/<mode>/<persona>/<timestamp>.csv   raw results
+experiment_data/<model>/<mode>/<persona>/<date>.csv        raw results
 graphs/                                                     generated charts
 ```
 
