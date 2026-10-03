@@ -1,4 +1,26 @@
+"""Shared logic for the personality experiment.
+
+Don't run this file directly. Run one of the mode scripts instead:
+    python run_one_by_one.py
+    python run_chunks_of_5.py
+    python run_one_shot.py
+
+Each run tests ONE persona with ONE model. With no arguments the script shows
+menus (with what is already done); or name them directly:
+    python run_one_shot.py age_60 --model gpt-5-mini
+
+What to edit:
+    personas.json   base persona + the values to vary
+    models.json     models to test, and how each returns structured answers
+    NUM_REPETITIONS below
+
+Results are saved as experiment_data/<model>/<mode>/<persona>/<timestamp>.csv.
+See progress.py for what has been run and plot_results.py for graphs.
+"""
+import argparse
 import json
+import re
+import time
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -7,10 +29,12 @@ import pandas as pd
 from dotenv import dotenv_values
 from openai import OpenAI
 
+PROJECT_DIR = Path(__file__).resolve().parent
 # Store outputs beside this script so running it from VS Code uses a stable path
 # regardless of the current working directory.
-project_file_location = Path(__file__).resolve().parent / "experiment_data"
-project_file_location.mkdir(parents=True, exist_ok=True)
+project_file_location = PROJECT_DIR / "experiment_data"
+PERSONAS_FILE = PROJECT_DIR / "personas.json"
+MODELS_FILE = PROJECT_DIR / "models.json"
 
 def get_current_date_time() -> str:
   current_datetime = datetime.now()
@@ -18,10 +42,8 @@ def get_current_date_time() -> str:
   # Format the datetime as a string
   return current_datetime.strftime("%Y%m%d_%H%M%S")
 
-print(f"Project file location: {project_file_location}")
-
 # Read the key directly from this project's .env file.
-api_key = dotenv_values(Path(__file__).resolve().parent / ".env").get("AI_LODGE_API_KEY")
+api_key = dotenv_values(PROJECT_DIR / ".env").get("AI_LODGE_API_KEY")
 
 # Initialize the OpenAI client
 client = OpenAI(
@@ -29,22 +51,20 @@ client = OpenAI(
     base_url="https://api.apiyi.com/v1",  # or https://openrouter.ai/api/v1
 )
 
-# Edit these configurations to compare different personas and models.
-PERSONAS = {
-    "singaporean_software_engineer": {
-        "age": 40,
-        "gender": "female",
-        "nationality": "Singaporean",
-        "occupation": "software engineer",
-    },
-}
-MODELS = ["gpt-4o-mini"]
 NUM_REPETITIONS = 5
-EXPERIMENT_MODES = [
-    {"name": "one_by_one", "chunk_size": 1},
-    {"name": "chunks_of_5", "chunk_size": 5},
-    {"name": "one_shot", "chunk_size": None},
-]
+MAX_ATTEMPTS = 3  # Per batch, for API errors or unusable answers.
+MODE_NAMES = ["one_by_one", "chunks_of_5", "one_shot"]
+
+# Every model, mode and persona gets exactly the same instructions, so the
+# only thing that differs between runs is what you are testing.
+INSTRUCTIONS = """Rate how much you agree with each statement, answering as yourself.
+Use this scale:
+-3 = strongly disagree, -2 = disagree, -1 = slightly disagree, 0 = neutral,
+1 = slightly agree, 2 = agree, 3 = strongly agree.
+Reply with only a JSON object that maps each statement number to your rating, like {"12": 2}.
+
+Statements:
+"""
 
 questions = [
     # ─────────────── EI ───────────────
@@ -418,13 +438,10 @@ questions = [
     }
 ]
 
-print("Number of questions:", len(questions))
 dimension_counts = Counter(
     question["dimension"]
     for question in questions
 )
-
-print(dimension_counts)
 
 def build_system_prompt(persona):
     gender = persona["gender"].lower()
@@ -437,9 +454,14 @@ def build_system_prompt(persona):
         f"in {pronoun} {age // 10 * 10}s" if age >= 20 else f"aged {age}"
     )
     return (
-        f"You are a {persona['nationality']} {gender_word} {age_description}, "
-        f"working as a {persona['occupation']}."
+        f"You are {with_article(persona['nationality'])} {gender_word} "
+        f"{age_description}, working as {with_article(persona['occupation'])}."
     )
+
+
+def with_article(word):
+    """'Indian' -> 'an Indian', 'nurse' -> 'a nurse'."""
+    return f"{'an' if word[0].lower() in 'aeiou' else 'a'} {word}"
 
 
 def build_response_format(batch):
@@ -546,32 +568,79 @@ def get_personality_type(percentages):
 
     return personality_type
 
-def run_persona_experiment(client, model, system_prompt, questions, chunk_size):
+def build_user_prompt(batch):
+    return INSTRUCTIONS + "\n".join(
+        f"{question['id']}. {question['text']}" for question in batch
+    )
+
+
+def build_request_format(batch, response_format):
+    """How to ask a model for JSON. Not every model supports every option,
+    so models.json says which one to use:
+      json_schema  strict schema, the model cannot return anything else
+      json_object  any JSON object; the instructions say what to put in it
+      none         no format option; we find the JSON in the reply text
+    """
+    if response_format == "json_schema":
+        return build_response_format(batch)
+    if response_format == "json_object":
+        return {"type": "json_object"}
+    return None
+
+
+def parse_answers(content):
+    """Pull {question_id: rating} out of a reply, tolerating extra text."""
+    match = re.search(r"\{.*\}", content or "", re.DOTALL)
+    if not match:
+        raise ValueError(f"No JSON object in reply: {(content or '')[:200]!r}")
+    answers = {}
+    for question_id, answer in json.loads(match.group()).items():
+        if isinstance(answer, float) and answer.is_integer():
+            answer = int(answer)
+        answers[int(question_id)] = answer
+    return answers
+
+
+def ask_batch(client, model, model_settings, system_prompt, batch):
+    """Ask one batch of questions, retrying on errors or unusable answers.
+
+    Returns (answers, attempts_used).
+    """
+    request_format = build_request_format(batch, model_settings["response_format"])
+    extra = {"response_format": request_format} if request_format else {}
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        try:
+            result = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": build_user_prompt(batch)},
+                ],
+                **extra,
+            )
+            answers = parse_answers(result.choices[0].message.content)
+            if validate_responses(answers, batch):
+                return answers, attempt
+            problem = "invalid answers"
+        except Exception as error:  # API error or unparseable reply.
+            problem = str(error)[:200]
+        print(f"    Attempt {attempt}/{MAX_ATTEMPTS} failed: {problem}")
+        time.sleep(2 * attempt)
+    raise RuntimeError(f"{model} gave no usable answer after {MAX_ATTEMPTS} attempts.")
+
+
+def run_persona_experiment(client, model, model_settings, system_prompt, questions, chunk_size):
     """Run the questions in batches and calculate the resulting percentages."""
     batch_size = chunk_size or len(questions)
     responses = {}
+    retries = 0
     batches = [questions[i:i + batch_size] for i in range(0, len(questions), batch_size)]
 
     for batch_number, batch in enumerate(batches, start=1):
-        if batch_size == 1:
-            user_prompt = batch[0]["text"]
-        else:
-            user_prompt = "\n".join(
-                f"{question['id']}. {question['text']}" for question in batch
-            )
         print(f"  Answering batch {batch_number}/{len(batches)}...")
-        result = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            response_format=build_response_format(batch),
-        )
-        batch_answers = json.loads(result.choices[0].message.content)
-        responses.update(
-            {int(question_id): answer for question_id, answer in batch_answers.items()}
-        )
+        answers, attempts = ask_batch(client, model, model_settings, system_prompt, batch)
+        responses.update(answers)
+        retries += attempts - 1
 
     if not validate_responses(responses, questions):
         raise ValueError("The model returned an invalid set of answers.")
@@ -583,51 +652,159 @@ def run_persona_experiment(client, model, system_prompt, questions, chunk_size):
     return {
         "personality_type": personality_type,
         "scores": scores,
-        "percentages": percentages
+        "percentages": percentages,
+        "retries": retries,
     }
 
-results_by_mode = {mode["name"]: [] for mode in EXPERIMENT_MODES}
+def slugify(value):
+    return str(value).lower().replace(" ", "_").replace("-", "_")
 
-for mode in EXPERIMENT_MODES:
-    for persona_name, persona in PERSONAS.items():
-        system_prompt = build_system_prompt(persona)
-        for model in MODELS:
-            for run_id in range(1, NUM_REPETITIONS + 1):
-                print(
-                    f"Running {mode['name']} for {persona_name} with {model}, "
-                    f"repetition {run_id}/{NUM_REPETITIONS}..."
-                )
-                result = run_persona_experiment(
-                    client,
-                    model,
-                    system_prompt,
-                    questions,
-                    mode["chunk_size"],
-                )
 
-                flattened_result = {
-                    "run_id": run_id,
-                }
-                flattened_result["personality_type"] = result["personality_type"]
-                for dim, dimension_percentages in result["percentages"].items():
-                    for side, value in dimension_percentages.items():
-                        flattened_result[f"percentage_{dim}_{side}"] = value
+def load_persona_config():
+    with open(PERSONAS_FILE, encoding="utf-8") as f:
+        return json.load(f)
 
-                flattened_result["experiment_mode"] = mode["name"]
-                flattened_result["persona_name"] = persona_name
-                flattened_result["model"] = model
-                for key, value in persona.items():
-                    flattened_result[f"persona_{key}"] = value
 
-                results_by_mode[mode["name"]].append(flattened_result)
+def load_models():
+    with open(MODELS_FILE, encoding="utf-8") as f:
+        return json.load(f)
 
-timestamp = get_current_date_time()
-for mode_name, experiment_results in results_by_mode.items():
+
+def generate_personas(config):
+    """Build personas from personas.json: the base persona, plus one persona
+    per variation that changes a single attribute and keeps the rest at base.
+
+    Returns {persona_name: (varied_attribute, persona)}, e.g.
+    "base" -> ("base", {...}), "age_60" -> ("age", {..., "age": 60}).
+    """
+    base = config["base"]
+    personas = {"base": ("base", dict(base))}
+    for attribute, values in config["variations"].items():
+        for value in values:
+            if value == base[attribute]:
+                continue  # Same as the base persona.
+            personas[f"{attribute}_{slugify(value)}"] = (
+                attribute,
+                {**base, attribute: value},
+            )
+    return personas
+
+
+def load_personas():
+    return generate_personas(load_persona_config())
+
+
+def results_folder(model, mode_name, persona_name):
+    return project_file_location / model / mode_name / persona_name
+
+
+def count_completed_runs(model, mode_name, persona_name):
+    """How many repetitions are saved for this model, mode and persona."""
+    folder = results_folder(model, mode_name, persona_name)
+    return sum(len(pd.read_csv(path)) for path in folder.glob("*.csv"))
+
+
+def choose(options, title, describe=lambda option: ""):
+    """Numbered menu. Returns the chosen option (by number or exact name)."""
+    print(f"\n{title}")
+    for number, option in enumerate(options, start=1):
+        print(f"  {number:>2}. {option:<36} {describe(option)}")
+    choice = input("Number or name (blank to cancel): ").strip()
+    if not choice:
+        raise SystemExit("Cancelled.")
+    if choice.isdigit() and 1 <= int(choice) <= len(options):
+        return options[int(choice) - 1]
+    if choice in options:
+        return choice
+    raise SystemExit(f"Not a valid choice: {choice!r}")
+
+
+def check_choice(choice, options, kind):
+    if choice not in options:
+        raise SystemExit(f"Unknown {kind}: {choice!r}. Available: {list(options)}")
+    return choice
+
+
+def run_mode(mode_name, chunk_size):
+    """Run NUM_REPETITIONS repetitions of one persona with one model.
+
+    Results go to experiment_data/<model>/<mode_name>/<persona_name>/. The CSV
+    is rewritten after every repetition, so a crash halfway through keeps the
+    finished runs.
+    """
+    parser = argparse.ArgumentParser(description=f"Run the {mode_name} experiment.")
+    parser.add_argument("persona", nargs="?", help="persona name, e.g. age_60")
+    parser.add_argument("--model", help="model name from models.json")
+    args = parser.parse_args()
+
+    models = load_models()
+    personas = load_personas()
+
+    if args.model:
+        model = check_choice(args.model, models, "model")
+    elif len(models) == 1:
+        model = next(iter(models))
+    else:
+        model = choose(list(models), "Models:")
+
+    def runs_done(name):
+        done = count_completed_runs(model, mode_name, name)
+        return f"{done:>2}/{NUM_REPETITIONS}" + ("  done" if done >= NUM_REPETITIONS else "")
+
+    if args.persona:
+        persona_name = check_choice(args.persona, personas, "persona")
+    else:
+        persona_name = choose(
+            list(personas), f"Personas for {model}, {mode_name}:", runs_done
+        )
+
+    varied_attribute, persona = personas[persona_name]
+    system_prompt = build_system_prompt(persona)
+    print(f"\nModel: {model}, mode: {mode_name}, persona: {persona_name}")
+    print(f"System prompt: {system_prompt}")
+
+    output_dir = results_folder(model, mode_name, persona_name)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / f"{get_current_date_time()}.csv"
+
+    experiment_results = []
+    for run_id in range(1, NUM_REPETITIONS + 1):
+        print(f"Repetition {run_id}/{NUM_REPETITIONS}...")
+        result = run_persona_experiment(
+            client,
+            model,
+            models[model],
+            system_prompt,
+            questions,
+            chunk_size,
+        )
+
+        flattened_result = {
+            "run_id": run_id,
+        }
+        flattened_result["personality_type"] = result["personality_type"]
+        for dim, dimension_percentages in result["percentages"].items():
+            for side, value in dimension_percentages.items():
+                flattened_result[f"percentage_{dim}_{side}"] = value
+
+        flattened_result["experiment_mode"] = mode_name
+        flattened_result["persona_name"] = persona_name
+        flattened_result["varied_attribute"] = varied_attribute
+        flattened_result["model"] = model
+        flattened_result["retries"] = result["retries"]
+        for key, value in persona.items():
+            flattened_result[f"persona_{key}"] = value
+
+        experiment_results.append(flattened_result)
+        pd.DataFrame(experiment_results).to_csv(output_path, index=False)
+
     df_results = pd.DataFrame(experiment_results)
-    print(f"\nPreview for {mode_name}:")
-    print(df_results.head())
+    print(f"\nResults for {persona_name} ({model}, {mode_name}):")
+    print(df_results[["run_id", "personality_type"]].to_string(index=False))
+    print(f"Saved to: {output_path}")
 
-    output_filename = f"persona_experiment_{mode_name}_{timestamp}.csv"
-    output_path = project_file_location / output_filename
-    df_results.to_csv(output_path, index=False)
-    print(f"Experiment results saved to: {output_path}")
+
+if __name__ == "__main__":
+    raise SystemExit(
+        "Run run_one_by_one.py, run_chunks_of_5.py or run_one_shot.py instead."
+    )

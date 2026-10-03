@@ -1,0 +1,17 @@
+{
+  "base": {
+    "age": 40,
+    "gender": "female",
+    "nationality": "Singaporean",
+    "occupation": "software engineer"
+  },
+  "variations": {
+    "age": [20, 30, 40, 50, 60, 70],
+    "gender": ["female", "male", "non-binary"],
+    "nationality": ["Singaporean", "American", "British", "Chinese", "Indian"],
+    "occupation": [
+      "software engineer", "nurse", "primary school teacher", "accountant",
+      "artist", "salesperson", "construction worker", "lawyer"
+    ]
+  }
+}
