@@ -1,0 +1,26 @@
+{
+  "1": {
+    "description": "Base persona, one shot: do the models disagree at all?",
+    "modes": ["one_shot"],
+    "personas": ["base"],
+    "models": "all"
+  },
+  "2": {
+    "description": "Base persona, other chunk sizes: does chunk size change the result?",
+    "modes": ["chunks_of_5", "one_by_one"],
+    "personas": ["base"],
+    "models": "all"
+  },
+  "3": {
+    "description": "Every persona, chunks of 5: how does each persona change shift each model? (main result)",
+    "modes": ["chunks_of_5"],
+    "personas": "all",
+    "models": "all"
+  },
+  "4": {
+    "description": "Every persona, one by one (optional, slow): do step 3's conclusions hold?",
+    "modes": ["one_by_one"],
+    "personas": "all",
+    "models": ["gpt-5-mini", "gemini-3.5-flash-lite", "deepseek-v4-flash"]
+  }
+}

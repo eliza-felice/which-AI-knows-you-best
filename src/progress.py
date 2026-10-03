@@ -16,6 +16,8 @@ from personality_lab import (
     count_completed_runs,
     load_models,
     load_personas,
+    load_plan,
+    step_experiments,
 )
 
 COLUMN = 14
@@ -25,7 +27,17 @@ def is_complete(model, mode, persona_name):
     return count_completed_runs(model, mode, persona_name) >= NUM_REPETITIONS
 
 
+def show_plan(models, personas):
+    print("Plan (config/plan.json), experiments complete per step\n")
+    for number, step in load_plan().items():
+        experiments = step_experiments(step, models, personas)
+        done = sum(is_complete(*experiment) for experiment in experiments)
+        print(f"  Step {number}: {done:>3}/{len(experiments):<3} {step['description']}")
+    print("Run a step with: python src/run_step.py <step>\n")
+
+
 def show_overview(models, personas):
+    show_plan(models, personas)
     width = max(len(model) for model in models) + 2
     print(f"Personas complete (of {len(personas)}) per model and chunk size\n")
     print(" " * width + "".join(f"{mode:>{COLUMN}}" for mode in MODE_NAMES))

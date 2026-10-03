@@ -1,15 +1,18 @@
 """Shared logic for the personality experiment.
 
-Don't run this file directly. Run one of the mode scripts instead:
+Don't run this file directly. Either run a whole step of the plan:
+    python src/run_step.py
+
+or a single experiment (ONE persona with ONE model) with a mode script:
     python src/run_one_by_one.py
     python src/run_chunks_of_5.py
     python src/run_one_shot.py
-
-Each run tests ONE persona with ONE model. With no arguments the script shows
-menus (with what is already done); or name them directly:
+With no arguments these show menus (with what is already done); or name
+them directly:
     python src/run_one_shot.py age_60 --model gpt-5-mini
 
 What to edit:
+    config/plan.json       the steps run_step.py runs
     config/personas.json   base persona + the values to vary
     config/models.json     models to test, and how each returns structured answers
     NUM_REPETITIONS below
@@ -35,6 +38,7 @@ PROJECT_DIR = Path(__file__).resolve().parent.parent  # src/ is one level down
 project_file_location = PROJECT_DIR / "experiment_data"
 PERSONAS_FILE = PROJECT_DIR / "config" / "personas.json"
 MODELS_FILE = PROJECT_DIR / "config" / "models.json"
+PLAN_FILE = PROJECT_DIR / "config" / "plan.json"
 
 def get_current_date_time() -> str:
   current_datetime = datetime.now()
@@ -53,7 +57,9 @@ client = OpenAI(
 
 NUM_REPETITIONS = 5
 MAX_ATTEMPTS = 3  # Per batch, for API errors or unusable answers.
-MODE_NAMES = ["one_by_one", "chunks_of_5", "one_shot"]
+# Questions per API call for each mode (None = all of them in one call).
+CHUNK_SIZES = {"one_by_one": 1, "chunks_of_5": 5, "one_shot": None}
+MODE_NAMES = list(CHUNK_SIZES)
 
 # Every model, mode and persona gets exactly the same instructions, so the
 # only thing that differs between runs is what you are testing.
@@ -707,8 +713,9 @@ def count_completed_runs(model, mode_name, persona_name):
 def choose(options, title, describe=lambda option: ""):
     """Numbered menu. Returns the chosen option (by number or exact name)."""
     print(f"\n{title}")
+    width = max(len(option) for option in options) + 2
     for number, option in enumerate(options, start=1):
-        print(f"  {number:>2}. {option:<36} {describe(option)}")
+        print(f"  {number:>2}. {option:<{width}} {describe(option)}")
     choice = input("Number or name (blank to cancel): ").strip()
     if not choice:
         raise SystemExit("Cancelled.")
@@ -725,12 +732,34 @@ def check_choice(choice, options, kind):
     return choice
 
 
-def run_mode(mode_name, chunk_size):
-    """Run NUM_REPETITIONS repetitions of one persona with one model.
+def load_plan():
+    with open(PLAN_FILE, encoding="utf-8") as f:
+        return json.load(f)
 
-    Results go to experiment_data/<model>/<mode_name>/<persona_name>/. The CSV
-    is rewritten after every repetition, so a crash halfway through keeps the
-    finished runs.
+
+def step_experiments(step, models, personas):
+    """Every (model, mode, persona) in one step of plan.json, in run order:
+    mode, then persona, then model, so an interrupted step still has every
+    model for the personas it reached."""
+    def pick(selection, available):
+        return list(available) if selection == "all" else selection
+
+    return [
+        (model, mode, persona_name)
+        for mode in step["modes"]
+        for persona_name in pick(step["personas"], personas)
+        for model in pick(step["models"], models)
+    ]
+
+
+def calls_per_repetition(mode_name):
+    chunk_size = CHUNK_SIZES[mode_name] or len(questions)
+    return -(-len(questions) // chunk_size)  # Round up.
+
+
+def run_mode(mode_name, chunk_size):
+    """Command line for the run_<mode>.py scripts: pick one persona and one
+    model (from the arguments or menus), then run NUM_REPETITIONS repetitions.
     """
     parser = argparse.ArgumentParser(description=f"Run the {mode_name} experiment.")
     parser.add_argument("persona", nargs="?", help="persona name, e.g. age_60")
@@ -758,7 +787,19 @@ def run_mode(mode_name, chunk_size):
             list(personas), f"Personas for {model}, {mode_name}:", runs_done
         )
 
-    varied_attribute, persona = personas[persona_name]
+    run_experiment(model, models[model], mode_name, chunk_size,
+                   persona_name, personas[persona_name], NUM_REPETITIONS)
+
+
+def run_experiment(model, model_settings, mode_name, chunk_size, persona_name,
+                   persona_entry, repetitions):
+    """Run `repetitions` repetitions of one persona with one model.
+
+    Results go to experiment_data/<model>/<mode_name>/<persona_name>/. The CSV
+    is rewritten after every repetition, so a crash halfway through keeps the
+    finished runs.
+    """
+    varied_attribute, persona = persona_entry
     system_prompt = build_system_prompt(persona)
     print(f"\nModel: {model}, mode: {mode_name}, persona: {persona_name}")
     print(f"System prompt: {system_prompt}")
@@ -768,12 +809,12 @@ def run_mode(mode_name, chunk_size):
     output_path = output_dir / f"{get_current_date_time()}.csv"
 
     experiment_results = []
-    for run_id in range(1, NUM_REPETITIONS + 1):
-        print(f"Repetition {run_id}/{NUM_REPETITIONS}...")
+    for run_id in range(1, repetitions + 1):
+        print(f"Repetition {run_id}/{repetitions}...")
         result = run_persona_experiment(
             client,
             model,
-            models[model],
+            model_settings,
             system_prompt,
             questions,
             chunk_size,
@@ -806,5 +847,6 @@ def run_mode(mode_name, chunk_size):
 
 if __name__ == "__main__":
     raise SystemExit(
-        "Run run_one_by_one.py, run_chunks_of_5.py or run_one_shot.py instead."
+        "Run run_step.py, run_one_by_one.py, run_chunks_of_5.py or "
+        "run_one_shot.py instead."
     )

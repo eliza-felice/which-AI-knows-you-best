@@ -25,10 +25,48 @@ The experiment compares three things:
    ```
    `.env` is git-ignored, so the key is never committed.
 
-## Running an experiment
+## Running the plan
 
-One run is **one persona × one model × one chunk size**, repeated 5 times.
-Pick the script for the chunk size you want:
+An **experiment** is one persona × one model × one chunk size, repeated 5
+times. Experiments are grouped into four steps in
+[`config/plan.json`](config/plan.json). Run them in order, looking at the
+graphs between steps:
+
+| Step | What | Experiments | API calls | What it tells you |
+|---|---|---|---|---|
+| 1 | base persona, `one_shot`, every model | 7 | ~35 | whether the models disagree at all |
+| 2 | base persona, `chunks_of_5` and `one_by_one`, every model | 14 | ~2,500 | whether chunk size changes the result |
+| 3 | every persona, `chunks_of_5`, every model | 133 | ~8,000 | how each persona change shifts each model (the main result) |
+| 4 | every persona, `one_by_one`, 3 models (optional, slow) | 57 | ~17,000 | whether step 3's conclusions hold when each question is asked on its own |
+
+```
+python src/run_step.py                        # pick a step from a menu
+python src/run_step.py 3                      # run step 3
+python src/run_step.py 3 --model gpt-5-mini   # only the gpt-5-mini part of step 3
+```
+
+Before starting, it shows how many experiments and API calls are left and
+asks you to confirm. Experiments that are already complete are skipped, so
+**you can stop at any time with Ctrl+C and run the same command later to
+carry on**. If a model keeps failing, the step continues with the rest and
+lists the failures at the end; running the command again retries them.
+
+Use `--model` to split a long step into smaller sessions, one model at a
+time.
+
+Each heatmap compares personas with the base persona **under the same chunk
+size**, which is why every step that runs other personas also runs the base
+persona. Don't compare results across chunk sizes; chunk size alone can move
+scores by several points.
+
+To change which models step 4 uses, or to add a step, edit `plan.json`.
+`"all"` means every model in `models.json` or every persona generated from
+`personas.json`.
+
+## Running a single experiment
+
+To run one persona with one model outside the plan, pick the script for the
+chunk size you want:
 
 | Script | Chunk size | API calls per run |
 |---|---|---|
@@ -41,8 +79,8 @@ The persona menu shows how many repetitions are already done:
 
 ```
 Personas for gpt-5-mini, one_shot:
-   1. base                                  5/5  done
-   2. age_20                                0/5
+   1. base                       5/5  done
+   2. age_20                     0/5
    ...
 Number or name (blank to cancel):
 ```
@@ -60,7 +98,7 @@ repetitions; it doesn't overwrite earlier results.
 ## Checking progress
 
 ```
-python src/progress.py               # overview of every model and chunk size
+python src/progress.py               # each step of the plan, then every model and chunk size
 python src/progress.py gpt-5-mini    # every persona for one model
 ```
 
@@ -85,24 +123,9 @@ whenever you like.
 In the heatmaps, **bold** numbers are shifts larger than the 95% confidence
 interval, i.e. unlikely to be just run-to-run noise.
 
-## Suggested order
-
-There are 399 possible experiments (19 personas × 7 models × 3 chunk sizes),
-and you don't need all of them. Start cheap and expand:
-
-1. **Base persona, `one_shot`, every model** (35 calls). Shows whether the
-   models disagree at all.
-2. **Every persona, `one_shot`, every model** (665 calls). Fills in all the
-   model comparison heatmaps.
-3. **Base persona with `chunks_of_5` and `one_by_one`, on 2–3 models**.
-   Checks whether chunk size changes the conclusions.
-
-After each step, run `python src/progress.py` to see what's left and
-`python src/plot_results.py` to look at the results.
-
 ## Changing the experiment
 
-All settings live in two JSON files and one constant; no other code needs to
+All settings live in three JSON files and one constant; no other code needs to
 change.
 
 **Personas: [`config/personas.json`](config/personas.json)**
@@ -144,10 +167,12 @@ column of the results.
 
 ```
 config/
+  plan.json               the steps run_step.py runs
   personas.json           persona settings
   models.json             model settings
 src/
   personality_lab.py      shared code: questions, prompts, scoring, API calls
+  run_step.py             run one step of the plan
   run_one_shot.py         \
   run_chunks_of_5.py       } one script per chunk size
   run_one_by_one.py       /
