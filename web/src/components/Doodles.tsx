@@ -131,3 +131,25 @@ export function Scribble({ className = "" }: { className?: string }) {
     </svg>
   );
 }
+
+/** A hand-drawn loop around whatever it sits in (which needs `position: relative`). */
+export function Circled({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={`pointer-events-none absolute -inset-1.5 h-[calc(100%+12px)] w-[calc(100%+12px)] overflow-visible ${className}`}
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M52 4 C80 3 98 14 97 50 C96 84 76 97 48 96 C18 95 3 82 3 50 C3 20 22 5 58 7"
+        fill="none"
+        stroke="var(--color-cobalt)"
+        strokeWidth="2.5"
+        vectorEffect="non-scaling-stroke"
+        strokeLinecap="round"
+        filter="url(#wobble)"
+      />
+    </svg>
+  );
+}

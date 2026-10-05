@@ -9,7 +9,6 @@ import { Button, ChanceNote, HandTitle, LessonBlock, ModelChip, TraitBars } from
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, type Profile5 } from "@/lib/experiment";
 import {
   FACT_LABELS,
-  INFLUENCE_WORDS,
   biggestSplit,
   boldest,
   factsMentioned,
@@ -145,13 +144,31 @@ export function Results({
         </section>
       )}
 
-      <div className="flex flex-wrap items-center gap-3">
+      <section className="space-y-4">
+        <h2 className="text-2xl">Keep exploring</h2>
         <Link
-          href="/lessons"
+          href="/what-if"
           className="press inline-flex h-12 items-center rounded-full bg-cobalt px-7 font-medium text-cobalt-ink"
         >
-          More about AI and you
+          What if you were someone else?
         </Link>
+        <div className="flex flex-wrap gap-2">
+          {[
+            ["/without-mask", "Meet the AIs without a mask"],
+            ["/lessons", "More about AI and you"],
+          ].map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              className="press inline-flex h-11 items-center rounded-full border border-ink px-4 text-xs font-medium tracking-wider uppercase"
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <div className="flex flex-wrap items-center gap-3">
         <Button variant="outline" onClick={() => (confirming ? onStartOver() : setConfirming(true))}>
           {confirming ? "Erase my results?" : "Start over"}
         </Button>
@@ -217,7 +234,34 @@ function Note({ r, profile, user }: { r: Ranked; profile: UserProfile; user: Pro
 }
 
 /** What the AIs say drove their guesses, next to what the study measured. */
-/** How much each fact shaped the guesses by the AIs' own account, next to what the study measured. */
+// One scale for both sides of the comparison, in words.
+const LEVELS = ["didn't matter", "mattered a little", "mattered some", "mattered a lot"];
+
+/** How much changing one fact moved the answers in our study (points out of 100) -> 0-3. */
+function measuredLevel(points: number): number {
+  if (points < 1) return 0;
+  if (points < 3) return 1;
+  if (points < 7) return 2;
+  return 3;
+}
+
+function Dots({ level, label }: { level: number; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1" role="img" aria-label={label}>
+      {[1, 2, 3].map((i) => (
+        <span
+          key={i}
+          className={`h-3 w-3 rounded-full border-[1.5px] border-ink ${i <= level ? "bg-ink" : "bg-transparent"}`}
+        />
+      ))}
+    </span>
+  );
+}
+
+/**
+ * What the AIs say shaped their guesses, next to what our study measured,
+ * on the same everyday scale, with a plain verdict for each fact.
+ */
 function WhatTheyUsed({ ranked, profile }: { ranked: Ranked[]; profile: UserProfile }) {
   const rated = ranked.filter((r) => r.influence && Object.keys(r.influence).length > 0);
   // Guesses made before the AIs rated each fact have nothing to show.
@@ -240,13 +284,22 @@ function WhatTheyUsed({ ranked, profile }: { ranked: Ranked[]; profile: UserProf
   const facts: Fact[] = ["job", "age", "gender", "nationality", ...(profile.details ? (["words"] as Fact[]) : [])];
   const rows = facts.map((f) => {
     const weights = rated.map((r) => r.influence![f]).filter((w): w is number => w !== undefined);
-    const average = weights.length ? weights.reduce((x, y) => x + y, 0) / weights.length : 0;
-    return { f, average, alot: weights.filter((w) => w === 3).length };
+    const said = weights.length ? Math.round(weights.reduce((x, y) => x + y, 0) / weights.length) : 0;
+    const found = measured[f] !== undefined ? measuredLevel(measured[f]!) : null;
+    const verdict =
+      found === null
+        ? null
+        : said < found - 1
+          ? "They play it down"
+          : said > found + 1
+            ? "They overstate it"
+            : "About right";
+    return { f, said, found, verdict };
   });
-  const byClaim = [...rows].sort((x, y) => y.average - x.average);
-  const name = (f: Fact) => (f === "words" ? "your own words" : `your ${FACT_LABELS[f].toLowerCase()}`);
-  // Facts they say barely mattered, though the study measured them moving the answers.
-  const downplayed = rows.filter((row) => row.average < 1 && (measured[row.f] ?? 0) >= 2);
+  const name = (f: Fact) => (f === "words" ? "what you wrote" : `your ${FACT_LABELS[f].toLowerCase()}`);
+  const saidMost = [...rows].sort((x, y) => y.said - x.said)[0];
+  const foundMost = rows.filter((r) => r.found !== null).sort((x, y) => y.found! - x.found!)[0];
+  const playedDown = rows.filter((r) => r.verdict === "They play it down");
 
   return (
     <LessonBlock
@@ -257,7 +310,7 @@ function WhatTheyUsed({ ranked, profile }: { ranked: Ranked[]; profile: UserProf
         <>
           <p>
             Change one thing and ask again. If an AI says your job drove its guess, swap the job and see whether the
-            guess moves. That is how our study measured influence: one fact changed at a time.
+            guess moves. That is how our study measured it: one fact changed at a time.
           </p>
           <p>
             An AI&rsquo;s explanation of its own reasoning is more generated text. It can sound convincing without
@@ -268,60 +321,82 @@ function WhatTheyUsed({ ranked, profile }: { ranked: Ranked[]; profile: UserProf
       }
     >
       <p>
-        After guessing, each AI rated how much each fact about you shaped its answers, from 0 (not at all) to 3 (a
-        lot). By their own account, {name(byClaim[0].f)} mattered most and {name(byClaim[byClaim.length - 1].f)}{" "}
-        least.
+        After guessing, each AI told us how much each fact about you mattered. We can check what they say: in our
+        study, we changed one fact at a time and watched how much the answers moved.
       </p>
-      <div>
-        <div className="flex justify-between border-b border-ink pb-1 text-sm font-medium">
-          <span>What the AIs say (average of {rated.length})</span>
-          <span>Measured in our study</span>
-        </div>
-        <ul>
-          {rows.map(({ f, average, alot }) => (
-            <li key={f} className="flex items-center gap-3 border-b border-line py-2.5">
-              <div className="min-w-0 flex-1">
-                <span className="rounded px-1.5 font-medium" style={{ background: FACT_MARKS[f] }}>
-                  {FACT_LABELS[f]}
-                </span>
-                <div className="mt-1.5 flex items-center gap-2">
-                  <div className="h-1.5 w-24 shrink-0 rounded-full bg-line/60">
-                    <div className="h-full rounded-full bg-ink" style={{ width: `${(average / 3) * 100}%` }} />
-                  </div>
-                  <span className="text-sm text-ink-soft">
-                    {INFLUENCE_WORDS[Math.round(average)]}
-                    {alot > 0 ? ` · ${alot} said "a lot"` : ""}
-                  </span>
-                </div>
-              </div>
-              <span className="w-24 shrink-0 text-right text-sm">
-                {measured[f] !== undefined ? (
-                  <>
-                    <span className="font-medium">{measured[f]}</span> pts
-                  </>
-                ) : (
-                  <span className="text-ink-soft">see below</span>
-                )}
+      <p className="font-medium">
+        {saidMost.f === foundMost.f
+          ? `They said ${name(saidMost.f)} mattered most, and our tests agree.`
+          : `They said ${name(saidMost.f)} mattered most. In our tests, ${name(foundMost.f)} made the biggest difference.`}
+      </p>
+      <ul className="space-y-3">
+        {rows.map(({ f, said, found, verdict }) => (
+          <li key={f} className="rounded-card border border-line bg-cream/60 p-3">
+            <div className="flex items-center justify-between gap-3">
+              <span className="rounded px-1.5 font-medium" style={{ background: FACT_MARKS[f] }}>
+                {FACT_LABELS[f]}
               </span>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-1 text-sm text-ink-soft">
-          Measured: how far the answers moved, on average, when we changed only that fact.
-        </p>
-      </div>
-      <p>
-        {downplayed.length > 0
-          ? `They say ${joinWords(downplayed.map((d) => name(d.f)))} barely mattered, but in our study changing ${downplayed.length > 1 ? "each of those" : "it"} still moved the answers. An AI's account of itself and what it actually does can differ.`
-          : "Their account roughly matches the order we measured, but only an experiment can show how much each fact really moved the guess."}
-      </p>
-      {profile.details && (
+              {verdict && (
+                <span className={`text-sm font-medium ${verdict === "About right" ? "text-ink-soft" : "text-ink"}`}>
+                  {verdict === "About right" ? "✓ " : "! "}
+                  {verdict}
+                </span>
+              )}
+            </div>
+            <dl className="mt-2 grid grid-cols-[auto_auto_1fr] items-center gap-x-3 gap-y-1.5 text-sm">
+              <dt className="text-ink-soft">The AIs said</dt>
+              <dd>
+                <Dots level={said} label={LEVELS[said]} />
+              </dd>
+              <dd>{LEVELS[said]}</dd>
+              <dt className="text-ink-soft">Our tests</dt>
+              {found !== null ? (
+                <>
+                  <dd>
+                    <Dots level={found} label={LEVELS[found]} />
+                  </dd>
+                  <dd>{LEVELS[found]}</dd>
+                </>
+              ) : (
+                <dd className="col-span-2">depends on what you write</dd>
+              )}
+            </dl>
+          </li>
+        ))}
+      </ul>
+      {playedDown.length > 0 && (
         <p>
-          On your own words: in a small test of ours (one run per AI), hobbies like &ldquo;hiking and board
-          games&rdquo; moved the answers only about 6 points, about the size of chance, while describing personality
-          directly (&ldquo;I avoid social events&rdquo;) moved them 19 to 35 points.
+          The AIs say {joinWords(playedDown.map((r) => name(r.f)))} hardly mattered, but when we changed{" "}
+          {playedDown.length > 1 ? "those" : "it"} in our tests, their answers changed. What an AI says about its own
+          reasoning isn&rsquo;t always what it actually did.
         </p>
       )}
+      <details className="rounded-card border border-line p-3 text-sm">
+        <summary className="cursor-pointer font-medium">How do we know?</summary>
+        <div className="mt-2 space-y-2 leading-relaxed">
+          <p>
+            <strong className="font-medium">The AIs said:</strong> after its guess, each of the {rated.length} AIs
+            rated each fact from &ldquo;didn&rsquo;t matter&rdquo; to &ldquo;mattered a lot&rdquo;. We show the
+            average.
+          </p>
+          <p>
+            <strong className="font-medium">Our tests:</strong> we described the same person to the AIs many times,
+            changing just one fact each time, and measured how far their answers moved. Each trait is scored out of
+            100, so moving 10 points is like going from 60% to 70% Extraverted. On average, changing the job moved
+            the answers about {Math.round(effects.occupation)} points (&ldquo;a lot&rdquo;), age about {effects.age}{" "}
+            and gender about {effects.gender} (&ldquo;some&rdquo;), and nationality about {effects.nationality}{" "}
+            (&ldquo;a little&rdquo;).
+          </p>
+          {profile.details && (
+            <p>
+              <strong className="font-medium">What you wrote:</strong> it depends on the words. In a small test,
+              hobbies like &ldquo;hiking and board games&rdquo; barely moved the answers (about 6 points, the size of
+              chance), while describing your personality (&ldquo;I avoid social events&rdquo;) moved them a lot (19
+              to 35 points).
+            </p>
+          )}
+        </div>
+      </details>
     </LessonBlock>
   );
 }
@@ -403,7 +478,7 @@ function Split({ ranked }: { ranked: Ranked[] }) {
   return (
     <LessonBlock
       title={opposite ? "Same facts, opposite guesses" : "Same facts, very different guesses"}
-      question="If the same facts can lead to opposite conclusions, what else is shaping each AI's answer?"
+      question="If the same facts can lead to such different conclusions, what else is shaping each AI's answer?"
       speaker={6}
       answer={
         <p>

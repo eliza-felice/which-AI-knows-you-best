@@ -1,4 +1,4 @@
-# Which AI Knows You Best? (web app, V1)
+# Which AI Knows You Best? (web app, V2)
 
 Twelve AI models (every model in `config/models.json`) guess a visitor's personality from their age, gender,
 nationality and job. The visitor then takes the same 60-statement test, and
@@ -6,9 +6,22 @@ the app reveals which model came closest. Each screen teaches one idea about
 AI. The product spec is [`../PRD.md`](../PRD.md) and the visual design is
 [`../design.md`](../design.md).
 
-V1 covers the core loop: consent and profile, hidden guesses, the test, the
+**V1** is the core loop: consent and profile, hidden guesses, the test, the
 reveal with a no-information baseline, and a lessons page on privacy,
-profiling and accuracy vs confidence. Nothing that identifies a user is
+profiling and accuracy vs confidence.
+
+**V2** adds, after the reveal:
+
+- **What-if explorer** (`/what-if`): change one of your four facts and see
+  how up to 3 AIs' guesses shift, trait by trait, next to the study's finding
+  for that kind of change. Defaults to your top 3 from the reveal. Uses only
+  the four facts, never free text, so a what-if is free when the study or the
+  cache already has both profiles. Live what-ifs are limited to 10 per
+  visitor per day (`WHATIFS_PER_IP_PER_DAY`).
+- **Meet the AIs without a mask** (`/without-mask`): each AI's own answers
+  with no persona, from the study (no API calls), next to its guess about you.
+
+ Nothing that identifies a user is
 stored. The AIs' guesses for a profile without free text are cached and
 reused, to cut API costs. Each model's guess comes from the first of:
 
@@ -87,9 +100,11 @@ that the Vercel plan allows that.
 ## Files
 
 ```
-src/app/page.tsx, lessons/page.tsx   pages (render in the browser only)
-src/app/api/predict/route.ts         asks every model in parallel, streams each guess back
-src/components/app/                  App.tsx (the core loop), Lessons.tsx
+src/app/page.tsx, lessons/, what-if/, without-mask/   pages (render in the browser only)
+src/app/api/predict/route.ts         every model's guess for a profile, streamed back
+src/app/api/whatif/route.ts          before and after guesses for a one-fact change
+src/app/api/dev/answers/route.ts     development only: save and load your own test answers
+src/components/app/                  App.tsx (the core loop), Lessons.tsx, WhatIf.tsx, WithoutMask.tsx
 src/components/screens/              one file per screen
 src/components/Character.tsx         the masked characters, one per model (12 drawn so far)
 src/components/Doodles.tsx           hand-drawn bits: wobbly line filters, speech bubble, bracket
@@ -99,10 +114,15 @@ src/lib/profile.ts                   lists, input checks, the system prompt for 
 src/lib/match.ts                     match score, ranking, baseline, summaries
 src/lib/models.ts                    display names and characters per model
 src/lib/session.ts                   progress in this browser tab, the /api/predict client
-src/lib/server/                      gateway call, guess cache, cost limits, key-value store (server only)
+src/lib/whatif.ts                    what-if fields and the study's findings about them
+src/lib/server/                      guesses.ts (study, cache or live), gateway call, cache, limits, store (server only)
 ```
 
 ## Choices made where the PRD left room
+
+- **No Postgres in V2.** The PRD planned Postgres for the prediction cache;
+  the Upstash Redis store already holds the cache, limits and saved responses,
+  so it isn't needed yet.
 
 - **Age limit:** visitors confirm they are 18 or older (`MIN_AGE` in
   `src/lib/profile.ts`). Check against PDPA and any ethics review before launch.

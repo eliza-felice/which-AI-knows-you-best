@@ -5,24 +5,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Cast } from "@/components/Character";
 import { LessonBlock, ModelChip } from "@/components/ui";
-import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, type Dimension } from "@/lib/experiment";
+import { QUESTIONS, type Dimension } from "@/lib/experiment";
 import { COMPANIES, MODELS, modelInfo } from "@/lib/models";
 import type { UserProfile } from "@/lib/profile";
 import { loadSession, track, type Session } from "@/lib/session";
+import { BASE_PERSONA, biggestShift } from "@/lib/whatif";
 import study from "@/data/study.json";
 
-type Shifts = Record<string, Record<string, Record<Dimension, number>>>;
-const SHIFTS = study.persona_shifts as Shifts;
-const BASE = study.base_persona;
-
-/** The study's biggest measured shift for one tested value, e.g. nurse -> +19 Extraverted. */
-function biggestShift(attribute: string, value: string) {
-  const shifts = SHIFTS[attribute]?.[value];
-  if (!shifts) return null;
-  const d = [...DIMENSIONS].sort((a, b) => Math.abs(shifts[b]) - Math.abs(shifts[a]))[0];
-  const points = Math.round(Math.abs(shifts[d]));
-  return { d, points, side: TRAIT_NAMES[d][shifts[d] >= 0 ? 0 : 1] };
-}
+const BASE = BASE_PERSONA;
 
 /**
  * Study findings about the facts this visitor gave, where the study tested
@@ -206,6 +196,17 @@ export default function Lessons() {
         >
           {finished ? "Back to my results" : "Take the test"}
         </Link>
+        {[...(finished ? [["/what-if", "Try a what-if"]] : []), ["/without-mask", "Meet the AIs without a mask"]].map(
+          ([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              className="press inline-flex h-11 items-center rounded-full border border-ink px-4 text-xs font-medium tracking-wider uppercase"
+            >
+              {label}
+            </Link>
+          ),
+        )}
       </div>
     </main>
   );

@@ -1,7 +1,7 @@
 "use client";
 // Step 3: the same 60 statements the AIs answered, one per screen, on the same
 // -3 to +3 scale, scored in the browser.
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Character } from "@/components/Character";
 import { Button } from "@/components/ui";
 import { ANSWER_MEANINGS, type Answers } from "@/lib/experiment";
@@ -55,6 +55,9 @@ export function TestScreen({
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col px-4 pt-6 pb-10 sm:px-6">
+      {process.env.NODE_ENV === "development" && (
+        <DevAnswers answers={allAnswered ? answers : null} onLoad={(saved) => onChange(saved, total - 1)} />
+      )}
       {/* Progress: a thin ink line with a moving dot, and a small character beside it. */}
       <div className="flex items-center gap-3">
         <div
@@ -142,5 +145,50 @@ export function TestScreen({
         )}
       </div>
     </main>
+  );
+}
+
+/**
+ * Development only (`npm run dev`): save your answers once, then fill them in
+ * on later runs instead of answering all 60 again. Stored in
+ * web/.data/my-answers.json via /api/dev/answers.
+ */
+function DevAnswers({ answers, onLoad }: { answers: Answers | null; onLoad: (answers: Answers) => void }) {
+  const [saved, setSaved] = useState<Answers | null>(null);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("/api/dev/answers")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((body) => setSaved(body?.answers ?? null))
+      .catch(() => {});
+  }, []);
+
+  async function save() {
+    const response = await fetch("/api/dev/answers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answers }),
+    });
+    setMessage(response.ok ? "Saved to web/.data/my-answers.json" : "Couldn't save");
+    if (response.ok) setSaved(answers);
+  }
+
+  return (
+    <div className="mb-4 flex flex-wrap items-center gap-2 rounded-input border border-dashed border-ink-soft px-3 py-2 text-sm">
+      <span className="font-medium">Dev:</span>
+      {saved && (
+        <button type="button" onClick={() => onLoad(saved)} className="underline underline-offset-4">
+          Use saved answers
+        </button>
+      )}
+      {answers && (
+        <button type="button" onClick={save} className="underline underline-offset-4">
+          Save my answers
+        </button>
+      )}
+      {!saved && !answers && <span className="text-ink-soft">answer all 60 once, then save them here</span>}
+      {message && <span className="text-ink-soft">{message}</span>}
+    </div>
   );
 }
