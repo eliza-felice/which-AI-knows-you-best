@@ -210,6 +210,13 @@ experiment_data/<model>/<mode>/<persona>/<date>.csv        raw results
 graphs/                                                     generated charts
 ```
 
+Each results CSV has one row per repetition: the personality type, the
+percentage for each side of each dimension (`percentage_EI_E`, ...), the
+persona's attributes (`persona_age`, ...), the number of retries, and every
+individual answer from −3 to +3 (`answer_1` … `answer_60`, numbered as in
+the questions list). Results saved before 4 October 2026 don't have the
+`answer_` columns.
+
 Run the scripts from the project folder (e.g. `python src/run_one_shot.py`).
 They find `config/`, `experiment_data/` and `graphs/` on their own, so they
 also work from VS Code's Run button.

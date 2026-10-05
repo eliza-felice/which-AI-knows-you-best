@@ -680,6 +680,7 @@ def run_persona_experiment(client, model, model_settings, system_prompt, questio
         "scores": scores,
         "percentages": percentages,
         "retries": retries,
+        "answers": responses,
     }
 
 def slugify(value):
@@ -834,6 +835,40 @@ def run_mode(mode_name, chunk_size):
                    persona_name, personas[persona_name], NUM_REPETITIONS)
 
 
+# For the readable answers file: trait names and what each rating means.
+TRAIT_NAMES = {
+    ("EI", "E"): "Extraverted", ("EI", "I"): "Introverted",
+    ("SN", "S"): "Observant", ("SN", "N"): "Intuitive",
+    ("TF", "T"): "Thinking", ("TF", "F"): "Feeling",
+    ("JP", "J"): "Judging", ("JP", "P"): "Prospecting",
+    ("AT", "A"): "Assertive", ("AT", "T"): "Turbulent",
+}
+ANSWER_MEANINGS = {
+    -3: "strongly disagree", -2: "disagree", -1: "slightly disagree",
+    0: "neutral", 1: "slightly agree", 2: "agree", 3: "strongly agree",
+}
+
+
+def readable_answers(run_id, answers):
+    """One row per statement: what it says, which trait agreeing points to,
+    and the model's rating in numbers and words."""
+    rows = []
+    for question in questions:
+        dimension = question["dimension"]
+        answer = answers[question["id"]]
+        rows.append({
+            "run_id": run_id,
+            "question_id": question["id"],
+            "statement": question["text"],
+            "dimension": f"{TRAIT_NAMES[(dimension, dimension[0])]} vs "
+                         f"{TRAIT_NAMES[(dimension, dimension[1])]}",
+            "agreeing_means": TRAIT_NAMES[(dimension, question["direction"])],
+            "answer": answer,
+            "answer_meaning": ANSWER_MEANINGS[answer],
+        })
+    return rows
+
+
 def dated_csv_path(folder):
     """Today's date as the file name, numbered if that name is taken:
     2026-10-03.csv, then 2026-10-03-1.csv, 2026-10-03-2.csv, ..."""
@@ -853,7 +888,9 @@ def run_experiment(model, model_settings, mode_name, chunk_size, persona_name,
     Results go to experiment_data/<model>/<mode_name>/<persona_name>/<date>.csv,
     e.g. 2026-10-03.csv; later runs on the same day get 2026-10-03-1.csv,
     2026-10-03-2.csv, ... The CSV is rewritten after every repetition, so a
-    crash halfway through keeps the finished runs.
+    crash halfway through keeps the finished runs. A readable copy of every
+    answer (statement text, trait, rating in words) goes to answers/<date>.csv
+    in the same folder.
 
     quiet: one line per repetition instead of per batch (for when several
     models run at once and their output would be mixed together).
@@ -868,8 +905,13 @@ def run_experiment(model, model_settings, mode_name, chunk_size, persona_name,
     output_dir = results_folder(model, mode_name, persona_name)
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = dated_csv_path(output_dir)
+    # A readable copy of every answer, in an answers/ subfolder with the
+    # same file name as the main results.
+    answers_path = output_dir / "answers" / output_path.name
+    answers_path.parent.mkdir(exist_ok=True)
 
     experiment_results = []
+    answer_rows = []
     for run_id in range(1, repetitions + 1):
         if not quiet:
             print(f"Repetition {run_id}/{repetitions}...")
@@ -901,9 +943,17 @@ def run_experiment(model, model_settings, mode_name, chunk_size, persona_name,
         flattened_result["retries"] = result["retries"]
         for key, value in persona.items():
             flattened_result[f"persona_{key}"] = value
+        # Every individual answer (-3 to +3), one column per statement, e.g.
+        # answer_1. Lets you check consistency and compare answer by answer.
+        for question in questions:
+            flattened_result[f"answer_{question['id']}"] = result["answers"][question["id"]]
 
         experiment_results.append(flattened_result)
         pd.DataFrame(experiment_results).to_csv(output_path, index=False)
+        answer_rows += readable_answers(run_id, result["answers"])
+        # utf-8-sig so Excel shows apostrophes and dashes correctly.
+        pd.DataFrame(answer_rows).to_csv(answers_path, index=False,
+                                         encoding="utf-8-sig")
 
     if quiet:
         return
