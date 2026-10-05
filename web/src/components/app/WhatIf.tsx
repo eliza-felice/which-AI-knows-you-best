@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Character } from "@/components/Character";
+import { NavBar } from "@/components/NavBar";
 import { Circled } from "@/components/Doodles";
 import { SearchSelect } from "@/components/SearchSelect";
 import { Button, ChanceNote, LessonBlock, ModelChip } from "@/components/ui";
@@ -42,18 +43,24 @@ type Result = {
 export default function WhatIf() {
   const [session] = useState<Session>(loadSession);
   const finished =
-    session.profile && session.step === "reveal" && QUESTIONS.every((q) => session.answers[q.id] !== undefined);
+    session.profile && QUESTIONS.every((q) => session.answers[q.id] !== undefined);
 
   if (!finished || !session.profile) {
     return (
-      <main className="screen mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center px-5 py-12 text-center">
-        <Character slot={6} size={88} />
-        <h1 className="mt-4 text-2xl">Take the test first</h1>
-        <p className="mt-2 text-ink-soft">The what-if explorer starts from your own profile and result.</p>
-        <Link href="/" className="press mt-6 inline-flex h-12 items-center rounded-full bg-cobalt px-7 font-medium text-cobalt-ink">
-          Start
-        </Link>
-      </main>
+      <>
+        <NavBar finished={false} />
+        <main className="screen mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center px-5 py-12 text-center">
+          <Character slot={6} size={88} />
+          <h1 className="mt-4 text-2xl">Take the test first</h1>
+          <p className="mt-2 text-ink-soft">The what-if explorer starts from your own profile and result.</p>
+          <Link
+            href="/?step=profile"
+            className="press mt-6 inline-flex h-12 items-center rounded-full bg-cobalt px-7 font-medium text-cobalt-ink"
+          >
+            Start
+          </Link>
+        </main>
+      </>
     );
   }
   return <Explorer session={session} profile={session.profile} />;
@@ -137,141 +144,144 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
   }
 
   return (
-    <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-10 px-4 pt-8 pb-16 sm:px-6">
-      <header className="flex items-end gap-3">
-        <div className="shrink-0">
-          <HatCharacter />
-        </div>
-        <div>
-          <h1 className="font-hand text-4xl leading-tight font-normal">What if you were someone else?</h1>
-          <p className="mt-1 text-ink-soft">Change one fact about yourself and watch the AIs change their minds.</p>
-        </div>
-      </header>
-
-      <section aria-labelledby="change">
-        <h2 id="change" className="text-xl">
-          1. Pick one fact to change
-        </h2>
-        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup">
-          {WHATIF_FIELDS.map((f) => (
-            <button
-              key={f}
-              type="button"
-              role="radio"
-              aria-checked={field === f}
-              onClick={() => pickField(f)}
-              className="press relative min-h-16 rounded-card border border-line bg-cream px-3 py-2 text-left"
-            >
-              {field === f && <Circled />}
-              <span className="block text-xs text-ink-soft">{FIELD_LABELS[f]}</span>
-              <span className="block font-medium">{show(f, profile[f])}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-4">
-          {field === "age" && (
-            <label className="block">
-              <span className="mb-1.5 block text-sm font-medium">New age</span>
-              <input
-                type="number"
-                inputMode="numeric"
-                min={MIN_AGE}
-                max={MAX_AGE}
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
-                className="h-12 w-32 rounded-input border border-line bg-cream px-4 outline-none focus:border-ink"
-              />
-              <span className="mt-1 block text-sm text-ink-soft">
-                The AIs only see your age group (&ldquo;in your 20s&rdquo;), so pick a different decade.
-              </span>
-            </label>
-          )}
-          {field === "gender" && (
-            <fieldset>
-              <legend className="mb-1.5 text-sm font-medium">New gender</legend>
-              <div className="flex flex-wrap gap-2">
-                {GENDERS.filter((g) => g.value !== profile.gender).map((g) => (
-                  <button
-                    key={g.value}
-                    type="button"
-                    onClick={() => setValue(g.value)}
-                    className={`press h-11 rounded-full border px-4 ${
-                      value === g.value ? "border-cobalt bg-cobalt text-cobalt-ink" : "border-ink"
-                    }`}
-                  >
-                    {g.label}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-          )}
-          {field === "nationality" && (
-            <SearchSelect
-              label="New nationality"
-              options={NATIONALITIES.filter((n) => n !== profile.nationality)}
-              value={value}
-              onChange={setValue}
-              placeholder="Choose or type"
-            />
-          )}
-          {field === "job" && (
-            <SearchSelect
-              label="New job"
-              options={JOBS.filter((j) => j !== profile.job)}
-              value={value}
-              onChange={setValue}
-              placeholder="Choose or type"
-              capitalise
-            />
-          )}
-        </div>
-      </section>
-
-      <section aria-labelledby="who">
-        <h2 id="who" className="text-xl">
-          2. Choose up to {MAX_WHATIF_MODELS} AIs
-        </h2>
-        <p className="mt-1 text-sm text-ink-soft">Your top {MAX_WHATIF_MODELS} from the reveal are picked to start.</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {MODELS.map((m) => {
-            const on = models.includes(m.id);
-            return (
+    <>
+      <NavBar current="whatif" finished />
+      <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-10 px-4 pt-8 pb-16 sm:px-6">
+        <header className="flex items-end gap-3">
+          <div className="shrink-0">
+            <HatCharacter />
+          </div>
+          <div>
+            <h1 className="font-hand text-4xl leading-tight font-normal">What if you were someone else?</h1>
+            <p className="mt-1 text-ink-soft">Change one fact about yourself and watch the AIs change their minds.</p>
+          </div>
+        </header>
+  
+        <section aria-labelledby="change">
+          <h2 id="change" className="text-xl">
+            1. Pick one fact to change
+          </h2>
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup">
+            {WHATIF_FIELDS.map((f) => (
               <button
-                key={m.id}
+                key={f}
                 type="button"
-                aria-pressed={on}
-                onClick={() => toggleModel(m.id)}
-                disabled={!on && models.length >= MAX_WHATIF_MODELS}
-                className={`press min-h-11 rounded-full border px-3 text-sm disabled:opacity-40 ${
-                  on ? "border-ink bg-cream" : "border-line"
-                }`}
+                role="radio"
+                aria-checked={field === f}
+                onClick={() => pickField(f)}
+                className="press relative min-h-16 rounded-card border border-line bg-cream px-3 py-2 text-left"
               >
-                <ModelChip model={m.id} />
+                {field === f && <Circled />}
+                <span className="block text-xs text-ink-soft">{FIELD_LABELS[f]}</span>
+                <span className="block font-medium">{show(f, profile[f])}</span>
               </button>
-            );
-          })}
-        </div>
-      </section>
-
-      <div>
-        {error && (
-          <p role="alert" className="mb-2 font-medium text-tomato">
-            {error}
+            ))}
+          </div>
+  
+          <div className="mt-4">
+            {field === "age" && (
+              <label className="block">
+                <span className="mb-1.5 block text-sm font-medium">New age</span>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min={MIN_AGE}
+                  max={MAX_AGE}
+                  value={value}
+                  onChange={(event) => setValue(event.target.value)}
+                  className="h-12 w-32 rounded-input border border-line bg-cream px-4 outline-none focus:border-ink"
+                />
+                <span className="mt-1 block text-sm text-ink-soft">
+                  The AIs only see your age group (&ldquo;in your 20s&rdquo;), so pick a different decade.
+                </span>
+              </label>
+            )}
+            {field === "gender" && (
+              <fieldset>
+                <legend className="mb-1.5 text-sm font-medium">New gender</legend>
+                <div className="flex flex-wrap gap-2">
+                  {GENDERS.filter((g) => g.value !== profile.gender).map((g) => (
+                    <button
+                      key={g.value}
+                      type="button"
+                      onClick={() => setValue(g.value)}
+                      className={`press h-11 rounded-full border px-4 ${
+                        value === g.value ? "border-cobalt bg-cobalt text-cobalt-ink" : "border-ink"
+                      }`}
+                    >
+                      {g.label}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+            )}
+            {field === "nationality" && (
+              <SearchSelect
+                label="New nationality"
+                options={NATIONALITIES.filter((n) => n !== profile.nationality)}
+                value={value}
+                onChange={setValue}
+                placeholder="Choose or type"
+              />
+            )}
+            {field === "job" && (
+              <SearchSelect
+                label="New job"
+                options={JOBS.filter((j) => j !== profile.job)}
+                value={value}
+                onChange={setValue}
+                placeholder="Choose or type"
+                capitalise
+              />
+            )}
+          </div>
+        </section>
+  
+        <section aria-labelledby="who">
+          <h2 id="who" className="text-xl">
+            2. Choose up to {MAX_WHATIF_MODELS} AIs
+          </h2>
+          <p className="mt-1 text-sm text-ink-soft">Your top {MAX_WHATIF_MODELS} from the reveal are picked to start.</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {MODELS.map((m) => {
+              const on = models.includes(m.id);
+              return (
+                <button
+                  key={m.id}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => toggleModel(m.id)}
+                  disabled={!on && models.length >= MAX_WHATIF_MODELS}
+                  className={`press min-h-11 rounded-full border px-3 text-sm disabled:opacity-40 ${
+                    on ? "border-ink bg-cream" : "border-line"
+                  }`}
+                >
+                  <ModelChip model={m.id} />
+                </button>
+              );
+            })}
+          </div>
+        </section>
+  
+        <div>
+          {error && (
+            <p role="alert" className="mb-2 font-medium text-tomato">
+              {error}
+            </p>
+          )}
+          <Button onClick={run} disabled={busy}>
+            {busy ? "Asking..." : "See what changes"}
+          </Button>
+          <p className="mt-2 text-sm text-ink-soft">
+            Uses only your four facts, not what you wrote. If we&rsquo;ve seen a profile before, or tested it in our
+            study, the answer is instant and free; otherwise the changed profile is sent to the AIs you chose.
+            {left !== null && ` You have ${left} live what-if${left === 1 ? "" : "s"} left today.`}
           </p>
-        )}
-        <Button onClick={run} disabled={busy}>
-          {busy ? "Asking..." : "See what changes"}
-        </Button>
-        <p className="mt-2 text-sm text-ink-soft">
-          Uses only your four facts, not what you wrote. If we&rsquo;ve seen a profile before, or tested it in our
-          study, the answer is instant and free; otherwise the changed profile is sent to the AIs you chose.
-          {left !== null && ` You have ${left} live what-if${left === 1 ? "" : "s"} left today.`}
-        </p>
-      </div>
-
-      {result && <ResultView result={result} models={models} />}
-    </main>
+        </div>
+  
+        {result && <ResultView result={result} models={models} />}
+      </main>
+    </>
   );
 }
 

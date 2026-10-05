@@ -24,16 +24,19 @@ import { COMPANY_LIST, MODELS, numberWord } from "@/lib/models";
 export function ProfileScreen({
   initial,
   onSubmit,
+  onBack,
 }: {
   initial: UserProfile | null;
   onSubmit: (profile: UserProfile) => void;
+  onBack: () => void;
 }) {
   const [age, setAge] = useState(initial ? String(initial.age) : "");
   const [gender, setGender] = useState<Gender | "">(initial?.gender ?? "");
   const [nationality, setNationality] = useState(initial?.nationality ?? "");
   const [job, setJob] = useState(initial?.job ?? "");
   const [details, setDetails] = useState(initial?.details ?? "");
-  const [oldEnough, setOldEnough] = useState(false);
+  // Already confirmed if they're coming back to a profile they sent.
+  const [oldEnough, setOldEnough] = useState(initial !== null);
   const [error, setError] = useState<string | null>(null);
 
   const checked = normaliseProfile({ age, gender, nationality, job, details });
@@ -48,8 +51,11 @@ export function ProfileScreen({
   }
 
   return (
-    <main className="screen mx-auto w-full max-w-xl flex-1 px-4 pt-8 pb-16 sm:px-6">
-      <h1 className="text-3xl">Tell the AIs about yourself</h1>
+    <main className="screen mx-auto w-full max-w-xl flex-1 px-4 pt-4 pb-16 sm:px-6">
+      <button type="button" onClick={onBack} className="press -ml-1 h-11 px-1 text-sm underline underline-offset-4">
+        ← Back
+      </button>
+      <h1 className="mt-2 text-3xl">Tell the AIs about yourself</h1>
       <p className="mt-2 text-ink-soft">
         {numberWord(MODELS.length, true)} AIs will guess your personality from these few facts. Then you take the same test and see who came
         closest.
