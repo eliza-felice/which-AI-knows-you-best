@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Cast } from "@/components/Character";
+import { BarList, ChartCaption, RepeatDots } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
 import { Deck } from "@/components/Organise";
 import { LessonBlock, ModelChip } from "@/components/ui";
@@ -15,6 +16,14 @@ import { BASE_PERSONA, biggestShift } from "@/lib/whatif";
 import study from "@/data/study.json";
 
 const BASE = BASE_PERSONA;
+
+/** The study's attributes, with everyday labels, in the order shown. */
+const FACT_ROWS: [string, string][] = [
+  ["occupation", "Job"],
+  ["age", "Age"],
+  ["gender", "Gender"],
+  ["nationality", "Nationality"],
+];
 
 /**
  * Study findings about the facts this visitor gave, where the study tested
@@ -75,6 +84,7 @@ export default function Lessons() {
       ? session
       : null;
   const profile = finished?.profile ?? null;
+  const effects = study.attribute_effect as Record<string, number>;
   const adherence = Object.entries(
     study.model_adherence as Record<string, number>,
   ).sort((a, b) => a[1] - b[1]);
@@ -92,7 +102,7 @@ export default function Lessons() {
       <NavBar current="lessons" finished={Boolean(finished)} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-14 px-4 pt-8 pb-16 sm:px-6">
         <header>
-          <Cast size={44} className="mb-4 justify-start!" />
+          <Cast size={30} className="mb-4 flex-nowrap! justify-start! gap-0!" />
           <h1 className="text-3xl">Beyond your result</h1>
           <p className="mt-2 text-ink-soft">
             Three more ideas about AI and you, from our study of {totalRuns}{" "}
@@ -183,6 +193,20 @@ export default function Lessons() {
                     {study.models_in_averages.length} AIs we tested on every
                     fact.
                   </p>
+                  <BarList
+                    max={Math.max(...Object.values(effects))}
+                    summary="Changing the job moved the AIs' answers far more than changing age, gender or nationality."
+                    rows={FACT_ROWS.map(([attribute, label]) => ({
+                      key: attribute,
+                      label,
+                      value: effects[attribute],
+                      display: `${effects[attribute]} points`,
+                    }))}
+                  />
+                  <ChartCaption>
+                    How far the AIs&rsquo; answers moved, on average, when we
+                    changed only that one fact. Each trait is scored out of 100.
+                  </ChartCaption>
                   {findings.yours.length > 0 && (
                     <>
                       <p className="font-medium">For facts like yours:</p>
@@ -209,17 +233,21 @@ export default function Lessons() {
                     others. Average shift when one fact changed, for those{" "}
                     {study.models_in_averages.length} AIs:
                   </p>
-                  <ul className="space-y-1">
-                    {adherence.map(([model, shift]) => (
-                      <li
-                        key={model}
-                        className="flex items-center justify-between gap-3 border-b border-line py-1.5"
-                      >
-                        <ModelChip model={model} />
-                        <span className="font-medium">{shift} points</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <BarList
+                    max={Math.max(...adherence.map(([, shift]) => shift))}
+                    summary="Some AIs change their answers a lot when the persona changes; GPT-4o mini and GPT-5.4 nano barely do."
+                    rows={[...adherence].reverse().map(([model, shift]) => ({
+                      key: model,
+                      label: <ModelChip model={model} />,
+                      value: shift,
+                      display: `${shift} points`,
+                      colour: modelInfo(model).colour,
+                    }))}
+                  />
+                  <ChartCaption>
+                    Longer bar = the AI changes its answers more when it&rsquo;s
+                    told a different job, age, gender or nationality.
+                  </ChartCaption>
                 </LessonBlock>
               ),
             },
@@ -248,6 +276,19 @@ export default function Lessons() {
                     runs, and {modelInfo("gpt-5-mini").name}&rsquo;s Extraverted
                     score moved 17 points between two days.
                   </p>
+                  <RepeatDots
+                    d="EI"
+                    summary="The same AI, asked the same thing several times, gives a spread of answers; some spread much more than others."
+                    rows={Object.entries(
+                      study.base_runs as Record<string, Record<Dimension, number[]>>,
+                    ).map(([model, runs]) => ({ model, values: runs.EI }))}
+                  />
+                  <ChartCaption>
+                    Each dot is one answer from the same AI about the same
+                    made-up person (a Singaporean woman in her 40s working as a
+                    software engineer), asked again and again. A wide spread
+                    means one answer on its own can&rsquo;t be trusted much.
+                  </ChartCaption>
                   <p>
                     The format matters too: asked one statement at a time
                     instead of all 60 at once, most AIs&rsquo; answers came out

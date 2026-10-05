@@ -5,6 +5,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Character } from "@/components/Character";
+import { ArrowRows, BarList, ChartCaption, TraitDots } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
 import { Deck, TabPanel, Tabs } from "@/components/Organise";
 import { Button, ChanceNote, HandTitle, LessonBlock, ModelChip, TraitBars } from "@/components/ui";
@@ -540,6 +541,16 @@ function SharedAssumption({ ranked, user }: { ranked: Ranked[]; user: Profile5 }
           ? "When different AIs, built by different companies, make the same wrong guess, it usually comes from the same source: a common idea in their training data of what people like you are like."
           : "Agreement between AIs isn't proof, though: they learned from much of the same text, so they tend to share the same assumptions, right or wrong."}
       </p>
+      <TraitDots
+        d={shared.d}
+        points={ranked.map((r) => ({ model: r.model, value: r.guess[shared.d] }))}
+        user={user[shared.d]}
+        summary={`${shared.agreeing} of ${ranked.length} AIs guessed ${side}; you are ${lean(shared.d, user[shared.d])}.`}
+      />
+      <ChartCaption>
+        Each coloured dot is one AI&rsquo;s guess about you; the black square is your own answers.
+        {shared.wrong ? " Most dots are on one side, and you're on the other." : " Most dots are on your side."}
+      </ChartCaption>
       {testLeans && (
         <p>
           Part of this may be the test itself: {pointing} of its {statements.length} statements on this trait point to{" "}
@@ -577,6 +588,14 @@ function Split({ ranked }: { ranked: Ranked[] }) {
         and {modelInfo(split.high.model).name} guessed {lean(split.d, split.high.guess[split.d])}: {Math.round(split.range)}{" "}
         points apart, from exactly the same description of you.
       </p>
+      <TraitDots
+        d={split.d}
+        points={ranked.map((r) => ({ model: r.model, value: r.guess[split.d] }))}
+        summary={`On ${traitPair(split.d)}, the AIs' guesses spread ${Math.round(split.range)} points apart.`}
+      />
+      <ChartCaption>
+        Each dot is one AI&rsquo;s guess about the same person: you. The wider they spread, the less the AIs agree.
+      </ChartCaption>
       <p>Each AI fills the gaps in what it knows with its own assumptions.</p>
     </LessonBlock>
   );
@@ -601,6 +620,24 @@ function BoldVsRight({ ranked }: { ranked: Ranked[] }) {
         {modelInfo(bold.model).name} made the boldest guess: its answers sat {confidence(bold.guess)}% of the way from
         &ldquo;undecided&rdquo; to the extreme, on average. It came {ordinal(bold.rank)} of {ranked.length} for accuracy.
       </p>
+      <BarList
+        max={100}
+        summary={`${modelInfo(bold.model).name} was boldest and came ${ordinal(bold.rank)} for accuracy.`}
+        rows={[...ranked]
+          .sort((a, b) => confidence(b.guess) - confidence(a.guess))
+          .map((r) => ({
+            key: r.model,
+            label: <ModelChip model={r.model} />,
+            value: confidence(r.guess),
+            display: `${confidence(r.guess)}%`,
+            colour: modelInfo(r.model).colour,
+            note: `#${r.rank} closest`,
+          }))}
+      />
+      <ChartCaption>
+        Longer bar = a bolder, more extreme guess. &ldquo;#1 closest&rdquo; is the AI that matched you best. If boldness
+        meant accuracy, the longest bars would be the #1s.
+      </ChartCaption>
       <p>
         {bold.rank <= 2
           ? "This time boldness paid off, but the AIs write just as confidently when they are wrong, so tone alone tells you nothing."
@@ -636,8 +673,20 @@ function Baseline({ ranked, user }: { ranked: Ranked[]; user: Profile5 }) {
         {hurt.length > 0 ? ` and made ${hurt.length} worse` : ""}; for the rest the difference was under {CHANCE_GAP}{" "}
         points.
       </p>
+      <ArrowRows
+        rows={rows.map(({ r, base }) => ({ model: r.model, from: base.match, to: r.match }))}
+        from={Math.max(0, Math.floor(Math.min(...rows.flatMap(({ r, base }) => [r.match, base.match])) / 5) * 5 - 5)}
+        to={100}
+        fromLabel="knowing nothing"
+        toLabel="knowing your profile"
+        summary={`Knowing your profile clearly helped ${helped.length} of ${rows.length} AIs.`}
+      />
+      <ChartCaption>
+        How close each AI came to you (further right = closer). An arrow pointing right means your profile helped
+        that AI; pointing left means it made the guess worse.
+      </ChartCaption>
       <details className="rounded-card border border-line p-3">
-        <summary className="cursor-pointer font-medium">See each AI</summary>
+        <summary className="cursor-pointer font-medium">See the numbers</summary>
         <div className="mt-2 overflow-x-auto">
           <table className="w-full min-w-[22rem] text-left text-sm">
             <thead>

@@ -132,6 +132,13 @@ def export_study():
         "model_adherence": model_adherence,
         "persona_shifts": persona_shifts,
         "models_in_averages": complete,
+        # Every repetition of the base persona, per model: first-side
+        # percentages, for the app's "ask again" chart.
+        "base_runs": {
+            model: {d: [round(float(v), 1) for v in df[(df["model"] == model) & (df["varied_attribute"] == "base")][first_side_column(d)]]
+                    for d in DIMENSIONS}
+            for model in per_model
+        },
         "total_runs": int(len(load_results(config))),
     })
     return attribute_effect

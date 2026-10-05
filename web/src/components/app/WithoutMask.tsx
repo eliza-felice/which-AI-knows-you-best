@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Character } from "@/components/Character";
+import { BarList, ChartCaption } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
 import { LessonBlock } from "@/components/ui";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension, type Profile5 } from "@/lib/experiment";
@@ -60,6 +61,29 @@ export default function WithoutMask() {
             </p>
           </header>
   
+          <section aria-labelledby="confidence-chart">
+            <h2 id="confidence-chart" className="text-xl">
+              How calm and confident each AI says it is
+            </h2>
+            <BarList
+              max={100}
+              summary={`${confident.length} of ${models.length} AIs describe themselves as at least 80% Assertive.`}
+              rows={[...models]
+                .sort((a, b) => DEFAULTS[b.id].no_persona.AT - DEFAULTS[a.id].no_persona.AT)
+                .map((m) => ({
+                  key: m.id,
+                  label: m.name,
+                  value: DEFAULTS[m.id].no_persona.AT,
+                  display: lean("AT", DEFAULTS[m.id].no_persona.AT),
+                  colour: m.colour,
+                }))}
+            />
+            <ChartCaption>
+              From the Assertive vs Turbulent part of the test, answered as itself. A full bar means &ldquo;never
+              insecure, always calm under pressure&rdquo;; half a bar is neither.
+            </ChartCaption>
+          </section>
+
           <div className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-soft" aria-hidden="true">
             <span>● its own answers</span>
             {guesses.size > 0 && <span>○ its guess about you</span>}
