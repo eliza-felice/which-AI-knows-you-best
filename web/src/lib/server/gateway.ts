@@ -2,6 +2,7 @@
 // one_shot condition, plus a short note after the ratings. The API key never
 // leaves the server.
 import "server-only";
+import { createHash } from "node:crypto";
 import {
   MODEL_SETTINGS,
   buildRequestFormat,
@@ -48,6 +49,15 @@ const NOTES_SCHEMA = {
   },
   noticed: { type: "array", items: { type: "string" } },
 };
+
+/**
+ * Changes whenever the questions, instructions or note format change, so
+ * cached guesses from an older prompt are never reused (see cache.ts).
+ */
+export const PROMPT_FINGERPRINT = createHash("sha256")
+  .update(buildUserPrompt() + NOTES_INSTRUCTION + JSON.stringify(NOTES_SCHEMA))
+  .digest("hex")
+  .slice(0, 16);
 
 const SUMMARY_MAX_LENGTH = 600;
 const NOTICED_MAX = 3;
@@ -132,6 +142,7 @@ export async function predict(model: string, systemPrompt: string, details: stri
         noticed,
         influence,
         seconds: (Date.now() - started) / 1000,
+        source: "live",
       };
     } catch (error) {
       reason = signal.aborted ? "timed out" : (error as Error).message;

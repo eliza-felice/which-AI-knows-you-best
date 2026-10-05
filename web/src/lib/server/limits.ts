@@ -7,42 +7,20 @@
 //                              (default 200): the app's own spend cap, on top of
 //                              the gateway's monthly cap
 //
-// Counters live in Upstash Redis when UPSTASH_REDIS_REST_URL and
-// UPSTASH_REDIS_REST_TOKEN are set, so they hold across serverless functions.
-// Without them, counts are kept in memory (fine for local use only).
-// IP addresses are hashed before use and never stored as they are.
+// A run answered entirely from the shared cache makes no live calls, so it
+// isn't counted (see route.ts). Counters are kept in store.ts (Upstash Redis
+// in production). IP addresses are hashed before use and never stored as they are.
 import "server-only";
 import { createHash } from "node:crypto";
+import { increment } from "@/lib/server/store";
 
 const DAY_SECONDS = 24 * 60 * 60;
-const memory = new Map<string, number>();
 
 function setting(name: string, fallback: number): number {
   const value = Number(process.env[name]);
   return Number.isFinite(value) && process.env[name] !== "" && process.env[name] !== undefined
     ? value
     : fallback;
-}
-
-async function increment(key: string): Promise<number> {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) {
-    const count = (memory.get(key) ?? 0) + 1;
-    memory.set(key, count);
-    return count;
-  }
-  const response = await fetch(`${url}/pipeline`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify([
-      ["INCR", key],
-      ["EXPIRE", key, String(DAY_SECONDS), "NX"],
-    ]),
-  });
-  if (!response.ok) throw new Error(`rate limit store returned ${response.status}`);
-  const [{ result }] = await response.json();
-  return Number(result);
 }
 
 export function clientIp(request: Request): string {
@@ -63,10 +41,10 @@ export async function claimProfileRun(ip: string): Promise<string | null> {
   const total = setting("RUNS_PER_DAY", 200);
 
   const ipHash = createHash("sha256").update(`${day}:${ip}`).digest("hex").slice(0, 24);
-  if (Number.isFinite(perIp) && (await increment(`runs:${day}:ip:${ipHash}`)) > perIp) {
+  if (Number.isFinite(perIp) && (await increment(`runs:${day}:ip:${ipHash}`, DAY_SECONDS)) > perIp) {
     return "You've already had today's guesses. Each visitor gets one full run per day, to keep costs down.";
   }
-  if ((await increment(`runs:${day}:all`)) > total) {
+  if ((await increment(`runs:${day}:all`, DAY_SECONDS)) > total) {
     return "The app has reached today's limit for live guesses. Please come back tomorrow.";
   }
   return null;

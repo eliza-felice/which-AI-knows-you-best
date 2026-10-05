@@ -8,7 +8,23 @@ AI. The product spec is [`../PRD.md`](../PRD.md) and the visual design is
 
 V1 covers the core loop: consent and profile, hidden guesses, the test, the
 reveal with a no-information baseline, and a lessons page on privacy,
-profiling and accuracy vs confidence. Nothing about users is stored.
+profiling and accuracy vs confidence. Nothing that identifies a user is
+stored. The AIs' guesses for a profile without free text are cached and
+reused, to cut API costs. Each model's guess comes from the first of:
+
+1. **The study**, if the profile gives exactly the prompt of a persona we
+   tested, e.g. a Singaporean woman in her 30s working as a software engineer
+   (`src/lib/server/studyRuns.ts`, data from `src/data/study-runs.json`). One
+   of that model's saved runs is picked at random. These have no note.
+2. **The shared cache** of earlier live guesses for the same prompt, kept 30
+   days (`src/lib/server/cache.ts`).
+3. **A live call**, which is then cached, and saved as an anonymous record:
+   age group, gender, nationality, job, the guess, the AI's note, the date
+   (`src/lib/server/responses.ts`). `node scripts/export-responses.mjs` writes
+   these to `../experiment_data/_web_app/responses.csv`.
+
+Only live calls count towards a visitor's daily limit. Profiles with free text
+are always asked live and never cached or saved.
 
 ## Running it locally
 
@@ -25,6 +41,7 @@ Other commands:
 |---|---|
 | `npm test` | checks the TypeScript prompt builder and scoring against the Python experiment code |
 | `node scripts/try-predict.mjs` | calls `/api/predict` from the command line (dev server running) and prints each model's guess as it arrives; makes one live call per model. `DETAILS="..."` adds a description |
+| `node scripts/export-responses.mjs` | writes the saved live responses to `../experiment_data/_web_app/responses.csv` |
 | `npm run build` | production build |
 
 In development there is no daily limit. Set `RUNS_PER_IP_PER_DAY=1` in
@@ -53,8 +70,9 @@ changes, also increase `PROMPT_VERSION` in the exporter.
 1. Import the GitHub repo in Vercel and set **Root Directory** to `web`.
 2. Add the environment variables from `.env.example`: the gateway key, and an
    Upstash Redis database (the free tier is enough) so the per-visitor limit
-   works across serverless functions. Without Upstash the counters are only
-   in memory, which doesn't hold up on Vercel.
+   and the guess cache work across serverless functions. Without Upstash
+   both are only in memory, which doesn't hold up on Vercel: limits wouldn't
+   be enforced and almost every visit would make live calls.
 3. Set a monthly spend cap with the model gateway as well. `RUNS_PER_DAY`
    (default 200) is the app's own daily cap; `LIVE_CALLS_ENABLED=false` stops
    all live calls at once.
@@ -81,7 +99,7 @@ src/lib/profile.ts                   lists, input checks, the system prompt for 
 src/lib/match.ts                     match score, ranking, baseline, summaries
 src/lib/models.ts                    display names and characters per model
 src/lib/session.ts                   progress in this browser tab, the /api/predict client
-src/lib/server/                      gateway call and cost limits (server only)
+src/lib/server/                      gateway call, guess cache, cost limits, key-value store (server only)
 ```
 
 ## Choices made where the PRD left room

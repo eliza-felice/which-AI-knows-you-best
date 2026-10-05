@@ -1,0 +1,8116 @@
+{
+  "You are a Singaporean woman in her 20s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 61.7,
+          "SN": 33.3,
+          "TF": 40.3,
+          "JP": 61.5,
+          "AT": 50.0
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 66.7,
+          "AT": 50.0
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 32.1,
+          "TF": 41.7,
+          "JP": 60.3,
+          "AT": 51.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 23.1,
+          "TF": 36.1,
+          "JP": 67.9,
+          "AT": 44.4
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 34.6,
+          "TF": 44.4,
+          "JP": 75.6,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 25.6,
+          "TF": 40.3,
+          "JP": 59.0,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 21.8,
+          "TF": 41.7,
+          "JP": 66.7,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 45.8
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 18.0,
+          "TF": 44.4,
+          "JP": 52.6,
+          "AT": 47.2
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 20.6,
+          "TF": 38.9,
+          "JP": 73.1,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 23.0,
+          "TF": 43.1,
+          "JP": 62.8,
+          "AT": 41.7
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 14.1,
+          "TF": 41.7,
+          "JP": 71.8,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 19.3,
+          "TF": 40.3,
+          "JP": 59.0,
+          "AT": 45.8
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 18.0,
+          "TF": 43.1,
+          "JP": 46.1,
+          "AT": 51.4
+        },
+        "type": "INFPA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 16.7,
+          "TF": 36.1,
+          "JP": 66.7,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 20.6,
+          "TF": 44.4,
+          "JP": 67.9,
+          "AT": 43.1
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 26.9,
+          "TF": 44.4,
+          "JP": 69.2,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 24.3,
+          "TF": 44.4,
+          "JP": 67.9,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 24.3,
+          "TF": 47.2,
+          "JP": 67.9,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 24.3,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 19.3,
+          "TF": 37.5,
+          "JP": 70.5,
+          "AT": 47.2
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 26.9,
+          "TF": 47.2,
+          "JP": 70.5,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 24.3,
+          "TF": 41.7,
+          "JP": 66.7,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 24.3,
+          "TF": 47.2,
+          "JP": 64.1,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 19.3,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 44.4
+        },
+        "type": "INFJT"
+      }
+    ],
+    "glm-5.2": [
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 30.8,
+          "TF": 52.8,
+          "JP": 51.3,
+          "AT": 50.0
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 34.6,
+          "TF": 48.6,
+          "JP": 39.7,
+          "AT": 31.9
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 34.6,
+          "TF": 51.4,
+          "JP": 60.3,
+          "AT": 40.3
+        },
+        "type": "INTJT"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 12.8,
+          "TF": 38.9,
+          "JP": 26.9,
+          "AT": 37.5
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 16.7,
+          "TF": 48.6,
+          "JP": 29.5,
+          "AT": 37.5
+        },
+        "type": "INFPT"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 23.0,
+          "TF": 40.3,
+          "JP": 69.2,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 30.8,
+          "TF": 48.6,
+          "JP": 67.9,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 21.8,
+          "TF": 37.5,
+          "JP": 67.9,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 24.3,
+          "TF": 38.9,
+          "JP": 67.9,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 24.3,
+          "TF": 43.1,
+          "JP": 65.4,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 24.3,
+          "TF": 33.3,
+          "JP": 66.7,
+          "AT": 41.7
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 34.6,
+          "TF": 37.5,
+          "JP": 60.2,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 37.2,
+          "TF": 38.9,
+          "JP": 57.7,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 32.1,
+          "TF": 34.7,
+          "JP": 66.7,
+          "AT": 40.3
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 35.9,
+          "TF": 40.3,
+          "JP": 55.2,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 30.8,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 33.3,
+          "TF": 47.2,
+          "JP": 69.2,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 37.2,
+          "TF": 41.7,
+          "JP": 65.4,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 32.1,
+          "TF": 44.4,
+          "JP": 64.1,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 39.8,
+          "TF": 48.6,
+          "JP": 66.7,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 26.9,
+          "TF": 52.8,
+          "JP": 75.6,
+          "AT": 61.1
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 28.2,
+          "TF": 61.1,
+          "JP": 82.1,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 17.9,
+          "TF": 55.6,
+          "JP": 79.5,
+          "AT": 56.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 35.9,
+          "TF": 56.9,
+          "JP": 76.9,
+          "AT": 55.6
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 25.6,
+          "TF": 48.6,
+          "JP": 65.4,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      }
+    ],
+    "MiniMax-M2.7": [
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 28.2,
+          "TF": 41.7,
+          "JP": 48.7,
+          "AT": 48.6
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 37.2,
+          "TF": 44.4,
+          "JP": 64.1,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 43.6,
+          "TF": 48.6,
+          "JP": 64.1,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      }
+    ],
+    "qwen3.6-flash": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 24.4,
+          "TF": 59.7,
+          "JP": 60.3,
+          "AT": 58.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 25.6,
+          "TF": 63.9,
+          "JP": 74.4,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 14.1,
+          "TF": 79.2,
+          "JP": 75.6,
+          "AT": 56.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 20.5,
+          "TF": 61.1,
+          "JP": 75.6,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 38.3,
+          "SN": 21.8,
+          "TF": 55.6,
+          "JP": 91.0,
+          "AT": 45.8
+        },
+        "type": "INTJT"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 30s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 30.8,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 29.5,
+          "TF": 40.3,
+          "JP": 64.1,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 33.3,
+          "TF": 40.3,
+          "JP": 71.8,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 28.2,
+          "TF": 41.7,
+          "JP": 65.4,
+          "AT": 48.6
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 29.5,
+          "TF": 38.9,
+          "JP": 73.1,
+          "AT": 51.4
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 20.6,
+          "TF": 47.2,
+          "JP": 75.7,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 19.3,
+          "TF": 43.1,
+          "JP": 65.4,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 20.6,
+          "TF": 45.8,
+          "JP": 64.1,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 25.6,
+          "TF": 41.7,
+          "JP": 64.1,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 21.8,
+          "TF": 43.1,
+          "JP": 77.0,
+          "AT": 76.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 15.4,
+          "TF": 45.8,
+          "JP": 61.5,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 19.3,
+          "TF": 41.7,
+          "JP": 64.1,
+          "AT": 34.7
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 30.8,
+          "TF": 40.3,
+          "JP": 71.8,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 11.5,
+          "TF": 44.4,
+          "JP": 64.1,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 19.3,
+          "TF": 43.1,
+          "JP": 66.7,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 24.3,
+          "TF": 44.4,
+          "JP": 79.4,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 21.8,
+          "TF": 48.6,
+          "JP": 82.0,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 24.3,
+          "TF": 47.2,
+          "JP": 83.3,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 25.6,
+          "TF": 44.4,
+          "JP": 77.0,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 25.6,
+          "TF": 44.4,
+          "JP": 82.0,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 21.8,
+          "TF": 47.2,
+          "JP": 80.7,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 26.9,
+          "TF": 45.8,
+          "JP": 82.0,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 23.0,
+          "TF": 45.8,
+          "JP": 82.0,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 21.8,
+          "TF": 47.2,
+          "JP": 84.6,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 45.8,
+          "JP": 82.0,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      }
+    ],
+    "glm-5.2": [
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 15.4,
+          "TF": 52.8,
+          "JP": 32.1,
+          "AT": 34.7
+        },
+        "type": "INTPT"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 43.6,
+          "TF": 62.5,
+          "JP": 79.5,
+          "AT": 54.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 16.7,
+          "TF": 55.6,
+          "JP": 32.1,
+          "AT": 33.3
+        },
+        "type": "INTPT"
+      },
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 28.2,
+          "TF": 50.0,
+          "JP": 44.9,
+          "AT": 41.7
+        },
+        "type": "INTPT"
+      },
+      {
+        "profile": {
+          "EI": 38.3,
+          "SN": 9.0,
+          "TF": 43.1,
+          "JP": 32.1,
+          "AT": 41.7
+        },
+        "type": "INFPT"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 28.2,
+          "TF": 41.7,
+          "JP": 69.2,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 24.3,
+          "TF": 48.6,
+          "JP": 70.5,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 21.8,
+          "TF": 48.6,
+          "JP": 69.2,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 28.2,
+          "TF": 48.6,
+          "JP": 71.8,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 30.8,
+          "TF": 43.1,
+          "JP": 71.8,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 32.1,
+          "TF": 40.3,
+          "JP": 61.5,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 35.9,
+          "TF": 45.8,
+          "JP": 60.2,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 38.5,
+          "TF": 47.2,
+          "JP": 70.5,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 38.5,
+          "TF": 37.5,
+          "JP": 67.9,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 24.3,
+          "TF": 38.9,
+          "JP": 57.7,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 29.5,
+          "TF": 48.6,
+          "JP": 74.4,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 34.6,
+          "TF": 48.6,
+          "JP": 69.2,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 34.6,
+          "TF": 47.2,
+          "JP": 69.2,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 33.3,
+          "TF": 47.2,
+          "JP": 69.2,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 53.4,
+          "SN": 38.5,
+          "TF": 50.0,
+          "JP": 69.2,
+          "AT": 63.9
+        },
+        "type": "ENTJA"
+      }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 29.5,
+          "TF": 59.7,
+          "JP": 82.1,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 25.6,
+          "TF": 62.5,
+          "JP": 74.4,
+          "AT": 52.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 34.6,
+          "TF": 66.7,
+          "JP": 83.3,
+          "AT": 63.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 25.6,
+          "TF": 59.7,
+          "JP": 78.2,
+          "AT": 59.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 17.9,
+          "TF": 65.3,
+          "JP": 82.1,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      }
+    ],
+    "qwen3.6-flash": [
+      {
+        "profile": {
+          "EI": 38.3,
+          "SN": 19.2,
+          "TF": 54.2,
+          "JP": 75.6,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 11.5,
+          "TF": 50.0,
+          "JP": 73.1,
+          "AT": 76.4
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 53.3,
+          "SN": 20.5,
+          "TF": 59.7,
+          "JP": 93.6,
+          "AT": 77.8
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 17.9,
+          "TF": 62.5,
+          "JP": 70.5,
+          "AT": 76.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 19.2,
+          "TF": 68.1,
+          "JP": 56.4,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 50s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 45.0,
+          "SN": 42.3,
+          "TF": 47.2,
+          "JP": 65.4,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 38.5,
+          "TF": 41.7,
+          "JP": 76.9,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 34.6,
+          "TF": 43.1,
+          "JP": 74.4,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 39.7,
+          "TF": 43.1,
+          "JP": 75.6,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 41.0,
+          "TF": 41.7,
+          "JP": 76.9,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 39.8,
+          "TF": 47.2,
+          "JP": 75.7,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 38.5,
+          "TF": 44.4,
+          "JP": 83.3,
+          "AT": 75.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 28.2,
+          "TF": 47.2,
+          "JP": 79.4,
+          "AT": 79.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 34.6,
+          "TF": 45.8,
+          "JP": 77.0,
+          "AT": 77.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 26.9,
+          "TF": 50.0,
+          "JP": 78.2,
+          "AT": 73.6
+        },
+        "type": "INTJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 39.8,
+          "TF": 44.4,
+          "JP": 80.7,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 26.9,
+          "TF": 47.2,
+          "JP": 75.7,
+          "AT": 70.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 39.8,
+          "TF": 47.2,
+          "JP": 77.0,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 78.2,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 13.3,
+          "SN": 15.4,
+          "TF": 47.2,
+          "JP": 77.0,
+          "AT": 72.2
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 30.8,
+          "TF": 51.4,
+          "JP": 87.2,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 26.9,
+          "TF": 51.4,
+          "JP": 87.2,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 30.8,
+          "TF": 52.8,
+          "JP": 87.2,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 29.5,
+          "TF": 52.8,
+          "JP": 87.2,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 29.5,
+          "TF": 52.8,
+          "JP": 83.3,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 29.5,
+          "TF": 54.2,
+          "JP": 87.2,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 30.8,
+          "TF": 52.8,
+          "JP": 87.2,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 51.4,
+          "JP": 85.9,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 26.9,
+          "TF": 50.0,
+          "JP": 87.2,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 29.5,
+          "TF": 54.2,
+          "JP": 85.9,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      }
+    ],
+    "glm-5.2": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 35.9,
+          "TF": 43.1,
+          "JP": 78.2,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 43.6,
+          "TF": 54.2,
+          "JP": 70.5,
+          "AT": 76.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 35.9,
+          "TF": 52.8,
+          "JP": 74.4,
+          "AT": 37.5
+        },
+        "type": "INTJT"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 16.7,
+          "TF": 45.8,
+          "JP": 62.8,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 30.8,
+          "TF": 47.2,
+          "JP": 64.1,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 53.4,
+          "SN": 26.9,
+          "TF": 44.4,
+          "JP": 74.4,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 30.8,
+          "TF": 47.2,
+          "JP": 69.2,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 30.8,
+          "TF": 48.6,
+          "JP": 75.7,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 28.2,
+          "TF": 48.6,
+          "JP": 69.2,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 42.3,
+          "TF": 43.1,
+          "JP": 78.2,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 42.3,
+          "TF": 41.7,
+          "JP": 73.1,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 37.2,
+          "TF": 44.4,
+          "JP": 77.0,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 26.9,
+          "TF": 45.8,
+          "JP": 79.4,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 38.5,
+          "TF": 43.1,
+          "JP": 77.0,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 32.1,
+          "TF": 47.2,
+          "JP": 66.7,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 37.2,
+          "TF": 51.4,
+          "JP": 67.9,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 42.3,
+          "TF": 43.1,
+          "JP": 69.2,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 37.2,
+          "TF": 50.0,
+          "JP": 71.8,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 39.8,
+          "TF": 50.0,
+          "JP": 71.8,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 29.5,
+          "TF": 62.5,
+          "JP": 76.9,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 35.9,
+          "TF": 62.5,
+          "JP": 76.9,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 29.5,
+          "TF": 59.7,
+          "JP": 88.5,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 39.7,
+          "TF": 58.3,
+          "JP": 74.4,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 35.9,
+          "TF": 62.5,
+          "JP": 82.1,
+          "AT": 83.3
+        },
+        "type": "INTJA"
+      }
+    ],
+    "qwen3.6-flash": [
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 25.6,
+          "TF": 52.8,
+          "JP": 74.4,
+          "AT": 75.0
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 35.9,
+          "TF": 65.3,
+          "JP": 91.0,
+          "AT": 76.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 12.8,
+          "TF": 54.2,
+          "JP": 71.8,
+          "AT": 70.8
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 30.8,
+          "TF": 55.6,
+          "JP": 88.5,
+          "AT": 79.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 21.8,
+          "TF": 58.3,
+          "JP": 76.9,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 60s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 45.0,
+          "SN": 30.8,
+          "TF": 43.1,
+          "JP": 76.9,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 28.2,
+          "TF": 45.8,
+          "JP": 76.9,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 53.3,
+          "SN": 37.2,
+          "TF": 43.1,
+          "JP": 74.4,
+          "AT": 55.6
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 33.3,
+          "TF": 47.2,
+          "JP": 74.4,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 42.3,
+          "TF": 47.2,
+          "JP": 75.6,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 21.8,
+          "TF": 43.1,
+          "JP": 85.9,
+          "AT": 81.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 39.8,
+          "TF": 44.4,
+          "JP": 83.3,
+          "AT": 73.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 29.5,
+          "TF": 48.6,
+          "JP": 89.8,
+          "AT": 73.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 32.1,
+          "TF": 48.6,
+          "JP": 83.3,
+          "AT": 77.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 35.9,
+          "TF": 43.1,
+          "JP": 82.0,
+          "AT": 76.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 23.0,
+          "TF": 44.4,
+          "JP": 79.4,
+          "AT": 76.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 23.0,
+          "TF": 36.1,
+          "JP": 87.2,
+          "AT": 79.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 39.8,
+          "TF": 45.8,
+          "JP": 91.0,
+          "AT": 73.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 35.9,
+          "TF": 48.6,
+          "JP": 74.4,
+          "AT": 73.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 35.9,
+          "TF": 48.6,
+          "JP": 82.0,
+          "AT": 76.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 25.6,
+          "TF": 50.0,
+          "JP": 92.3,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 28.2,
+          "TF": 51.4,
+          "JP": 88.5,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 26.9,
+          "TF": 52.8,
+          "JP": 87.2,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 52.8,
+          "JP": 88.5,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 32.1,
+          "TF": 51.4,
+          "JP": 84.6,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 32.1,
+          "TF": 51.4,
+          "JP": 82.0,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 30.8,
+          "TF": 52.8,
+          "JP": 87.2,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 24.3,
+          "TF": 50.0,
+          "JP": 92.3,
+          "AT": 73.6
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 21.8,
+          "TF": 50.0,
+          "JP": 88.5,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 25.6,
+          "TF": 50.0,
+          "JP": 87.2,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 33.3,
+          "TF": 43.1,
+          "JP": 69.2,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 33.3,
+          "TF": 43.1,
+          "JP": 69.2,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 34.6,
+          "TF": 38.9,
+          "JP": 69.2,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 34.6,
+          "TF": 44.4,
+          "JP": 70.5,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 29.5,
+          "TF": 41.7,
+          "JP": 71.8,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 28.2,
+          "TF": 41.7,
+          "JP": 82.0,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 24.3,
+          "TF": 44.4,
+          "JP": 77.0,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 35.9,
+          "TF": 41.7,
+          "JP": 75.7,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 33.3,
+          "TF": 38.9,
+          "JP": 83.3,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 25.6,
+          "TF": 40.3,
+          "JP": 77.0,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 32.1,
+          "TF": 48.6,
+          "JP": 73.1,
+          "AT": 72.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 32.1,
+          "TF": 52.8,
+          "JP": 70.5,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 44.8,
+          "TF": 43.1,
+          "JP": 70.5,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 37.2,
+          "TF": 50.0,
+          "JP": 74.4,
+          "AT": 55.6
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 42.3,
+          "TF": 55.6,
+          "JP": 79.5,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 39.7,
+          "TF": 58.3,
+          "JP": 82.1,
+          "AT": 75.0
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 26.9,
+          "TF": 62.5,
+          "JP": 78.2,
+          "AT": 76.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 33.3,
+          "TF": 59.7,
+          "JP": 89.7,
+          "AT": 77.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 28.2,
+          "TF": 58.3,
+          "JP": 83.3,
+          "AT": 73.6
+        },
+        "type": "INTJA"
+      }
+    ],
+    "qwen3.6-flash": [
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 21.8,
+          "TF": 51.4,
+          "JP": 74.4,
+          "AT": 62.5
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 42.3,
+          "TF": 51.4,
+          "JP": 76.9,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 23.1,
+          "TF": 43.1,
+          "JP": 76.9,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 28.2,
+          "TF": 54.2,
+          "JP": 80.8,
+          "AT": 76.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 24.4,
+          "TF": 45.8,
+          "JP": 76.9,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 70s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 42.3,
+          "TF": 50.0,
+          "JP": 78.2,
+          "AT": 55.6
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 74.4,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 75.6,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 37.2,
+          "TF": 41.7,
+          "JP": 75.6,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 35.9,
+          "TF": 43.1,
+          "JP": 76.9,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 35.9,
+          "TF": 45.8,
+          "JP": 79.4,
+          "AT": 70.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 14.1,
+          "TF": 41.7,
+          "JP": 77.0,
+          "AT": 79.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 38.5,
+          "TF": 51.4,
+          "JP": 85.9,
+          "AT": 79.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 21.8,
+          "TF": 41.7,
+          "JP": 75.7,
+          "AT": 76.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 30.8,
+          "TF": 44.4,
+          "JP": 80.7,
+          "AT": 76.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 28.2,
+          "TF": 45.8,
+          "JP": 78.2,
+          "AT": 75.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 18.0,
+          "TF": 48.6,
+          "JP": 83.3,
+          "AT": 80.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 19.3,
+          "TF": 58.3,
+          "JP": 83.3,
+          "AT": 87.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 16.7,
+          "TF": 41.7,
+          "JP": 74.4,
+          "AT": 75.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 25.6,
+          "TF": 51.4,
+          "JP": 83.3,
+          "AT": 81.9
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 23.0,
+          "TF": 52.8,
+          "JP": 92.3,
+          "AT": 83.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 19.3,
+          "TF": 54.2,
+          "JP": 94.9,
+          "AT": 86.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 18.0,
+          "TF": 55.6,
+          "JP": 94.9,
+          "AT": 84.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 20.6,
+          "TF": 55.6,
+          "JP": 93.6,
+          "AT": 86.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 23.0,
+          "TF": 50.0,
+          "JP": 93.6,
+          "AT": 81.9
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 20.6,
+          "TF": 51.4,
+          "JP": 93.6,
+          "AT": 83.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 24.3,
+          "TF": 50.0,
+          "JP": 92.3,
+          "AT": 76.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 19.3,
+          "TF": 54.2,
+          "JP": 92.3,
+          "AT": 84.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 19.3,
+          "TF": 51.4,
+          "JP": 93.6,
+          "AT": 77.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 24.3,
+          "TF": 48.6,
+          "JP": 93.6,
+          "AT": 81.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 32.1,
+          "TF": 41.7,
+          "JP": 70.5,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 28.2,
+          "TF": 40.3,
+          "JP": 71.8,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 32.1,
+          "TF": 40.3,
+          "JP": 73.1,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 26.9,
+          "TF": 41.7,
+          "JP": 69.2,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 34.6,
+          "TF": 47.2,
+          "JP": 70.5,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 34.6,
+          "TF": 41.7,
+          "JP": 78.2,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 30.8,
+          "TF": 44.4,
+          "JP": 79.4,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 19.3,
+          "TF": 41.7,
+          "JP": 82.0,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 78.2,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 37.2,
+          "TF": 45.8,
+          "JP": 80.7,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 37.2,
+          "TF": 51.4,
+          "JP": 70.5,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 45.0,
+          "SN": 33.3,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 35.9,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 39.8,
+          "TF": 50.0,
+          "JP": 71.8,
+          "AT": 69.4
+        },
+        "type": "ENTJA"
+      }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 48.7,
+          "TF": 61.1,
+          "JP": 75.6,
+          "AT": 58.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 30.8,
+          "TF": 62.5,
+          "JP": 75.6,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 23.1,
+          "TF": 50.0,
+          "JP": 79.5,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 28.2,
+          "TF": 66.7,
+          "JP": 87.2,
+          "AT": 75.0
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 46.2,
+          "TF": 54.2,
+          "JP": 92.3,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 40s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 33.3,
+          "TF": 43.1,
+          "JP": 75.6,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 29.5,
+          "TF": 36.1,
+          "JP": 78.2,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 41.0,
+          "TF": 43.1,
+          "JP": 73.1,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 32.1,
+          "TF": 43.1,
+          "JP": 75.6,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 25.6,
+          "TF": 40.3,
+          "JP": 75.6,
+          "AT": 48.6
+        },
+        "type": "ENFJT"
+      }
+    ],
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 24.3,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 24.3,
+          "TF": 41.7,
+          "JP": 62.8,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 19.3,
+          "TF": 45.8,
+          "JP": 65.4,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 19.3,
+          "TF": 48.6,
+          "JP": 71.8,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 28.2,
+          "TF": 50.0,
+          "JP": 79.4,
+          "AT": 75.0
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 25.6,
+          "TF": 45.8,
+          "JP": 73.1,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 20.5,
+          "TF": 44.4,
+          "JP": 87.2,
+          "AT": 72.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 32.1,
+          "TF": 48.6,
+          "JP": 87.2,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 20.5,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 72.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 21.8,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 14.1,
+          "TF": 41.7,
+          "JP": 70.5,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 37.2,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 23.0,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 34.6,
+          "TF": 48.6,
+          "JP": 77.0,
+          "AT": 76.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 19.3,
+          "TF": 44.4,
+          "JP": 57.7,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 25.6,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 23.1,
+          "TF": 44.4,
+          "JP": 69.2,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 19.2,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 72.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 17.9,
+          "TF": 43.1,
+          "JP": 65.4,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 23.1,
+          "TF": 45.8,
+          "JP": 75.6,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 29.5,
+          "TF": 47.2,
+          "JP": 84.6,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 29.5,
+          "TF": 50.0,
+          "JP": 83.3,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 28.2,
+          "TF": 48.6,
+          "JP": 84.6,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 21.8,
+          "TF": 48.6,
+          "JP": 84.6,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 23.0,
+          "TF": 48.6,
+          "JP": 84.6,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 32.1,
+          "TF": 51.4,
+          "JP": 82.1,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 23.1,
+          "TF": 48.6,
+          "JP": 87.2,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 25.6,
+          "TF": 51.4,
+          "JP": 83.3,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 25.6,
+          "TF": 50.0,
+          "JP": 83.3,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 24.4,
+          "TF": 50.0,
+          "JP": 82.1,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 28.2,
+          "TF": 51.4,
+          "JP": 83.3,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 24.3,
+          "TF": 51.4,
+          "JP": 83.3,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 29.5,
+          "TF": 50.0,
+          "JP": 85.9,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 26.9,
+          "TF": 50.0,
+          "JP": 85.9,
+          "AT": 63.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 28.2,
+          "TF": 51.4,
+          "JP": 84.6,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 26.9,
+          "TF": 50.0,
+          "JP": 79.5,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 28.2,
+          "TF": 51.4,
+          "JP": 84.6,
+          "AT": 63.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 26.9,
+          "TF": 50.0,
+          "JP": 83.3,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 25.6,
+          "TF": 50.0,
+          "JP": 85.9,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 20.5,
+          "TF": 50.0,
+          "JP": 84.6,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      }
+    ],
+    "glm-5.2": [
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 20.5,
+          "TF": 45.8,
+          "JP": 57.7,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 42.3,
+          "TF": 52.8,
+          "JP": 55.1,
+          "AT": 51.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 30.8,
+          "TF": 52.8,
+          "JP": 57.7,
+          "AT": 41.7
+        },
+        "type": "INTJT"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 14.1,
+          "TF": 54.2,
+          "JP": 46.2,
+          "AT": 34.7
+        },
+        "type": "INTPT"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 20.5,
+          "TF": 50.0,
+          "JP": 47.4,
+          "AT": 44.4
+        },
+        "type": "INTPT"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 28.2,
+          "TF": 45.8,
+          "JP": 73.1,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 32.1,
+          "TF": 44.4,
+          "JP": 65.4,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 37.2,
+          "TF": 44.4,
+          "JP": 70.5,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 29.5,
+          "TF": 43.1,
+          "JP": 71.8,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 37.2,
+          "TF": 43.1,
+          "JP": 69.2,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 20.5,
+          "TF": 43.1,
+          "JP": 70.5,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 29.5,
+          "TF": 47.2,
+          "JP": 62.8,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 29.5,
+          "TF": 43.1,
+          "JP": 67.9,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.7,
+          "SN": 25.6,
+          "TF": 40.3,
+          "JP": 69.2,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.3,
+          "SN": 28.2,
+          "TF": 40.3,
+          "JP": 67.9,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 37.2,
+          "TF": 47.2,
+          "JP": 60.2,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 37.2,
+          "TF": 41.7,
+          "JP": 71.8,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 41.0,
+          "TF": 38.9,
+          "JP": 67.9,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 37.2,
+          "TF": 44.4,
+          "JP": 74.4,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 35.9,
+          "TF": 41.7,
+          "JP": 74.4,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 65.4,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 37.2,
+          "TF": 47.2,
+          "JP": 73.1,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 34.6,
+          "TF": 41.7,
+          "JP": 79.5,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 33.3,
+          "TF": 36.1,
+          "JP": 69.2,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 33.3,
+          "TF": 41.7,
+          "JP": 71.8,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 29.5,
+          "TF": 44.4,
+          "JP": 64.1,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 34.6,
+          "TF": 48.6,
+          "JP": 64.1,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 33.3,
+          "TF": 48.6,
+          "JP": 74.4,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 33.3,
+          "TF": 51.4,
+          "JP": 67.9,
+          "AT": 56.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 38.5,
+          "TF": 48.6,
+          "JP": 67.9,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 76.9,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 35.9,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.7,
+          "SN": 39.7,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 32.1,
+          "TF": 47.2,
+          "JP": 67.9,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 35.9,
+          "TF": 50.0,
+          "JP": 69.2,
+          "AT": 68.1
+        },
+        "type": "ENTJA"
+      }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 28.2,
+          "TF": 58.3,
+          "JP": 82.1,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 17.9,
+          "TF": 68.1,
+          "JP": 83.3,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 39.7,
+          "TF": 58.3,
+          "JP": 76.9,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 32.1,
+          "TF": 65.3,
+          "JP": 71.8,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 26.9,
+          "TF": 56.9,
+          "JP": 83.3,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      }
+    ],
+    "MiniMax-M2.7": [
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 38.5,
+          "TF": 45.8,
+          "JP": 66.7,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 31.7,
+          "SN": 42.3,
+          "TF": 48.6,
+          "JP": 66.7,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 44.9,
+          "TF": 47.2,
+          "JP": 70.5,
+          "AT": 34.7
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 37.2,
+          "TF": 50.0,
+          "JP": 65.4,
+          "AT": 51.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 41.0,
+          "TF": 48.6,
+          "JP": 60.3,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      }
+    ],
+    "qwen3.6-flash": [
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 26.9,
+          "TF": 68.1,
+          "JP": 84.6,
+          "AT": 75.0
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 35.9,
+          "TF": 61.1,
+          "JP": 74.4,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 32.1,
+          "TF": 50.0,
+          "JP": 73.1,
+          "AT": 61.1
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 21.8,
+          "TF": 62.5,
+          "JP": 73.1,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 34.6,
+          "TF": 70.8,
+          "JP": 85.9,
+          "AT": 76.4
+        },
+        "type": "INTJA"
+      }
+    ]
+  },
+  "You are a Singaporean man in his 40s, working as a software engineer.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 26.9,
+          "TF": 47.2,
+          "JP": 70.5,
+          "AT": 72.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 15.4,
+          "TF": 61.1,
+          "JP": 83.3,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 21.8,
+          "TF": 52.8,
+          "JP": 80.7,
+          "AT": 55.6
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 26.9,
+          "TF": 52.8,
+          "JP": 69.2,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 21.8,
+          "TF": 47.2,
+          "JP": 67.9,
+          "AT": 73.6
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 39.8,
+          "TF": 51.4,
+          "JP": 74.4,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 12.8,
+          "TF": 47.2,
+          "JP": 52.6,
+          "AT": 70.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 38.5,
+          "TF": 61.1,
+          "JP": 71.8,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 37.2,
+          "TF": 50.0,
+          "JP": 69.2,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 16.7,
+          "TF": 52.8,
+          "JP": 73.1,
+          "AT": 73.6
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 32.1,
+          "TF": 55.6,
+          "JP": 78.2,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 35.9,
+          "TF": 52.8,
+          "JP": 87.2,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 33.3,
+          "TF": 55.6,
+          "JP": 82.0,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 35.9,
+          "TF": 55.6,
+          "JP": 83.3,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 30.8,
+          "TF": 55.6,
+          "JP": 85.9,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 30.8,
+          "TF": 55.6,
+          "JP": 84.6,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 35.9,
+          "TF": 59.7,
+          "JP": 83.3,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 34.6,
+          "TF": 52.8,
+          "JP": 83.3,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 26.9,
+          "TF": 58.3,
+          "JP": 87.2,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 35.9,
+          "TF": 58.3,
+          "JP": 82.0,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 29.5,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 70.5,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 29.5,
+          "TF": 44.4,
+          "JP": 66.7,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 32.1,
+          "TF": 48.6,
+          "JP": 66.7,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 29.5,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 37.2,
+          "TF": 51.4,
+          "JP": 73.1,
+          "AT": 55.6
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 37.2,
+          "TF": 47.2,
+          "JP": 61.5,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 34.6,
+          "TF": 45.8,
+          "JP": 61.5,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 37.2,
+          "TF": 45.8,
+          "JP": 74.4,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 37.2,
+          "TF": 47.2,
+          "JP": 69.2,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 53.4,
+          "SN": 39.8,
+          "TF": 47.2,
+          "JP": 66.7,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 35.9,
+          "TF": 50.0,
+          "JP": 70.5,
+          "AT": 68.1
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 34.6,
+          "TF": 51.4,
+          "JP": 71.8,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 45.0,
+          "SN": 39.8,
+          "TF": 50.0,
+          "JP": 65.4,
+          "AT": 63.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 33.3,
+          "TF": 51.4,
+          "JP": 62.8,
+          "AT": 59.7
+        },
+        "type": "INTJA"
+      }
+    ]
+  },
+  "You are an American woman in her 40s, working as a software engineer.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 10.2,
+          "TF": 43.1,
+          "JP": 64.1,
+          "AT": 70.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 21.8,
+          "TF": 47.2,
+          "JP": 75.7,
+          "AT": 75.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 21.8,
+          "TF": 44.4,
+          "JP": 73.1,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 15.4,
+          "TF": 41.7,
+          "JP": 70.5,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 23.0,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 21.8,
+          "TF": 43.1,
+          "JP": 75.7,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 14.1,
+          "TF": 44.4,
+          "JP": 73.1,
+          "AT": 70.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 19.3,
+          "TF": 38.9,
+          "JP": 74.4,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 21.8,
+          "TF": 43.1,
+          "JP": 73.1,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 25.6,
+          "TF": 43.1,
+          "JP": 73.1,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 18.0,
+          "TF": 48.6,
+          "JP": 84.6,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 18.0,
+          "TF": 48.6,
+          "JP": 85.9,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 19.3,
+          "TF": 50.0,
+          "JP": 83.3,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 18.0,
+          "TF": 45.8,
+          "JP": 85.9,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 18.0,
+          "TF": 45.8,
+          "JP": 84.6,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 19.3,
+          "TF": 48.6,
+          "JP": 83.3,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 18.0,
+          "TF": 47.2,
+          "JP": 85.9,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 19.3,
+          "TF": 50.0,
+          "JP": 84.6,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 16.7,
+          "TF": 47.2,
+          "JP": 84.6,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 19.3,
+          "TF": 50.0,
+          "JP": 85.9,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 26.9,
+          "TF": 48.6,
+          "JP": 64.1,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 30.8,
+          "TF": 47.2,
+          "JP": 66.7,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 29.5,
+          "TF": 44.4,
+          "JP": 65.4,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 30.8,
+          "TF": 44.4,
+          "JP": 70.5,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 28.2,
+          "TF": 44.4,
+          "JP": 66.7,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 26.9,
+          "TF": 34.7,
+          "JP": 77.0,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 26.9,
+          "TF": 41.7,
+          "JP": 73.1,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 28.2,
+          "TF": 45.8,
+          "JP": 66.7,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 32.1,
+          "TF": 41.7,
+          "JP": 71.8,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 33.3,
+          "TF": 44.4,
+          "JP": 75.7,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 30.8,
+          "TF": 43.1,
+          "JP": 71.8,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 34.6,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 29.5,
+          "TF": 44.4,
+          "JP": 70.5,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 66.7,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      }
+    ]
+  },
+  "You are a British woman in her 40s, working as a software engineer.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 16.7,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 18.0,
+          "TF": 44.4,
+          "JP": 77.0,
+          "AT": 73.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 12.8,
+          "TF": 47.2,
+          "JP": 64.1,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 20.6,
+          "TF": 43.1,
+          "JP": 71.8,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 23.0,
+          "TF": 43.1,
+          "JP": 75.7,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 16.7,
+          "TF": 45.8,
+          "JP": 59.0,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 26.9,
+          "TF": 45.8,
+          "JP": 84.6,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 24.3,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 20.6,
+          "TF": 48.6,
+          "JP": 73.1,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 16.7,
+          "TF": 43.1,
+          "JP": 67.9,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 21.8,
+          "TF": 50.0,
+          "JP": 79.4,
+          "AT": 58.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 19.3,
+          "TF": 50.0,
+          "JP": 84.6,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 18.0,
+          "TF": 47.2,
+          "JP": 83.3,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 19.3,
+          "TF": 47.2,
+          "JP": 83.3,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 19.3,
+          "TF": 48.6,
+          "JP": 82.0,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 23.0,
+          "TF": 48.6,
+          "JP": 77.0,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 23.0,
+          "TF": 48.6,
+          "JP": 79.4,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 18.0,
+          "TF": 47.2,
+          "JP": 84.6,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 15.0,
+          "SN": 16.7,
+          "TF": 48.6,
+          "JP": 83.3,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 19.3,
+          "TF": 50.0,
+          "JP": 85.9,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 24.3,
+          "TF": 43.1,
+          "JP": 66.7,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 29.5,
+          "TF": 50.0,
+          "JP": 65.4,
+          "AT": 59.7
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 28.2,
+          "TF": 43.1,
+          "JP": 66.7,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 20.6,
+          "TF": 45.8,
+          "JP": 69.2,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 29.5,
+          "TF": 43.1,
+          "JP": 65.4,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 37.2,
+          "TF": 41.7,
+          "JP": 67.9,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 33.3,
+          "TF": 37.5,
+          "JP": 69.2,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 32.1,
+          "TF": 38.9,
+          "JP": 73.1,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 32.1,
+          "TF": 43.1,
+          "JP": 75.7,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 64.1,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 30.8,
+          "TF": 47.2,
+          "JP": 73.1,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 33.3,
+          "TF": 47.2,
+          "JP": 73.1,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 34.6,
+          "TF": 44.4,
+          "JP": 65.4,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 30.8,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      }
+    ]
+  },
+  "You are a Chinese woman in her 40s, working as a software engineer.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 20.6,
+          "TF": 47.2,
+          "JP": 67.9,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 19.3,
+          "TF": 48.6,
+          "JP": 73.1,
+          "AT": 73.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 21.8,
+          "TF": 43.1,
+          "JP": 74.4,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 37.2,
+          "TF": 45.8,
+          "JP": 75.7,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 21.8,
+          "TF": 44.4,
+          "JP": 79.4,
+          "AT": 70.8
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 28.2,
+          "TF": 47.2,
+          "JP": 80.7,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 33.3,
+          "TF": 44.4,
+          "JP": 74.4,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 29.5,
+          "TF": 52.8,
+          "JP": 75.7,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 28.2,
+          "TF": 43.1,
+          "JP": 75.7,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 24.3,
+          "TF": 41.7,
+          "JP": 74.4,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 32.1,
+          "TF": 54.2,
+          "JP": 82.0,
+          "AT": 56.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 30.8,
+          "TF": 51.4,
+          "JP": 84.6,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 30.8,
+          "TF": 51.4,
+          "JP": 84.6,
+          "AT": 54.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 29.5,
+          "TF": 52.8,
+          "JP": 84.6,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 33.3,
+          "TF": 51.4,
+          "JP": 87.2,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 32.1,
+          "TF": 52.8,
+          "JP": 85.9,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 34.6,
+          "TF": 51.4,
+          "JP": 83.3,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 33.3,
+          "TF": 51.4,
+          "JP": 87.2,
+          "AT": 58.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 30.8,
+          "TF": 54.2,
+          "JP": 79.4,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 32.1,
+          "TF": 52.8,
+          "JP": 85.9,
+          "AT": 58.3
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 35.9,
+          "TF": 47.2,
+          "JP": 67.9,
+          "AT": 55.6
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 33.3,
+          "TF": 47.2,
+          "JP": 67.9,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 26.9,
+          "TF": 40.3,
+          "JP": 69.2,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 26.9,
+          "TF": 44.4,
+          "JP": 71.8,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 20.6,
+          "TF": 43.1,
+          "JP": 64.1,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 26.9,
+          "TF": 38.9,
+          "JP": 80.7,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 34.6,
+          "TF": 38.9,
+          "JP": 67.9,
+          "AT": 45.8
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 30.8,
+          "TF": 38.9,
+          "JP": 82.0,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 21.8,
+          "TF": 44.4,
+          "JP": 80.7,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 34.6,
+          "TF": 44.4,
+          "JP": 65.4,
+          "AT": 47.2
+        },
+        "type": "INFJT"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 45.0,
+          "SN": 37.2,
+          "TF": 45.8,
+          "JP": 69.2,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 33.3,
+          "TF": 51.4,
+          "JP": 69.2,
+          "AT": 69.4
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 37.2,
+          "TF": 45.8,
+          "JP": 77.0,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 34.6,
+          "TF": 48.6,
+          "JP": 66.7,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 32.1,
+          "TF": 44.4,
+          "JP": 65.4,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      }
+    ]
+  },
+  "You are an Indian woman in her 40s, working as a software engineer.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 26.9,
+          "TF": 41.7,
+          "JP": 77.0,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 35.9,
+          "TF": 41.7,
+          "JP": 71.8,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 30.8,
+          "TF": 38.9,
+          "JP": 80.7,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 25.6,
+          "TF": 43.1,
+          "JP": 73.1,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 19.3,
+          "TF": 47.2,
+          "JP": 75.7,
+          "AT": 72.2
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 23.0,
+          "TF": 44.4,
+          "JP": 73.1,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 28.2,
+          "TF": 38.9,
+          "JP": 75.7,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 19.3,
+          "TF": 40.3,
+          "JP": 79.4,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 24.3,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 21.8,
+          "TF": 41.7,
+          "JP": 77.0,
+          "AT": 72.2
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 43.1,
+          "JP": 84.6,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 28.2,
+          "TF": 43.1,
+          "JP": 83.3,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 44.4,
+          "JP": 82.0,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 25.6,
+          "TF": 44.4,
+          "JP": 83.3,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 43.1,
+          "JP": 84.6,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 44.4,
+          "JP": 84.6,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 25.6,
+          "TF": 44.4,
+          "JP": 84.6,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 47.2,
+          "JP": 84.6,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 24.3,
+          "TF": 45.8,
+          "JP": 85.9,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 28.2,
+          "TF": 44.4,
+          "JP": 82.0,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 26.9,
+          "TF": 43.1,
+          "JP": 61.5,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 24.3,
+          "TF": 44.4,
+          "JP": 70.5,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 26.9,
+          "TF": 45.8,
+          "JP": 65.4,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 33.3,
+          "TF": 43.1,
+          "JP": 69.2,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 33.3,
+          "TF": 37.5,
+          "JP": 73.1,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 18.0,
+          "TF": 31.9,
+          "JP": 77.0,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 37.2,
+          "TF": 40.3,
+          "JP": 66.7,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 37.2,
+          "TF": 37.5,
+          "JP": 65.4,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 33.3,
+          "TF": 40.3,
+          "JP": 69.2,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 30.8,
+          "TF": 43.1,
+          "JP": 62.8,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 34.6,
+          "TF": 43.1,
+          "JP": 66.7,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 35.9,
+          "TF": 43.1,
+          "JP": 70.5,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 33.3,
+          "TF": 47.2,
+          "JP": 66.7,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 30.8,
+          "TF": 48.6,
+          "JP": 66.7,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 40s, working as an accountant.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 48.7,
+          "TF": 40.3,
+          "JP": 92.3,
+          "AT": 73.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 52.6,
+          "TF": 50.0,
+          "JP": 88.5,
+          "AT": 70.8
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 53.9,
+          "TF": 44.4,
+          "JP": 87.2,
+          "AT": 55.6
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 16.6,
+          "SN": 62.8,
+          "TF": 48.6,
+          "JP": 93.6,
+          "AT": 62.5
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 43.6,
+          "TF": 48.6,
+          "JP": 85.9,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 50.0,
+          "TF": 45.8,
+          "JP": 85.9,
+          "AT": 59.7
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 48.7,
+          "TF": 43.1,
+          "JP": 91.0,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 50.0,
+          "TF": 45.8,
+          "JP": 91.0,
+          "AT": 68.1
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 55.2,
+          "TF": 45.8,
+          "JP": 83.3,
+          "AT": 61.1
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 44.8,
+          "TF": 45.8,
+          "JP": 85.9,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 52.6,
+          "TF": 51.4,
+          "JP": 94.9,
+          "AT": 66.7
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 55.2,
+          "TF": 56.9,
+          "JP": 94.9,
+          "AT": 63.9
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 52.6,
+          "TF": 48.6,
+          "JP": 94.9,
+          "AT": 63.9
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 51.3,
+          "TF": 48.6,
+          "JP": 93.6,
+          "AT": 65.3
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 55.2,
+          "TF": 54.2,
+          "JP": 91.0,
+          "AT": 59.7
+        },
+        "type": "ISTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 55.2,
+          "TF": 51.4,
+          "JP": 89.8,
+          "AT": 62.5
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 51.3,
+          "TF": 50.0,
+          "JP": 94.9,
+          "AT": 56.9
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 52.6,
+          "TF": 48.6,
+          "JP": 93.6,
+          "AT": 52.8
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 57.7,
+          "TF": 55.6,
+          "JP": 88.5,
+          "AT": 61.1
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 53.9,
+          "TF": 51.4,
+          "JP": 92.3,
+          "AT": 61.1
+        },
+        "type": "ISTJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 33.3,
+          "TF": 47.2,
+          "JP": 69.2,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 30.8,
+          "TF": 44.4,
+          "JP": 75.7,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 28.2,
+          "TF": 44.4,
+          "JP": 74.4,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 26.9,
+          "TF": 41.7,
+          "JP": 65.4,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 46.1,
+          "TF": 41.7,
+          "JP": 79.4,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 50.0,
+          "TF": 41.7,
+          "JP": 83.3,
+          "AT": 48.6
+        },
+        "type": "ISFJT"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 41.0,
+          "TF": 40.3,
+          "JP": 75.7,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 43.6,
+          "TF": 45.8,
+          "JP": 84.6,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 41.0,
+          "TF": 38.9,
+          "JP": 82.0,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 35.9,
+          "TF": 48.6,
+          "JP": 69.2,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 48.7,
+          "TF": 51.4,
+          "JP": 71.8,
+          "AT": 69.4
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 37.2,
+          "TF": 47.2,
+          "JP": 71.8,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 38.5,
+          "TF": 45.8,
+          "JP": 71.8,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 32.1,
+          "TF": 48.6,
+          "JP": 73.1,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 40s, working as an artist.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 12.8,
+          "TF": 22.2,
+          "JP": 19.3,
+          "AT": 25.0
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 11.5,
+          "TF": 22.2,
+          "JP": 25.6,
+          "AT": 27.8
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 10.2,
+          "TF": 20.8,
+          "JP": 29.5,
+          "AT": 26.4
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 7.7,
+          "TF": 22.2,
+          "JP": 21.8,
+          "AT": 26.4
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 7.7,
+          "TF": 20.8,
+          "JP": 21.8,
+          "AT": 29.2
+        },
+        "type": "INFPT"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 10.2,
+          "TF": 20.8,
+          "JP": 28.2,
+          "AT": 26.4
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 9.0,
+          "TF": 25.0,
+          "JP": 29.5,
+          "AT": 23.6
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 9.0,
+          "TF": 27.8,
+          "JP": 33.3,
+          "AT": 36.1
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 10.2,
+          "TF": 22.2,
+          "JP": 23.0,
+          "AT": 26.4
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 11.5,
+          "TF": 20.8,
+          "JP": 18.0,
+          "AT": 23.6
+        },
+        "type": "INFPT"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 11.5,
+          "TF": 22.2,
+          "JP": 19.3,
+          "AT": 34.7
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 10.2,
+          "TF": 20.8,
+          "JP": 20.6,
+          "AT": 36.1
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 14.1,
+          "TF": 26.4,
+          "JP": 18.0,
+          "AT": 43.1
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 11.5,
+          "TF": 25.0,
+          "JP": 18.0,
+          "AT": 40.3
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 10.2,
+          "TF": 25.0,
+          "JP": 18.0,
+          "AT": 43.1
+        },
+        "type": "INFPT"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 10.2,
+          "TF": 23.6,
+          "JP": 19.3,
+          "AT": 40.3
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 10.2,
+          "TF": 25.0,
+          "JP": 23.0,
+          "AT": 43.1
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 11.5,
+          "TF": 23.6,
+          "JP": 28.2,
+          "AT": 44.4
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 10.2,
+          "TF": 20.8,
+          "JP": 23.0,
+          "AT": 41.7
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 10.2,
+          "TF": 23.6,
+          "JP": 19.3,
+          "AT": 44.4
+        },
+        "type": "INFPT"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 11.5,
+          "TF": 36.1,
+          "JP": 66.7,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 25.6,
+          "TF": 44.4,
+          "JP": 67.9,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 19.3,
+          "TF": 33.3,
+          "JP": 71.8,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 78.3,
+          "SN": 18.0,
+          "TF": 38.9,
+          "JP": 71.8,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 15.4,
+          "TF": 40.3,
+          "JP": 60.2,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 18.0,
+          "TF": 26.4,
+          "JP": 35.9,
+          "AT": 38.9
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 15.4,
+          "TF": 23.6,
+          "JP": 32.1,
+          "AT": 38.9
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 16.7,
+          "TF": 22.2,
+          "JP": 28.2,
+          "AT": 27.8
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 16.7,
+          "TF": 27.8,
+          "JP": 32.1,
+          "AT": 43.1
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 11.5,
+          "TF": 23.6,
+          "JP": 26.9,
+          "AT": 41.7
+        },
+        "type": "INFPT"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 28.2,
+          "TF": 44.4,
+          "JP": 62.8,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 26.9,
+          "TF": 44.4,
+          "JP": 67.9,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 29.5,
+          "TF": 44.4,
+          "JP": 65.4,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 28.2,
+          "TF": 44.4,
+          "JP": 69.2,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 26.9,
+          "TF": 48.6,
+          "JP": 66.7,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 40s, working as a construction worker.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 53.4,
+          "SN": 74.4,
+          "TF": 50.0,
+          "JP": 83.3,
+          "AT": 73.6
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 71.8,
+          "TF": 48.6,
+          "JP": 80.7,
+          "AT": 69.4
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 75.0,
+          "SN": 62.8,
+          "TF": 52.8,
+          "JP": 74.4,
+          "AT": 72.2
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 71.8,
+          "TF": 48.6,
+          "JP": 77.0,
+          "AT": 66.7
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 75.7,
+          "TF": 52.8,
+          "JP": 82.0,
+          "AT": 77.8
+        },
+        "type": "ISTJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 61.5,
+          "TF": 45.8,
+          "JP": 75.7,
+          "AT": 68.1
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 67.9,
+          "TF": 47.2,
+          "JP": 73.1,
+          "AT": 69.4
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 77.0,
+          "TF": 52.8,
+          "JP": 84.6,
+          "AT": 73.6
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 78.3,
+          "SN": 71.8,
+          "TF": 43.1,
+          "JP": 89.8,
+          "AT": 77.8
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 73.1,
+          "TF": 48.6,
+          "JP": 80.7,
+          "AT": 73.6
+        },
+        "type": "ESFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 62.8,
+          "TF": 47.2,
+          "JP": 82.0,
+          "AT": 62.5
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 66.7,
+          "TF": 48.6,
+          "JP": 88.5,
+          "AT": 70.8
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 69.2,
+          "TF": 50.0,
+          "JP": 91.0,
+          "AT": 72.2
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 67.9,
+          "TF": 50.0,
+          "JP": 87.2,
+          "AT": 72.2
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 70.5,
+          "TF": 50.0,
+          "JP": 87.2,
+          "AT": 70.8
+        },
+        "type": "ISTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 65.4,
+          "TF": 50.0,
+          "JP": 80.7,
+          "AT": 69.4
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 66.7,
+          "TF": 44.4,
+          "JP": 80.7,
+          "AT": 69.4
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 70.5,
+          "TF": 47.2,
+          "JP": 82.0,
+          "AT": 72.2
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 69.2,
+          "TF": 47.2,
+          "JP": 88.5,
+          "AT": 70.8
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 61.5,
+          "TF": 50.0,
+          "JP": 89.8,
+          "AT": 73.6
+        },
+        "type": "ISTJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 37.2,
+          "TF": 47.2,
+          "JP": 67.9,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 38.5,
+          "TF": 45.8,
+          "JP": 69.2,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 37.2,
+          "TF": 43.1,
+          "JP": 75.7,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 38.5,
+          "TF": 48.6,
+          "JP": 67.9,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 76.6,
+          "SN": 35.9,
+          "TF": 48.6,
+          "JP": 70.5,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 64.1,
+          "TF": 50.0,
+          "JP": 67.9,
+          "AT": 69.4
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 55.2,
+          "TF": 45.8,
+          "JP": 64.1,
+          "AT": 61.1
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 57.7,
+          "TF": 41.7,
+          "JP": 65.4,
+          "AT": 61.1
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 75.0,
+          "SN": 71.8,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 68.1
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 65.4,
+          "TF": 44.4,
+          "JP": 69.2,
+          "AT": 66.7
+        },
+        "type": "ESFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 33.3,
+          "TF": 50.0,
+          "JP": 71.8,
+          "AT": 56.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 32.1,
+          "TF": 51.4,
+          "JP": 65.4,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 45.0,
+          "SN": 48.7,
+          "TF": 51.4,
+          "JP": 61.5,
+          "AT": 56.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 53.4,
+          "SN": 43.6,
+          "TF": 51.4,
+          "JP": 73.1,
+          "AT": 72.2
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 43.6,
+          "TF": 52.8,
+          "JP": 69.2,
+          "AT": 59.7
+        },
+        "type": "INTJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 40s, working as a lawyer.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 25.6,
+          "TF": 54.2,
+          "JP": 92.3,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 37.2,
+          "TF": 51.4,
+          "JP": 87.2,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 34.6,
+          "TF": 50.0,
+          "JP": 89.8,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 42.3,
+          "TF": 61.1,
+          "JP": 92.3,
+          "AT": 77.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 16.7,
+          "TF": 51.4,
+          "JP": 84.6,
+          "AT": 70.8
+        },
+        "type": "ENTJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 37.2,
+          "TF": 52.8,
+          "JP": 87.2,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 29.5,
+          "TF": 50.0,
+          "JP": 78.2,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 20.6,
+          "TF": 56.9,
+          "JP": 79.4,
+          "AT": 69.4
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 32.1,
+          "TF": 55.6,
+          "JP": 91.0,
+          "AT": 76.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 28.3,
+          "SN": 42.3,
+          "TF": 59.7,
+          "JP": 82.0,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 34.6,
+          "TF": 55.6,
+          "JP": 94.9,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 39.8,
+          "TF": 61.1,
+          "JP": 96.2,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 38.5,
+          "TF": 62.5,
+          "JP": 96.2,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 37.2,
+          "TF": 56.9,
+          "JP": 96.2,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 33.3,
+          "TF": 56.9,
+          "JP": 94.9,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 33.3,
+          "TF": 58.3,
+          "JP": 92.3,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 39.8,
+          "TF": 54.2,
+          "JP": 96.2,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 37.2,
+          "TF": 52.8,
+          "JP": 93.6,
+          "AT": 66.7
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 32.1,
+          "TF": 54.2,
+          "JP": 91.0,
+          "AT": 68.1
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 38.5,
+          "TF": 61.1,
+          "JP": 96.2,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 66.7,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 30.8,
+          "TF": 48.6,
+          "JP": 74.4,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 75.0,
+          "SN": 30.8,
+          "TF": 47.2,
+          "JP": 73.1,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 28.2,
+          "TF": 43.1,
+          "JP": 70.5,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 30.8,
+          "TF": 43.1,
+          "JP": 67.9,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 39.8,
+          "TF": 48.6,
+          "JP": 77.0,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 35.9,
+          "TF": 48.6,
+          "JP": 74.4,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 37.2,
+          "TF": 50.0,
+          "JP": 79.4,
+          "AT": 61.1
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 35.9,
+          "TF": 50.0,
+          "JP": 74.4,
+          "AT": 59.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 33.3,
+          "TF": 47.2,
+          "JP": 79.4,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 29.5,
+          "TF": 45.8,
+          "JP": 74.4,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 34.6,
+          "TF": 48.6,
+          "JP": 73.1,
+          "AT": 70.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 30.8,
+          "TF": 44.4,
+          "JP": 70.5,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 69.4
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 34.6,
+          "TF": 47.2,
+          "JP": 67.9,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 40s, working as a nurse.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 23.4,
+          "SN": 39.8,
+          "TF": 30.6,
+          "JP": 84.6,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 46.1,
+          "TF": 31.9,
+          "JP": 82.0,
+          "AT": 59.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 42.3,
+          "TF": 37.5,
+          "JP": 83.3,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 44.8,
+          "TF": 34.7,
+          "JP": 75.7,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 33.3,
+          "SN": 46.1,
+          "TF": 30.6,
+          "JP": 87.2,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 46.1,
+          "TF": 37.5,
+          "JP": 71.8,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 45.0,
+          "SN": 38.5,
+          "TF": 31.9,
+          "JP": 80.7,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 41.0,
+          "TF": 30.6,
+          "JP": 82.0,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 52.6,
+          "TF": 27.8,
+          "JP": 79.4,
+          "AT": 75.0
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 50.0,
+          "TF": 31.9,
+          "JP": 83.3,
+          "AT": 66.7
+        },
+        "type": "ISFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 43.6,
+          "TF": 27.8,
+          "JP": 84.6,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 53.4,
+          "SN": 44.8,
+          "TF": 29.2,
+          "JP": 87.2,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 44.8,
+          "TF": 27.8,
+          "JP": 84.6,
+          "AT": 68.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 52.6,
+          "TF": 25.0,
+          "JP": 92.3,
+          "AT": 66.7
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 47.4,
+          "TF": 26.4,
+          "JP": 84.6,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 43.6,
+          "TF": 27.8,
+          "JP": 91.0,
+          "AT": 65.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 43.6,
+          "TF": 31.9,
+          "JP": 84.6,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 45.0,
+          "SN": 44.8,
+          "TF": 26.4,
+          "JP": 89.8,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 47.4,
+          "TF": 27.8,
+          "JP": 87.2,
+          "AT": 61.1
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 48.7,
+          "TF": 25.0,
+          "JP": 87.2,
+          "AT": 63.9
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 28.2,
+          "TF": 44.4,
+          "JP": 69.2,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 66.7,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 30.8,
+          "TF": 38.9,
+          "JP": 74.4,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 29.5,
+          "TF": 43.1,
+          "JP": 66.7,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 32.1,
+          "TF": 45.8,
+          "JP": 69.2,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 50.0,
+          "TF": 27.8,
+          "JP": 75.7,
+          "AT": 58.3
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 53.4,
+          "SN": 43.6,
+          "TF": 34.7,
+          "JP": 75.7,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 47.4,
+          "TF": 26.4,
+          "JP": 75.7,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 41.0,
+          "TF": 31.9,
+          "JP": 73.1,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 51.3,
+          "TF": 34.7,
+          "JP": 77.0,
+          "AT": 65.3
+        },
+        "type": "ESFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 39.8,
+          "TF": 47.2,
+          "JP": 65.4,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 70.5,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.6,
+          "SN": 35.9,
+          "TF": 44.4,
+          "JP": 70.5,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 33.3,
+          "TF": 44.4,
+          "JP": 73.1,
+          "AT": 66.7
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 33.3,
+          "TF": 45.8,
+          "JP": 73.1,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 40s, working as a primary school teacher.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 32.1,
+          "TF": 29.2,
+          "JP": 75.7,
+          "AT": 56.9
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 30.0,
+          "SN": 33.3,
+          "TF": 34.7,
+          "JP": 80.7,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 39.8,
+          "TF": 27.8,
+          "JP": 74.4,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 39.8,
+          "TF": 33.3,
+          "JP": 77.0,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 37.2,
+          "TF": 27.8,
+          "JP": 82.0,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 31.6,
+          "SN": 47.4,
+          "TF": 34.7,
+          "JP": 79.4,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 39.8,
+          "TF": 30.6,
+          "JP": 75.7,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 42.3,
+          "TF": 31.9,
+          "JP": 87.2,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.6,
+          "SN": 42.3,
+          "TF": 31.9,
+          "JP": 74.4,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 39.8,
+          "TF": 31.9,
+          "JP": 75.7,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 44.8,
+          "TF": 30.6,
+          "JP": 88.5,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 38.5,
+          "TF": 29.2,
+          "JP": 85.9,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 37.2,
+          "TF": 27.8,
+          "JP": 87.2,
+          "AT": 48.6
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 41.0,
+          "TF": 29.2,
+          "JP": 87.2,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.4,
+          "SN": 35.9,
+          "TF": 30.6,
+          "JP": 87.2,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 38.5,
+          "TF": 27.8,
+          "JP": 88.5,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 39.8,
+          "TF": 29.2,
+          "JP": 87.2,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 38.5,
+          "TF": 27.8,
+          "JP": 91.0,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 37.2,
+          "TF": 30.6,
+          "JP": 91.0,
+          "AT": 50.0
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 34.6,
+          "TF": 26.4,
+          "JP": 87.2,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 76.6,
+          "SN": 32.1,
+          "TF": 47.2,
+          "JP": 70.5,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 75.0,
+          "SN": 34.6,
+          "TF": 40.3,
+          "JP": 69.2,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 75.0,
+          "SN": 32.1,
+          "TF": 40.3,
+          "JP": 69.2,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 30.8,
+          "TF": 40.3,
+          "JP": 69.2,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 26.9,
+          "TF": 40.3,
+          "JP": 65.4,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 46.1,
+          "TF": 31.9,
+          "JP": 77.0,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 75.0,
+          "SN": 41.0,
+          "TF": 34.7,
+          "JP": 71.8,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 38.5,
+          "TF": 26.4,
+          "JP": 69.2,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 68.4,
+          "SN": 42.3,
+          "TF": 34.7,
+          "JP": 73.1,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 38.5,
+          "TF": 30.6,
+          "JP": 66.7,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 33.3,
+          "TF": 48.6,
+          "JP": 73.1,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 37.2,
+          "TF": 45.8,
+          "JP": 70.5,
+          "AT": 69.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 33.3,
+          "TF": 44.4,
+          "JP": 70.5,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 33.3,
+          "TF": 41.7,
+          "JP": 69.2,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 35.9,
+          "TF": 44.4,
+          "JP": 69.2,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      }
+    ]
+  },
+  "You are a Singaporean woman in her 40s, working as a salesperson.": {
+    "deepseek-v4-1-flash-260910": [
+      {
+        "profile": {
+          "EI": 83.4,
+          "SN": 47.4,
+          "TF": 38.9,
+          "JP": 75.7,
+          "AT": 72.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 80.0,
+          "SN": 42.3,
+          "TF": 31.9,
+          "JP": 80.7,
+          "AT": 73.6
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 41.0,
+          "TF": 38.9,
+          "JP": 75.7,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 93.3,
+          "SN": 50.0,
+          "TF": 31.9,
+          "JP": 80.7,
+          "AT": 76.4
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 80.0,
+          "SN": 51.3,
+          "TF": 36.1,
+          "JP": 71.8,
+          "AT": 63.9
+        },
+        "type": "ESFJA"
+      }
+    ],
+    "deepseek-v4-flash": [
+      {
+        "profile": {
+          "EI": 85.0,
+          "SN": 39.8,
+          "TF": 36.1,
+          "JP": 66.7,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 80.0,
+          "SN": 50.0,
+          "TF": 34.7,
+          "JP": 70.5,
+          "AT": 65.3
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 76.6,
+          "SN": 46.1,
+          "TF": 36.1,
+          "JP": 67.9,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 85.0,
+          "SN": 52.6,
+          "TF": 34.7,
+          "JP": 74.4,
+          "AT": 70.8
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 78.3,
+          "SN": 60.2,
+          "TF": 36.1,
+          "JP": 73.1,
+          "AT": 65.3
+        },
+        "type": "ESFJA"
+      }
+    ],
+    "gemini-3.1-flash-lite": [
+      {
+        "profile": {
+          "EI": 80.0,
+          "SN": 43.6,
+          "TF": 40.3,
+          "JP": 84.6,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 83.4,
+          "SN": 47.4,
+          "TF": 37.5,
+          "JP": 91.0,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 83.4,
+          "SN": 44.8,
+          "TF": 40.3,
+          "JP": 94.9,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 47.4,
+          "TF": 37.5,
+          "JP": 83.3,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 48.7,
+          "TF": 34.7,
+          "JP": 83.3,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gemini-3.5-flash-lite": [
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 46.1,
+          "TF": 38.9,
+          "JP": 84.6,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 43.6,
+          "TF": 37.5,
+          "JP": 89.8,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 83.4,
+          "SN": 48.7,
+          "TF": 38.9,
+          "JP": 87.2,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 44.8,
+          "TF": 38.9,
+          "JP": 85.9,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 80.0,
+          "SN": 47.4,
+          "TF": 41.7,
+          "JP": 84.6,
+          "AT": 55.6
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-4o-mini": [
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 34.6,
+          "TF": 48.6,
+          "JP": 67.9,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 32.1,
+          "TF": 41.7,
+          "JP": 69.2,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 34.6,
+          "TF": 41.7,
+          "JP": 74.4,
+          "AT": 61.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 32.1,
+          "TF": 43.1,
+          "JP": 69.2,
+          "AT": 59.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 78.3,
+          "SN": 28.2,
+          "TF": 41.7,
+          "JP": 65.4,
+          "AT": 62.5
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5-mini": [
+      {
+        "profile": {
+          "EI": 78.3,
+          "SN": 46.1,
+          "TF": 37.5,
+          "JP": 69.2,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 41.0,
+          "TF": 30.6,
+          "JP": 73.1,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 86.7,
+          "SN": 38.5,
+          "TF": 33.3,
+          "JP": 71.8,
+          "AT": 55.6
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 83.4,
+          "SN": 39.8,
+          "TF": 33.3,
+          "JP": 59.0,
+          "AT": 55.6
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 78.3,
+          "SN": 37.2,
+          "TF": 34.7,
+          "JP": 64.1,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "gpt-5.4-nano": [
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 34.6,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 62.5
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 32.1,
+          "TF": 43.1,
+          "JP": 74.4,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 35.9,
+          "TF": 47.2,
+          "JP": 69.2,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 28.2,
+          "TF": 47.2,
+          "JP": 71.8,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 29.5,
+          "TF": 47.2,
+          "JP": 70.5,
+          "AT": 66.7
+        },
+        "type": "ENFJA"
+      }
+    ]
+  }
+}

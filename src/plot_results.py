@@ -53,12 +53,19 @@ DIMENSIONS = {
     "percentage_AT_A": "Assertive (A) vs Turbulent (T)",
 }
 SINGLE_SERIES = "#2a78d6"
-# One colour and marker per model, in models.json order (colourblind-checked
-# as adjacent pairs for line charts). Models past the 7th share grey.
-MODEL_COLOURS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4",
-                 "#008300", "#4a3aa7"]
-MODEL_MARKERS = ["o", "s", "^", "D", "v", "P", "X"]
+# Line graphs colour each model by its company and give each model its own
+# marker, so models from the same family (which behave alike) share a colour.
+# Colours: the first 7 slots of the colourblind-checked categorical palette,
+# in order of each company's first model in models.json.
+COMPANY_COLOURS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4",
+                   "#008300", "#4a3aa7", "#e34948"]
+COMPANY_MARKERS = ["o", "s", "^", "D"]
+COMPANY_LINESTYLES = ["-", "--", ":", "-."]
 EXTRA_MODEL_COLOUR = "#8a8985"
+# Model name prefix -> company. A model matching none is its own company.
+COMPANIES = {"gpt": "OpenAI", "gemini": "Google", "deepseek": "DeepSeek",
+             "claude": "Anthropic", "glm": "Zhipu", "qwen": "Alibaba",
+             "minimax": "MiniMax", "grok": "xAI"}
 # Chunk sizes as an ordered axis for line graphs: questions per API call.
 CHUNK_AXIS = {"one_by_one": "1", "chunks_of_5": "5", "one_shot": "All 60"}
 TEXT_PRIMARY = "#0b0b0b"
@@ -455,11 +462,21 @@ def plot_attribute_by_mode(df, model, attribute, values, base_value):
 
 # ─────────────── Line graphs (ordered x-axis only) ───────────────
 
+def company(model):
+    return next((name for prefix, name in COMPANIES.items()
+                 if model.lower().startswith(prefix)), model)
+
+
 def model_style(models, model):
-    index = models.index(model)
-    if index < len(MODEL_COLOURS):
-        return MODEL_COLOURS[index], MODEL_MARKERS[index]
-    return EXTRA_MODEL_COLOUR, "o"
+    """(colour, marker, linestyle): colour by company; marker and line
+    style by model within it."""
+    companies = list(dict.fromkeys(company(m) for m in models))
+    index = companies.index(company(model))
+    colour = COMPANY_COLOURS[index] if index < len(COMPANY_COLOURS) else EXTRA_MODEL_COLOUR
+    siblings = [m for m in models if company(m) == company(model)]
+    position = siblings.index(model)
+    return (colour, COMPANY_MARKERS[position % len(COMPANY_MARKERS)],
+            COMPANY_LINESTYLES[position % len(COMPANY_LINESTYLES)])
 
 
 def plot_model_lines(models, x_labels, cell_rows, title, subtitle, x_label, path):
@@ -485,11 +502,11 @@ def plot_model_lines(models, x_labels, cell_rows, title, subtitle, x_label, path
     fig, axes = plt.subplots(1, len(DIMENSIONS), figsize=(16, 4.6), sharey=True)
     for ax, (column, dimension_title) in zip(axes, DIMENSIONS.items()):
         for offset, (model, points) in zip(offsets, lines.items()):
-            colour, marker = model_style(models, model)
+            colour, marker, linestyle = model_style(models, model)
             xs = [x + offset for x, _ in points]
             means, cis = zip(*[summarise(rows[column])[:2] for _, rows in points])
             ax.errorbar(xs, means, yerr=cis, color=colour, linewidth=2,
-                        marker=marker, markersize=6, elinewidth=1, capsize=2.5,
+                        linestyle=linestyle, marker=marker, markersize=6, elinewidth=1, capsize=2.5,
                         label=model)
         style_axis(ax, dimension_title)
         ax.set_xticks(range(len(x_labels)), x_labels)

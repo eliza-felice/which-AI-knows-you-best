@@ -145,9 +145,13 @@ export function ProfileScreen({
               own policies.
             </li>
             <li>
-              <strong className="font-medium">What this app stores:</strong> nothing. Your profile and your test
-              answers are kept only in this browser tab, so a refresh doesn&rsquo;t lose your place. Closing the tab
-              deletes them. Your test answers never leave your device.
+              <strong className="font-medium">What this app stores:</strong> nothing that identifies you. If you
+              leave the &ldquo;anything else&rdquo; box empty, your age group, gender, nationality and job, with the
+              AIs&rsquo; guesses, are kept with no link to you: reused for 30 days for anyone with the same
+              combination, and saved as anonymous data for our study. If someone with your combination has already
+              been guessed, or we tested it in our study, those guesses are reused instead of asking the AIs again.
+              Anything you write in the box is never kept. Your test answers never leave your device; your progress is
+              kept only in this browser tab and deleted when you close it.
             </li>
           </ul>
 

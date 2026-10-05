@@ -111,7 +111,7 @@ export default function Lessons() {
           </p>
         )}
         <p>
-          This app kept nothing, and your test answers never left your device. But once text reaches an AI provider,
+          This app kept nothing that identifies you, and your test answers never left your device. But once text reaches an AI provider,
           what happens to it depends on that provider&rsquo;s policy, which you can&rsquo;t see from here.
         </p>
         <p>
@@ -137,7 +137,7 @@ export default function Lessons() {
         <p>
           In our study we described one made-up person, a {BASE.nationality} woman in her 40s working as a{" "}
           {BASE.occupation}, then changed one fact at a time and measured how the AIs&rsquo; answers moved, averaged
-          over all {MODELS.length} AIs.
+          over the {study.models_in_averages.length} AIs we tested on every fact.
         </p>
         {findings.yours.length > 0 && (
           <>
@@ -157,7 +157,8 @@ export default function Lessons() {
         </ul>
         <p>
           Real people do differ a little by age and job, but probably far less than this. Some AIs also play along
-          far more than others. Average shift when one fact changed:
+          far more than others. Average shift when one fact changed, for those{" "}
+          {study.models_in_averages.length} AIs:
         </p>
         <ul className="space-y-1">
           {adherence.map(([model, shift]) => (

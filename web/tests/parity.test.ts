@@ -48,6 +48,10 @@ describe("parsing model replies", () => {
     expect(parseAnswers('<think>Maybe {"1": 3}? No.</think>\n{"1": 1, "2": 0}')).toEqual({ 1: 1, 2: 0 });
   });
 
+  it("reads ratings written as text", () => {
+    expect(parseAnswers('```json\n{"1": "-1", "2": "3"}\n```')).toEqual({ 1: -1, 2: 3 });
+  });
+
   it("rejects a reply without JSON", () => {
     expect(() => parseAnswers("I can't answer that.")).toThrow();
   });

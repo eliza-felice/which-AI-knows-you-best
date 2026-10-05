@@ -21,6 +21,11 @@ export type Prediction =
       /** How much each fact shaped its ratings, 0 (not at all) to 3 (a lot), by its own account. */
       influence: Partial<Record<Fact, number>>;
       seconds: number;
+      /**
+       * Where the guess came from: asked live now, the shared cache of earlier
+       * live guesses, or a saved run from our study (which has no note).
+       */
+      source?: "live" | "cache" | "study";
     }
   | { model: string; status: "failed"; reason: string };
 
@@ -33,6 +38,7 @@ export type Ranked = {
   noticed: string[];
   /** Missing for guesses saved before the AIs rated each fact. */
   influence?: Partial<Record<Fact, number>>;
+  source?: "live" | "cache" | "study";
   /** Within CHANCE_GAP of the model ranked just below it. */
   closeToNext: boolean;
 };
@@ -63,6 +69,7 @@ export function rankModels(predictions: Prediction[], user: Profile5): Ranked[] 
       summary: p.summary ?? "",
       noticed: p.noticed ?? [],
       influence: p.influence,
+      source: p.source,
       match: matchScore(p.profile, user),
     }))
     .sort((a, b) => b.match - a.match);

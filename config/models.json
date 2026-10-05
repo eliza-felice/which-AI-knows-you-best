@@ -5,5 +5,10 @@
   "gemini-3.1-flash-lite":      {"response_format": "json_object"},
   "gemini-3.5-flash-lite":      {"response_format": "json_object"},
   "deepseek-v4-flash":          {"response_format": "json_object"},
-  "deepseek-v4-1-flash-260910": {"response_format": "json_schema"}
+  "deepseek-v4-1-flash-260910": {"response_format": "json_schema"},
+  "claude-haiku-4-5-20251001":  {"response_format": "json_schema"},
+  "grok-4.3":                   {"response_format": "json_schema"},
+  "glm-5.2":                    {"response_format": "json_schema"},
+  "qwen3.6-flash":              {"response_format": "json_schema"},
+  "MiniMax-M2.7":               {"response_format": "json_object"}
 }

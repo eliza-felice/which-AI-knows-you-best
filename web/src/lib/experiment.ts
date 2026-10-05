@@ -133,7 +133,10 @@ export function parseReplyObject(content: string | null | undefined): Record<str
 export function parseAnswers(content: string | null | undefined): Answers {
   const answers: Answers = {};
   for (const [id, answer] of Object.entries(parseReplyObject(content))) {
-    if (/^\d+$/.test(id)) answers[Number(id)] = answer as number;
+    if (!/^\d+$/.test(id)) continue;
+    // Some models (e.g. Claude via the gateway) write ratings as text: "-1".
+    answers[Number(id)] =
+      typeof answer === "string" && /^\s*[+-]?\d+\s*$/.test(answer) ? Number(answer) : (answer as number);
   }
   return answers;
 }

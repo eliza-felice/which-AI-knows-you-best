@@ -183,15 +183,33 @@
       },
       "base_runs": 5
     },
+    "grok-4.3": {
+      "no_persona": {
+        "EI": 40.7,
+        "SN": 12.8,
+        "TF": 65.8,
+        "JP": 82.3,
+        "AT": 86.9
+      },
+      "no_persona_runs": 5,
+      "base": {
+        "EI": 22.3,
+        "SN": 29.0,
+        "TF": 61.4,
+        "JP": 79.5,
+        "AT": 68.6
+      },
+      "base_runs": 5
+    },
     "glm-5.2": {
       "no_persona": {
-        "EI": 13.3,
-        "SN": 0.0,
-        "TF": 36.1,
-        "JP": 23.1,
-        "AT": 59.7
+        "EI": 17.0,
+        "SN": 12.8,
+        "TF": 48.3,
+        "JP": 24.4,
+        "AT": 46.9
       },
-      "no_persona_runs": 1,
+      "no_persona_runs": 5,
       "base": {
         "EI": 23.3,
         "SN": 25.6,
@@ -203,19 +221,37 @@
     },
     "qwen3.6-flash": {
       "no_persona": {
-        "EI": 39.1,
-        "SN": 19.2,
-        "TF": 57.0,
-        "JP": 74.3,
-        "AT": 75.0
+        "EI": 47.0,
+        "SN": 9.2,
+        "TF": 52.5,
+        "JP": 54.4,
+        "AT": 86.7
       },
-      "no_persona_runs": 2,
+      "no_persona_runs": 5,
       "base": {
         "EI": 34.3,
         "SN": 30.3,
         "TF": 62.5,
         "JP": 78.2,
         "AT": 69.4
+      },
+      "base_runs": 5
+    },
+    "MiniMax-M2.7": {
+      "no_persona": {
+        "EI": 34.7,
+        "SN": 25.2,
+        "TF": 60.0,
+        "JP": 64.1,
+        "AT": 79.7
+      },
+      "no_persona_runs": 5,
+      "base": {
+        "EI": 25.3,
+        "SN": 40.8,
+        "TF": 48.0,
+        "JP": 65.9,
+        "AT": 47.5
       },
       "base_runs": 5
     }
@@ -364,5 +400,14 @@
       }
     }
   },
-  "total_runs": 1011
+  "models_in_averages": [
+    "deepseek-v4-1-flash-260910",
+    "deepseek-v4-flash",
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite",
+    "gpt-4o-mini",
+    "gpt-5-mini",
+    "gpt-5.4-nano"
+  ],
+  "total_runs": 1252
 }

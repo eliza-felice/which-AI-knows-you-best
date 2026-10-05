@@ -188,6 +188,12 @@ If you're unsure, try `json_schema` with `python src/run_one_shot.py base`. If
 it fails, switch to `json_object`. Retries are recorded in the `retries`
 column of the results.
 
+Known cases: MiniMax rejects `json_schema` (use `json_object`), and writes its
+reasoning in `<think>...</think>` before the answer; the code skips that
+block. A `403` error saying the token has no permission for a model means the
+API key isn't allowed to use it: enable the model for the key at the API
+provider (this happened with `grok-4-fast-reasoning`).
+
 **Repetitions:** `NUM_REPETITIONS` near the top of
 [`src/personality_lab.py`](src/personality_lab.py) (default 5).
 
@@ -206,6 +212,8 @@ src/
   run_one_by_one.py       /
   progress.py             what has been run so far
   plot_results.py         charts and summary table
+  export_for_web.py       copies questions, prompt and study findings into web/
+web/                      the web app ("Which AI Knows You Best?"); see web/README.md
 experiment_data/<model>/<mode>/<persona>/<date>.csv        raw results
 graphs/                                                     generated charts
 ```

@@ -26,6 +26,7 @@ import re
 import threading
 import time
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 
@@ -54,7 +55,18 @@ NUM_REPETITIONS = 5
 MAX_ATTEMPTS = 3  # Per batch, for API errors or unusable answers.
 # How many models run_step.py runs at the same time. Lower it if the API
 # provider starts rejecting requests for being too frequent.
-MAX_PARALLEL_MODELS = 7
+MAX_PARALLEL_MODELS = 12
+
+# Every API call is independent (no conversation history), so within one
+# experiment the repetitions, and the batches within a repetition, can run at
+# the same time without changing the results. This matters for slow
+# "reasoning" models, which take 20-45 seconds even for one question.
+PARALLEL_REPETITIONS = 5   # repetitions of one experiment at once
+PARALLEL_BATCHES = 6       # batches of one repetition at once
+# Cap on API calls in flight from this process, whatever the above add up to.
+# Lower it if the API provider starts rejecting requests.
+MAX_CALLS_IN_FLIGHT = 40
+CALLS_IN_FLIGHT = threading.BoundedSemaphore(MAX_CALLS_IN_FLIGHT)
 
 # Set (by Ctrl+C in run_step.py) to make running experiments stop at the
 # next API call.
@@ -611,12 +623,18 @@ def build_request_format(batch, response_format):
 
 def parse_answers(content):
     """Pull {question_id: rating} out of a reply, tolerating extra text."""
-    match = re.search(r"\{.*\}", content or "", re.DOTALL)
+    # Some reasoning models (e.g. MiniMax) write their thinking, braces and
+    # all, in <think>...</think> before the answer.
+    content = re.sub(r"<think>.*?</think>", "", content or "", flags=re.DOTALL)
+    match = re.search(r"\{.*\}", content, re.DOTALL)
     if not match:
         raise ValueError(f"No JSON object in reply: {(content or '')[:200]!r}")
     answers = {}
     for question_id, answer in json.loads(match.group()).items():
         if isinstance(answer, float) and answer.is_integer():
+            answer = int(answer)
+        # Some models (e.g. Claude via the gateway) write ratings as text: "-1".
+        if isinstance(answer, str) and re.fullmatch(r"\s*[+-]?\d+\s*", answer):
             answer = int(answer)
         answers[int(question_id)] = answer
     return answers
@@ -634,11 +652,12 @@ def ask_batch(client, model, model_settings, system_prompt, batch):
             messages = [{"role": "user", "content": build_user_prompt(batch)}]
             if system_prompt:  # None for the no-persona control.
                 messages.insert(0, {"role": "system", "content": system_prompt})
-            result = client.chat.completions.create(
-                model=model,
-                messages=messages,
-                **extra,
-            )
+            with CALLS_IN_FLIGHT:
+                result = client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    **extra,
+                )
             answers = parse_answers(result.choices[0].message.content)
             if validate_responses(answers, batch):
                 return answers, attempt
@@ -659,14 +678,18 @@ def run_persona_experiment(client, model, model_settings, system_prompt, questio
     retries = 0
     batches = [questions[i:i + batch_size] for i in range(0, len(questions), batch_size)]
 
-    for batch_number, batch in enumerate(batches, start=1):
+    def ask(batch):
         if STOP.is_set():
             raise Stopped()
-        if not quiet:
-            print(f"  Answering batch {batch_number}/{len(batches)}...")
-        answers, attempts = ask_batch(client, model, model_settings, system_prompt, batch)
-        responses.update(answers)
-        retries += attempts - 1
+        return ask_batch(client, model, model_settings, system_prompt, batch)
+
+    if not quiet and len(batches) > 1:
+        print(f"  Answering {len(batches)} batches, up to {PARALLEL_BATCHES} at a time...")
+    with ThreadPoolExecutor(min(PARALLEL_BATCHES, len(batches))) as pool:
+        # map raises the first failure; the order of batches doesn't matter.
+        for answers, attempts in pool.map(ask, batches):
+            responses.update(answers)
+            retries += attempts - 1
 
     if not validate_responses(responses, questions):
         raise ValueError("The model returned an invalid set of answers.")
@@ -912,48 +935,55 @@ def run_experiment(model, model_settings, mode_name, chunk_size, persona_name,
 
     experiment_results = []
     answer_rows = []
-    for run_id in range(1, repetitions + 1):
-        if not quiet:
-            print(f"Repetition {run_id}/{repetitions}...")
-        result = run_persona_experiment(
-            client,
-            model,
-            model_settings,
-            system_prompt,
-            questions,
-            chunk_size,
-            quiet,
+
+    def one_repetition():
+        return run_persona_experiment(
+            client, model, model_settings, system_prompt, questions, chunk_size, quiet=True,
         )
-        if quiet:
-            print(f"{label}: repetition {run_id}/{repetitions} done "
-                  f"({result['personality_type']})")
 
-        flattened_result = {
-            "run_id": run_id,
-        }
-        flattened_result["personality_type"] = result["personality_type"]
-        for dim, dimension_percentages in result["percentages"].items():
-            for side, value in dimension_percentages.items():
-                flattened_result[f"percentage_{dim}_{side}"] = value
+    if not quiet:
+        print(f"Running {repetitions} repetitions, up to {PARALLEL_REPETITIONS} at a time...")
+    with ThreadPoolExecutor(min(PARALLEL_REPETITIONS, repetitions)) as pool:
+        futures = [pool.submit(one_repetition) for _ in range(repetitions)]
+        failure = None
+        # Save each repetition as it finishes, numbered in finishing order.
+        for future in as_completed(futures):
+            try:
+                result = future.result()
+            except Exception as error:  # Keep the finished ones, then report it.
+                failure = failure or error
+                continue
+            run_id = len(experiment_results) + 1
+            print(f"{label}: repetition {run_id}/{repetitions} done ({result['personality_type']})")
 
-        flattened_result["experiment_mode"] = mode_name
-        flattened_result["persona_name"] = persona_name
-        flattened_result["varied_attribute"] = varied_attribute
-        flattened_result["model"] = model
-        flattened_result["retries"] = result["retries"]
-        for key, value in persona.items():
-            flattened_result[f"persona_{key}"] = value
-        # Every individual answer (-3 to +3), one column per statement, e.g.
-        # answer_1. Lets you check consistency and compare answer by answer.
-        for question in questions:
-            flattened_result[f"answer_{question['id']}"] = result["answers"][question["id"]]
+            flattened_result = {
+                "run_id": run_id,
+            }
+            flattened_result["personality_type"] = result["personality_type"]
+            for dim, dimension_percentages in result["percentages"].items():
+                for side, value in dimension_percentages.items():
+                    flattened_result[f"percentage_{dim}_{side}"] = value
 
-        experiment_results.append(flattened_result)
-        pd.DataFrame(experiment_results).to_csv(output_path, index=False)
-        answer_rows += readable_answers(run_id, result["answers"])
-        # utf-8-sig so Excel shows apostrophes and dashes correctly.
-        pd.DataFrame(answer_rows).to_csv(answers_path, index=False,
-                                         encoding="utf-8-sig")
+            flattened_result["experiment_mode"] = mode_name
+            flattened_result["persona_name"] = persona_name
+            flattened_result["varied_attribute"] = varied_attribute
+            flattened_result["model"] = model
+            flattened_result["retries"] = result["retries"]
+            for key, value in persona.items():
+                flattened_result[f"persona_{key}"] = value
+            # Every individual answer (-3 to +3), one column per statement, e.g.
+            # answer_1. Lets you check consistency and compare answer by answer.
+            for question in questions:
+                flattened_result[f"answer_{question['id']}"] = result["answers"][question["id"]]
+
+            experiment_results.append(flattened_result)
+            pd.DataFrame(experiment_results).to_csv(output_path, index=False)
+            answer_rows += readable_answers(run_id, result["answers"])
+            # utf-8-sig so Excel shows apostrophes and dashes correctly.
+            pd.DataFrame(answer_rows).to_csv(answers_path, index=False,
+                                             encoding="utf-8-sig")
+    if failure:
+        raise failure
 
     if quiet:
         return

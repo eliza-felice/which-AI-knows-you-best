@@ -130,7 +130,7 @@ Pressed state moves the button 1px down. Focus state is a 2px `ink` outline offs
 - While models are guessing: characters scribble behind raised hands, looping.
 - Respect `prefers-reduced-motion`: turn off boiling and hops, keep simple fades.
 
-## 9. Screen notes
+## 8. Screen notes
 
 | Step | Background | Illustration | Notes |
 | --- | --- | --- | --- |

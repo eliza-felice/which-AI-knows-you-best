@@ -187,7 +187,11 @@ function Note({ r, profile, user }: { r: Ranked; profile: UserProfile; user: Pro
           &rdquo;
         </blockquote>
       ) : (
-        <p className="mt-1 text-ink-soft">This AI didn&rsquo;t write a note.</p>
+        <p className="mt-1 text-ink-soft">
+          {r.source === "study"
+            ? "Your profile matches one we tested in our study, so this guess is one of that AI's saved answers from the study, where the AIs didn't write notes."
+            : "This AI didn't write a note."}
+        </p>
       )}
       <p className="mt-3 text-sm text-ink-soft">
         {facts.size > 0
@@ -220,8 +224,9 @@ function WhatTheyUsed({ ranked, profile }: { ranked: Ranked[]; profile: UserProf
   if (rated.length === 0) {
     return (
       <p className="text-ink-soft">
-        These guesses were made before the AIs started rating what shaped them, so we can&rsquo;t show what they say
-        they went on. Start over to see it.
+        {ranked.every((r) => r.source === "study")
+          ? "Your profile matches one we tested in our study, so these guesses are the AIs' saved answers from it. In the study they didn't rate what shaped their answers, so we can't show what they say they went on."
+          : "These guesses were made before the AIs started rating what shaped them, so we can't show what they say they went on. Start over to see it."}
       </p>
     );
   }
