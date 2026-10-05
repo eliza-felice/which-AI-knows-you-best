@@ -1,0 +1,368 @@
+{
+  "exported": "2026-10-05",
+  "mode": "one_shot",
+  "base_persona": {
+    "age": 40,
+    "gender": "female",
+    "nationality": "Singaporean",
+    "occupation": "software engineer"
+  },
+  "tested_values": {
+    "age": [
+      20,
+      30,
+      40,
+      50,
+      60,
+      70
+    ],
+    "gender": [
+      "female",
+      "male"
+    ],
+    "nationality": [
+      "Singaporean",
+      "American",
+      "British",
+      "Chinese",
+      "Indian"
+    ],
+    "occupation": [
+      "software engineer",
+      "nurse",
+      "primary school teacher",
+      "accountant",
+      "artist",
+      "salesperson",
+      "construction worker",
+      "lawyer"
+    ]
+  },
+  "models": {
+    "gpt-4o-mini": {
+      "no_persona": {
+        "EI": 70.5,
+        "SN": 21.1,
+        "TF": 44.2,
+        "JP": 69.7,
+        "AT": 63.1
+      },
+      "no_persona_runs": 10,
+      "base": {
+        "EI": 61.5,
+        "SN": 29.8,
+        "TF": 43.5,
+        "JP": 68.8,
+        "AT": 62.9
+      },
+      "base_runs": 10
+    },
+    "gpt-5-mini": {
+      "no_persona": {
+        "EI": 38.2,
+        "SN": 21.7,
+        "TF": 51.8,
+        "JP": 70.0,
+        "AT": 88.3
+      },
+      "no_persona_runs": 10,
+      "base": {
+        "EI": 26.2,
+        "SN": 36.0,
+        "TF": 42.6,
+        "JP": 70.8,
+        "AT": 58.3
+      },
+      "base_runs": 10
+    },
+    "gpt-5.4-nano": {
+      "no_persona": {
+        "EI": 55.8,
+        "SN": 34.5,
+        "TF": 46.6,
+        "JP": 66.8,
+        "AT": 64.0
+      },
+      "no_persona_runs": 10,
+      "base": {
+        "EI": 52.8,
+        "SN": 34.6,
+        "TF": 47.5,
+        "JP": 69.2,
+        "AT": 64.9
+      },
+      "base_runs": 10
+    },
+    "gemini-3.1-flash-lite": {
+      "no_persona": {
+        "EI": 49.0,
+        "SN": 0.0,
+        "TF": 41.7,
+        "JP": 89.2,
+        "AT": 100.0
+      },
+      "no_persona_runs": 10,
+      "base": {
+        "EI": 20.7,
+        "SN": 26.3,
+        "TF": 49.4,
+        "JP": 84.0,
+        "AT": 65.7
+      },
+      "base_runs": 10
+    },
+    "gemini-3.5-flash-lite": {
+      "no_persona": {
+        "EI": 48.0,
+        "SN": 2.0,
+        "TF": 41.7,
+        "JP": 82.4,
+        "AT": 96.5
+      },
+      "no_persona_runs": 10,
+      "base": {
+        "EI": 20.2,
+        "SN": 26.5,
+        "TF": 50.6,
+        "JP": 84.1,
+        "AT": 66.5
+      },
+      "base_runs": 10
+    },
+    "deepseek-v4-flash": {
+      "no_persona": {
+        "EI": 27.0,
+        "SN": 19.1,
+        "TF": 53.2,
+        "JP": 66.7,
+        "AT": 86.4
+      },
+      "no_persona_runs": 10,
+      "base": {
+        "EI": 21.1,
+        "SN": 23.7,
+        "TF": 44.8,
+        "JP": 69.9,
+        "AT": 63.4
+      },
+      "base_runs": 10
+    },
+    "deepseek-v4-1-flash-260910": {
+      "no_persona": {
+        "EI": 25.8,
+        "SN": 15.8,
+        "TF": 52.1,
+        "JP": 72.3,
+        "AT": 84.3
+      },
+      "no_persona_runs": 10,
+      "base": {
+        "EI": 19.3,
+        "SN": 23.6,
+        "TF": 46.2,
+        "JP": 74.2,
+        "AT": 63.0
+      },
+      "base_runs": 10
+    },
+    "claude-haiku-4-5-20251001": {
+      "no_persona": {
+        "EI": 42.3,
+        "SN": 17.2,
+        "TF": 39.4,
+        "JP": 50.3,
+        "AT": 55.0
+      },
+      "no_persona_runs": 5,
+      "base": {
+        "EI": 47.0,
+        "SN": 32.3,
+        "TF": 41.1,
+        "JP": 75.6,
+        "AT": 50.8
+      },
+      "base_runs": 5
+    },
+    "glm-5.2": {
+      "no_persona": {
+        "EI": 13.3,
+        "SN": 0.0,
+        "TF": 36.1,
+        "JP": 23.1,
+        "AT": 59.7
+      },
+      "no_persona_runs": 1,
+      "base": {
+        "EI": 23.3,
+        "SN": 25.6,
+        "TF": 51.1,
+        "JP": 52.8,
+        "AT": 44.7
+      },
+      "base_runs": 5
+    },
+    "qwen3.6-flash": {
+      "no_persona": {
+        "EI": 39.1,
+        "SN": 19.2,
+        "TF": 57.0,
+        "JP": 74.3,
+        "AT": 75.0
+      },
+      "no_persona_runs": 2,
+      "base": {
+        "EI": 34.3,
+        "SN": 30.3,
+        "TF": 62.5,
+        "JP": 78.2,
+        "AT": 69.4
+      },
+      "base_runs": 5
+    }
+  },
+  "attribute_effect": {
+    "occupation": 11.9,
+    "age": 4.5,
+    "gender": 3.1,
+    "nationality": 2.5
+  },
+  "model_adherence": {
+    "deepseek-v4-1-flash-260910": 8.9,
+    "deepseek-v4-flash": 9.6,
+    "gemini-3.1-flash-lite": 8.6,
+    "gemini-3.5-flash-lite": 8.6,
+    "gpt-4o-mini": 2.7,
+    "gpt-5-mini": 7.9,
+    "gpt-5.4-nano": 2.8
+  },
+  "persona_shifts": {
+    "age": {
+      "20": {
+        "AT": -10.5,
+        "EI": 3.3,
+        "JP": -8.9,
+        "SN": -2.8,
+        "TF": -4.1
+      },
+      "30": {
+        "AT": -5.6,
+        "EI": 2.9,
+        "JP": -2.7,
+        "SN": -2.3,
+        "TF": -1.3
+      },
+      "50": {
+        "AT": 5.0,
+        "EI": -1.2,
+        "JP": 3.8,
+        "SN": 3.9,
+        "TF": 1.7
+      },
+      "60": {
+        "AT": 6.8,
+        "EI": -0.6,
+        "JP": 6.2,
+        "SN": 2.3,
+        "TF": -0.0
+      },
+      "70": {
+        "AT": 10.6,
+        "EI": 0.1,
+        "JP": 6.9,
+        "SN": -1.5,
+        "TF": 1.1
+      }
+    },
+    "gender": {
+      "male": {
+        "AT": 2.4,
+        "EI": -2.0,
+        "JP": -1.0,
+        "SN": 3.0,
+        "TF": 5.0
+      }
+    },
+    "nationality": {
+      "American": {
+        "AT": 0.2,
+        "EI": 2.0,
+        "JP": 0.4,
+        "SN": -4.9,
+        "TF": -1.3
+      },
+      "British": {
+        "AT": -0.3,
+        "EI": 0.9,
+        "JP": -0.9,
+        "SN": -4.2,
+        "TF": -0.8
+      },
+      "Chinese": {
+        "AT": -1.7,
+        "EI": -0.9,
+        "JP": 1.6,
+        "SN": 1.4,
+        "TF": 0.6
+      },
+      "Indian": {
+        "AT": -0.9,
+        "EI": 1.2,
+        "JP": 0.3,
+        "SN": -0.2,
+        "TF": -3.5
+      }
+    },
+    "occupation": {
+      "accountant": {
+        "AT": -2.2,
+        "EI": 5.4,
+        "JP": 9.3,
+        "SN": 17.5,
+        "TF": 0.7
+      },
+      "artist": {
+        "AT": -20.7,
+        "EI": 7.9,
+        "JP": -37.8,
+        "SN": -13.8,
+        "TF": -17.7
+      },
+      "construction worker": {
+        "AT": 4.9,
+        "EI": 18.9,
+        "JP": 2.4,
+        "SN": 30.8,
+        "TF": 2.0
+      },
+      "lawyer": {
+        "AT": 3.5,
+        "EI": 18.0,
+        "JP": 8.5,
+        "SN": 5.0,
+        "TF": 5.7
+      },
+      "nurse": {
+        "AT": 0.3,
+        "EI": 19.1,
+        "JP": 4.4,
+        "SN": 13.2,
+        "TF": -12.3
+      },
+      "primary school teacher": {
+        "AT": -6.8,
+        "EI": 21.9,
+        "JP": 3.2,
+        "SN": 8.9,
+        "TF": -12.2
+      },
+      "salesperson": {
+        "AT": -1.0,
+        "EI": 46.1,
+        "JP": 1.1,
+        "SN": 13.3,
+        "TF": -7.6
+      }
+    }
+  },
+  "total_runs": 1011
+}

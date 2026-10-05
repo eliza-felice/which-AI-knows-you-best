@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* Design tokens from design.md. The app is always on paper (no dark theme):
+   the sketchbook look is part of the design. */
+@theme {
+  --color-paper: #efede8;
+  --color-cream: #f7f0e3;
+  --color-ink: #141414;
+  --color-ink-soft: #5c5b57;
+  --color-line: #cfcbc2;
+  --color-cobalt: #0b2ea0;
+  --color-cobalt-ink: #f7f0e3;
+  --color-periwinkle: #5b74b8;
+  --color-tomato: #b8343f;
+  --color-plum: #6b3b5e;
+  --color-forest: #2f6b50;
+  --color-mustard: #e2c566;
+  --color-clay: #d98a5f;
+  --color-sky: #9cc3d5;
+
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-hand: var(--font-gochi-hand), "Patrick Hand", cursive;
+
+  --radius-card: 16px;
+  --radius-input: 12px;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Focus: 2px ink outline offset by 2px. On cobalt, cream. */
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+.on-cobalt :focus-visible {
+  outline-color: var(--color-cobalt-ink);
+}
+
+/* Pressed buttons move 1px down. */
+.press:active {
+  transform: translateY(1px);
+}
+
+/* Screen change: slide like turning a sheet. */
+@keyframes turn-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.screen {
+  animation: turn-in 250ms ease-out both;
+}
+
+/* Podium hop with a little squash and stretch. */
+@keyframes hop {
+  0% {
+    transform: translateY(40px) scale(1, 1);
+    opacity: 0;
+  }
+  45% {
+    transform: translateY(-18px) scale(0.92, 1.1);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(0) scale(1.12, 0.88);
+  }
+  100% {
+    transform: none;
+  }
+}
+.hop {
+  animation: hop 650ms ease-out both;
+  transform-origin: bottom center;
+}
+
+/* Characters scribbling while the models guess. */
+@keyframes scribble {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-2px);
+  }
+}
+.scribble {
+  animation: scribble 0.5s steps(2) infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen,
+  .hop {
+    animation: fade-in 200ms ease-out both;
+  }
+  .scribble {
+    animation: none;
+  }
+}

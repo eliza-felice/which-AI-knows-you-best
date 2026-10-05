@@ -1,0 +1,968 @@
+{
+  "system_prompts": [
+    {
+      "persona": {
+        "age": 40,
+        "gender": "female",
+        "nationality": "Singaporean",
+        "occupation": "software engineer"
+      },
+      "prompt": "You are a Singaporean woman in her 40s, working as a software engineer."
+    },
+    {
+      "persona": {
+        "age": 20,
+        "gender": "male",
+        "nationality": "Indian",
+        "occupation": "artist"
+      },
+      "prompt": "You are an Indian man in his 20s, working as an artist."
+    },
+    {
+      "persona": {
+        "age": 70,
+        "gender": "female",
+        "nationality": "American",
+        "occupation": "accountant"
+      },
+      "prompt": "You are an American woman in her 70s, working as an accountant."
+    },
+    {
+      "persona": {
+        "age": 35,
+        "gender": "male",
+        "nationality": "British",
+        "occupation": "nurse"
+      },
+      "prompt": "You are a British man in his 30s, working as a nurse."
+    },
+    {
+      "persona": {
+        "age": 18,
+        "gender": "female",
+        "nationality": "Chinese",
+        "occupation": "student"
+      },
+      "prompt": "You are a Chinese woman aged 18, working as a student."
+    },
+    {
+      "persona": {
+        "age": 59,
+        "gender": "male",
+        "nationality": "Egyptian",
+        "occupation": "electrician"
+      },
+      "prompt": "You are an Egyptian man in his 50s, working as an electrician."
+    },
+    {
+      "persona": {
+        "age": 26,
+        "gender": "non-binary",
+        "nationality": "Irish",
+        "occupation": "office manager"
+      },
+      "prompt": "You are an Irish person in their 20s, working as an office manager."
+    },
+    {
+      "persona": {
+        "age": 44,
+        "gender": "female",
+        "nationality": "Ukrainian",
+        "occupation": "engineer"
+      },
+      "prompt": "You are an Ukrainian woman in her 40s, working as an engineer."
+    },
+    {
+      "persona": {
+        "age": 13,
+        "gender": "male",
+        "nationality": "Australian",
+        "occupation": "student"
+      },
+      "prompt": "You are an Australian man aged 13, working as a student."
+    },
+    {
+      "persona": {
+        "age": 81,
+        "gender": "female",
+        "nationality": "Indonesian",
+        "occupation": "retired teacher"
+      },
+      "prompt": "You are an Indonesian woman in her 80s, working as a retired teacher."
+    }
+  ],
+  "no_persona_prompt": null,
+  "user_prompt": "Rate how much you agree with each statement, answering as yourself.\nUse this scale:\n-3 = strongly disagree, -2 = disagree, -1 = slightly disagree, 0 = neutral,\n1 = slightly agree, 2 = agree, 3 = strongly agree.\nReply with only a JSON object that maps each statement number to your rating, like {\"12\": 2}.\n\nStatements:\n1. You regularly make new friends.\n2. You avoid making phone calls.\n3. At social events, you rarely try to introduce yourself to new people and mostly talk to those you already know.\n4. You feel more energetic after spending time with a group of people.\n5. You enjoy participating in group activities.\n6. You lean towards being an introvert.\n7. In your social circle, you are often the one who contacts your friends and initiates activities.\n10. You enjoy going to social events that involve dressing up or role-playing.\n11. You look forward to a long, solitary walk or a quiet afternoon with a book.\n12. You find it easy to walk up to a group of people and join their conversation.\n13. You enjoy exploring unfamiliar ideas and viewpoints.\n14. You spend a lot of your free time exploring various random topics that pique your interest.\n15. You are more interested in what is possible than what is actual.\n16. You easily lose track of time when contemplating abstract concepts.\n17. You prefer tasks that have a clear, practical approach over conceptual ones.\n18. You often find yourself daydreaming about various ideas or scenarios.\n19. You are more interested in theories than in practical facts.\n20. You rarely spend time thinking about how mankind could improve.\n21. You are fascinated by art, writing, or cinema.\n22. You find it difficult to focus on a single conceptual thought for a long period of time.\n23. You enjoy thinking about the complex layers of human existence.\n24. You frequently contemplate the reasons behind why things happen.\n36. You consider yourself more realistic than visionary.\n25. You are not easily swayed by emotional arguments.\n26. Your emotions control you more than you control them.\n27. You lean towards protecting your principles even if it means damaging a relationship.\n28. You find it easy to empathize with a person whose experiences are very different from yours.\n29. Being right is more important than being cooperative when it comes to teamwork.\n30. You prioritize logic over raw human emotion when making tough calls.\n31. You worry about how your actions affect other people.\n32. You find yourself deeply moved by a sad movie, song, or story.\n33. You believe that heavy reliance on logic can make a person cold and detached.\n34. You often put others' needs before your own.\n35. You value justice higher than mercy.\n8. If your friend is sad about something, you are more likely to offer emotional support than suggest ways to deal with the problem.\n37. You struggle with deadlines.\n38. You like to have a detailed plan before starting a project.\n39. You often leave things undone until the last possible moment.\n40. Your living and working spaces are very clean and organized.\n41. You prefer to adapt dynamically rather than follow a strict schedule.\n42. You make lists of things you need to accomplish during the day or week.\n43. You rarely plan your actions far in advance.\n44. You feel uncomfortable when a situation is left open or unresolved.\n45. You like to keep your options open rather than committing to a firm choice too early.\n46. You always make sure your duties are taken care of before you sit down to relax.\n47. You find it easy to stick to your study or work schedule.\n48. You often misplace your belongings or struggle to keep track of them.\n9. You prefer to completely finish one project before starting another.\n49. You rarely feel insecure.\n50. You worry about whether you make a good impression on people.\n51. You usually feel calm even under extreme pressure.\n52. You frequently second-guess the choices you've made.\n53. You easily feel overwhelmed by stressful situations.\n54. You are highly prone to experiencing mood swings.\n55. You care deeply about what other people think of you.\n56. You often feel like you have to defend your choices or actions to others.\n57. You are confident that things will work out well for you in the end.\n58. You frequently dwell on past mistakes or regrets.\n59. You consider yourself to be relatively stable emotionally.\n60. You are easily discouraged when someone criticizes your work.",
+  "scoring": [
+    {
+      "answers": {
+        "1": 2,
+        "2": -3,
+        "3": -3,
+        "4": 2,
+        "5": -1,
+        "6": -2,
+        "7": -2,
+        "10": -2,
+        "11": 2,
+        "12": -3,
+        "13": 2,
+        "14": 2,
+        "15": 1,
+        "16": -3,
+        "17": 1,
+        "18": 0,
+        "19": -3,
+        "20": -3,
+        "21": -3,
+        "22": -2,
+        "23": -2,
+        "24": 1,
+        "36": 1,
+        "25": -3,
+        "26": 1,
+        "27": -2,
+        "28": 2,
+        "29": 2,
+        "30": 2,
+        "31": 1,
+        "32": 0,
+        "33": -2,
+        "34": 0,
+        "35": 1,
+        "8": -1,
+        "37": 3,
+        "38": 3,
+        "39": -3,
+        "40": 3,
+        "41": 3,
+        "42": -2,
+        "43": 2,
+        "44": 0,
+        "45": -1,
+        "46": -1,
+        "47": -2,
+        "48": -2,
+        "9": 3,
+        "49": -1,
+        "50": -3,
+        "51": -3,
+        "52": 0,
+        "53": -3,
+        "54": -1,
+        "55": 3,
+        "56": -1,
+        "57": 1,
+        "58": -1,
+        "59": 3,
+        "60": -3
+      },
+      "percentages": {
+        "EI": {
+          "E": 53.3,
+          "I": 46.7
+        },
+        "SN": {
+          "S": 52.6,
+          "N": 47.4
+        },
+        "TF": {
+          "T": 48.6,
+          "F": 51.4
+        },
+        "JP": {
+          "J": 52.6,
+          "P": 47.4
+        },
+        "AT": {
+          "A": 62.5,
+          "T": 37.5
+        }
+      },
+      "type": "ESFJA"
+    },
+    {
+      "answers": {
+        "1": 2,
+        "2": 0,
+        "3": 1,
+        "4": -3,
+        "5": 0,
+        "6": -3,
+        "7": 1,
+        "10": -1,
+        "11": 3,
+        "12": 2,
+        "13": 1,
+        "14": 3,
+        "15": -1,
+        "16": 1,
+        "17": -2,
+        "18": 2,
+        "19": -3,
+        "20": -3,
+        "21": 2,
+        "22": -2,
+        "23": 3,
+        "24": -1,
+        "36": -3,
+        "25": 3,
+        "26": -2,
+        "27": 3,
+        "28": -3,
+        "29": 0,
+        "30": -1,
+        "31": 0,
+        "32": 2,
+        "33": 3,
+        "34": -1,
+        "35": -2,
+        "8": -1,
+        "37": -1,
+        "38": -2,
+        "39": 2,
+        "40": -1,
+        "41": 2,
+        "42": 2,
+        "43": 2,
+        "44": -3,
+        "45": 1,
+        "46": 2,
+        "47": -2,
+        "48": 1,
+        "9": 2,
+        "49": -2,
+        "50": -2,
+        "51": 0,
+        "52": 0,
+        "53": -1,
+        "54": 2,
+        "55": 2,
+        "56": 1,
+        "57": -2,
+        "58": 2,
+        "59": -1,
+        "60": 3
+      },
+      "percentages": {
+        "EI": {
+          "E": 50.0,
+          "I": 50.0
+        },
+        "SN": {
+          "S": 28.2,
+          "N": 71.8
+        },
+        "TF": {
+          "T": 56.9,
+          "F": 43.1
+        },
+        "JP": {
+          "J": 38.5,
+          "P": 61.5
+        },
+        "AT": {
+          "A": 33.3,
+          "T": 66.7
+        }
+      },
+      "type": "ENTPT"
+    },
+    {
+      "answers": {
+        "1": 3,
+        "2": 3,
+        "3": -3,
+        "4": -2,
+        "5": 3,
+        "6": -3,
+        "7": 3,
+        "10": -1,
+        "11": 0,
+        "12": -1,
+        "13": -3,
+        "14": -2,
+        "15": 1,
+        "16": 2,
+        "17": -1,
+        "18": -2,
+        "19": 2,
+        "20": 0,
+        "21": 0,
+        "22": 2,
+        "23": 0,
+        "24": -2,
+        "36": -1,
+        "25": -2,
+        "26": -2,
+        "27": 2,
+        "28": 1,
+        "29": 1,
+        "30": -1,
+        "31": 2,
+        "32": 1,
+        "33": 0,
+        "34": 1,
+        "35": 0,
+        "8": -1,
+        "37": -2,
+        "38": -2,
+        "39": 1,
+        "40": 0,
+        "41": -3,
+        "42": 3,
+        "43": -3,
+        "44": 3,
+        "45": -3,
+        "46": -2,
+        "47": 2,
+        "48": -2,
+        "9": 3,
+        "49": 2,
+        "50": 0,
+        "51": 1,
+        "52": -3,
+        "53": 0,
+        "54": 0,
+        "55": 1,
+        "56": 0,
+        "57": 1,
+        "58": -1,
+        "59": 1,
+        "60": 3
+      },
+      "percentages": {
+        "EI": {
+          "E": 63.3,
+          "I": 36.7
+        },
+        "SN": {
+          "S": 55.1,
+          "N": 44.9
+        },
+        "TF": {
+          "T": 47.2,
+          "F": 52.8
+        },
+        "JP": {
+          "J": 74.4,
+          "P": 25.6
+        },
+        "AT": {
+          "A": 56.9,
+          "T": 43.1
+        }
+      },
+      "type": "ESFJA"
+    },
+    {
+      "answers": {
+        "1": -3,
+        "2": 2,
+        "3": 2,
+        "4": -3,
+        "5": 2,
+        "6": 1,
+        "7": 3,
+        "10": -1,
+        "11": 3,
+        "12": 2,
+        "13": -1,
+        "14": -3,
+        "15": -1,
+        "16": 0,
+        "17": -2,
+        "18": 0,
+        "19": -3,
+        "20": 2,
+        "21": 2,
+        "22": -1,
+        "23": 1,
+        "24": 3,
+        "36": -2,
+        "25": 1,
+        "26": -3,
+        "27": 3,
+        "28": 2,
+        "29": -1,
+        "30": 3,
+        "31": 2,
+        "32": 1,
+        "33": 1,
+        "34": -2,
+        "35": -2,
+        "8": -1,
+        "37": 3,
+        "38": -2,
+        "39": 1,
+        "40": 3,
+        "41": 1,
+        "42": -3,
+        "43": 1,
+        "44": -1,
+        "45": 0,
+        "46": -3,
+        "47": -3,
+        "48": -1,
+        "9": 3,
+        "49": 3,
+        "50": -1,
+        "51": -2,
+        "52": -3,
+        "53": -2,
+        "54": 1,
+        "55": -3,
+        "56": -3,
+        "57": 2,
+        "58": 0,
+        "59": 3,
+        "60": -3
+      },
+      "percentages": {
+        "EI": {
+          "E": 36.7,
+          "I": 63.3
+        },
+        "SN": {
+          "S": 48.7,
+          "N": 51.3
+        },
+        "TF": {
+          "T": 55.6,
+          "F": 44.4
+        },
+        "JP": {
+          "J": 35.9,
+          "P": 64.1
+        },
+        "AT": {
+          "A": 77.8,
+          "T": 22.2
+        }
+      },
+      "type": "INTPA"
+    },
+    {
+      "answers": {
+        "1": 3,
+        "2": 1,
+        "3": 3,
+        "4": -2,
+        "5": -2,
+        "6": 2,
+        "7": 0,
+        "10": 1,
+        "11": -2,
+        "12": -1,
+        "13": 1,
+        "14": 3,
+        "15": 1,
+        "16": 0,
+        "17": -2,
+        "18": 1,
+        "19": 3,
+        "20": 2,
+        "21": 2,
+        "22": -2,
+        "23": 2,
+        "24": -1,
+        "36": 0,
+        "25": 2,
+        "26": 2,
+        "27": -1,
+        "28": 0,
+        "29": 1,
+        "30": 0,
+        "31": -3,
+        "32": -2,
+        "33": -2,
+        "34": -3,
+        "35": -1,
+        "8": -3,
+        "37": 1,
+        "38": 1,
+        "39": -2,
+        "40": 1,
+        "41": -2,
+        "42": -3,
+        "43": -3,
+        "44": 2,
+        "45": 2,
+        "46": -3,
+        "47": -2,
+        "48": -3,
+        "9": -3,
+        "49": 3,
+        "50": -1,
+        "51": -3,
+        "52": 1,
+        "53": -2,
+        "54": -1,
+        "55": 2,
+        "56": 0,
+        "57": -2,
+        "58": 1,
+        "59": -2,
+        "60": 2
+      },
+      "percentages": {
+        "EI": {
+          "E": 41.7,
+          "I": 58.3
+        },
+        "SN": {
+          "S": 32.1,
+          "N": 67.9
+        },
+        "TF": {
+          "T": 66.7,
+          "F": 33.3
+        },
+        "JP": {
+          "J": 50.0,
+          "P": 50.0
+        },
+        "AT": {
+          "A": 41.7,
+          "T": 58.3
+        }
+      },
+      "type": "INTJT"
+    },
+    {
+      "answers": {
+        "1": 1,
+        "2": 1,
+        "3": 0,
+        "4": -2,
+        "5": 3,
+        "6": 0,
+        "7": 3,
+        "10": 0,
+        "11": -2,
+        "12": -3,
+        "13": -3,
+        "14": 2,
+        "15": 0,
+        "16": -1,
+        "17": 0,
+        "18": 0,
+        "19": 0,
+        "20": 3,
+        "21": 2,
+        "22": -3,
+        "23": 2,
+        "24": 2,
+        "36": 2,
+        "25": -3,
+        "26": -3,
+        "27": 0,
+        "28": 2,
+        "29": -1,
+        "30": 3,
+        "31": 3,
+        "32": -3,
+        "33": -2,
+        "34": -2,
+        "35": -2,
+        "8": 1,
+        "37": 0,
+        "38": -2,
+        "39": 0,
+        "40": -2,
+        "41": -1,
+        "42": 0,
+        "43": -2,
+        "44": 3,
+        "45": -3,
+        "46": 0,
+        "47": 3,
+        "48": 3,
+        "9": 3,
+        "49": 1,
+        "50": -3,
+        "51": -3,
+        "52": 2,
+        "53": 1,
+        "54": 3,
+        "55": -3,
+        "56": -3,
+        "57": 3,
+        "58": 3,
+        "59": -2,
+        "60": -2
+      },
+      "percentages": {
+        "EI": {
+          "E": 55.0,
+          "I": 45.0
+        },
+        "SN": {
+          "S": 47.4,
+          "N": 52.6
+        },
+        "TF": {
+          "T": 51.4,
+          "F": 48.6
+        },
+        "JP": {
+          "J": 60.3,
+          "P": 39.7
+        },
+        "AT": {
+          "A": 51.4,
+          "T": 48.6
+        }
+      },
+      "type": "ENTJA"
+    },
+    {
+      "answers": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": -2,
+        "5": 3,
+        "6": 0,
+        "7": -3,
+        "10": -2,
+        "11": 0,
+        "12": -3,
+        "13": 0,
+        "14": -1,
+        "15": 3,
+        "16": 3,
+        "17": 0,
+        "18": -1,
+        "19": 0,
+        "20": 2,
+        "21": 2,
+        "22": 3,
+        "23": 1,
+        "24": 2,
+        "36": 2,
+        "25": 0,
+        "26": -2,
+        "27": -2,
+        "28": -1,
+        "29": -2,
+        "30": -3,
+        "31": 1,
+        "32": 2,
+        "33": 1,
+        "34": -3,
+        "35": 2,
+        "8": -1,
+        "37": -3,
+        "38": -3,
+        "39": 1,
+        "40": 0,
+        "41": 1,
+        "42": 3,
+        "43": 1,
+        "44": -2,
+        "45": -3,
+        "46": 1,
+        "47": -3,
+        "48": 3,
+        "9": -2,
+        "49": -3,
+        "50": 1,
+        "51": -3,
+        "52": 2,
+        "53": 3,
+        "54": -2,
+        "55": 0,
+        "56": -3,
+        "57": 1,
+        "58": -2,
+        "59": 1,
+        "60": 1
+      },
+      "percentages": {
+        "EI": {
+          "E": 38.3,
+          "I": 61.7
+        },
+        "SN": {
+          "S": 47.4,
+          "N": 52.6
+        },
+        "TF": {
+          "T": 47.2,
+          "F": 52.8
+        },
+        "JP": {
+          "J": 42.3,
+          "P": 57.7
+        },
+        "AT": {
+          "A": 44.4,
+          "T": 55.6
+        }
+      },
+      "type": "INFPT"
+    },
+    {
+      "answers": {
+        "1": -3,
+        "2": 1,
+        "3": -3,
+        "4": 0,
+        "5": 2,
+        "6": 1,
+        "7": 1,
+        "10": 1,
+        "11": -1,
+        "12": -1,
+        "13": -2,
+        "14": 2,
+        "15": 2,
+        "16": -1,
+        "17": -2,
+        "18": -1,
+        "19": 0,
+        "20": -2,
+        "21": 2,
+        "22": 2,
+        "23": -1,
+        "24": 0,
+        "36": -1,
+        "25": 3,
+        "26": -3,
+        "27": -3,
+        "28": 0,
+        "29": 1,
+        "30": 1,
+        "31": -3,
+        "32": -3,
+        "33": 1,
+        "34": -2,
+        "35": 1,
+        "8": -1,
+        "37": -2,
+        "38": -1,
+        "39": -3,
+        "40": -2,
+        "41": -1,
+        "42": -1,
+        "43": -2,
+        "44": 0,
+        "45": 3,
+        "46": 1,
+        "47": 2,
+        "48": -1,
+        "9": 1,
+        "49": 3,
+        "50": 2,
+        "51": 1,
+        "52": -3,
+        "53": 2,
+        "54": 3,
+        "55": 1,
+        "56": -1,
+        "57": 2,
+        "58": -3,
+        "59": -2,
+        "60": -1
+      },
+      "percentages": {
+        "EI": {
+          "E": 53.3,
+          "I": 46.7
+        },
+        "SN": {
+          "S": 44.9,
+          "N": 55.1
+        },
+        "TF": {
+          "T": 69.4,
+          "F": 30.6
+        },
+        "JP": {
+          "J": 57.7,
+          "P": 42.3
+        },
+        "AT": {
+          "A": 55.6,
+          "T": 44.4
+        }
+      },
+      "type": "ENTJA"
+    },
+    {
+      "answers": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3,
+        "5": 3,
+        "6": 3,
+        "7": 3,
+        "10": 3,
+        "11": 3,
+        "12": 3,
+        "13": 3,
+        "14": 3,
+        "15": 3,
+        "16": 3,
+        "17": 3,
+        "18": 3,
+        "19": 3,
+        "20": 3,
+        "21": 3,
+        "22": 3,
+        "23": 3,
+        "24": 3,
+        "36": 3,
+        "25": 3,
+        "26": 3,
+        "27": 3,
+        "28": 3,
+        "29": 3,
+        "30": 3,
+        "31": 3,
+        "32": 3,
+        "33": 3,
+        "34": 3,
+        "35": 3,
+        "8": 3,
+        "37": 3,
+        "38": 3,
+        "39": 3,
+        "40": 3,
+        "41": 3,
+        "42": 3,
+        "43": 3,
+        "44": 3,
+        "45": 3,
+        "46": 3,
+        "47": 3,
+        "48": 3,
+        "9": 3,
+        "49": 3,
+        "50": 3,
+        "51": 3,
+        "52": 3,
+        "53": 3,
+        "54": 3,
+        "55": 3,
+        "56": 3,
+        "57": 3,
+        "58": 3,
+        "59": 3,
+        "60": 3
+      },
+      "percentages": {
+        "EI": {
+          "E": 60.0,
+          "I": 40.0
+        },
+        "SN": {
+          "S": 30.8,
+          "N": 69.2
+        },
+        "TF": {
+          "T": 41.7,
+          "F": 58.3
+        },
+        "JP": {
+          "J": 53.8,
+          "P": 46.2
+        },
+        "AT": {
+          "A": 33.3,
+          "T": 66.7
+        }
+      },
+      "type": "ENFJT"
+    },
+    {
+      "answers": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0,
+        "13": 0,
+        "14": 0,
+        "15": 0,
+        "16": 0,
+        "17": 0,
+        "18": 0,
+        "19": 0,
+        "20": 0,
+        "21": 0,
+        "22": 0,
+        "23": 0,
+        "24": 0,
+        "36": 0,
+        "25": 0,
+        "26": 0,
+        "27": 0,
+        "28": 0,
+        "29": 0,
+        "30": 0,
+        "31": 0,
+        "32": 0,
+        "33": 0,
+        "34": 0,
+        "35": 0,
+        "8": 0,
+        "37": 0,
+        "38": 0,
+        "39": 0,
+        "40": 0,
+        "41": 0,
+        "42": 0,
+        "43": 0,
+        "44": 0,
+        "45": 0,
+        "46": 0,
+        "47": 0,
+        "48": 0,
+        "9": 0,
+        "49": 0,
+        "50": 0,
+        "51": 0,
+        "52": 0,
+        "53": 0,
+        "54": 0,
+        "55": 0,
+        "56": 0,
+        "57": 0,
+        "58": 0,
+        "59": 0,
+        "60": 0
+      },
+      "percentages": {
+        "EI": {
+          "E": 50.0,
+          "I": 50.0
+        },
+        "SN": {
+          "S": 50.0,
+          "N": 50.0
+        },
+        "TF": {
+          "T": 50.0,
+          "F": 50.0
+        },
+        "JP": {
+          "J": 50.0,
+          "P": 50.0
+        },
+        "AT": {
+          "A": 50.0,
+          "T": 50.0
+        }
+      },
+      "type": "ESTJA"
+    }
+  ]
+}
