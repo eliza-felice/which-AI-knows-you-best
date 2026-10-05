@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Character } from "@/components/Character";
 import { NavBar } from "@/components/NavBar";
+import { Deck, TabPanel, Tabs } from "@/components/Organise";
 import { Button, ChanceNote, HandTitle, LessonBlock, ModelChip, TraitBars } from "@/components/ui";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, type Profile5 } from "@/lib/experiment";
 import {
@@ -22,7 +23,7 @@ import {
 import { CHANCE_GAP, baseline, confidence, sameSide, type Ranked } from "@/lib/match";
 import { modelInfo } from "@/lib/models";
 import type { UserProfile } from "@/lib/profile";
-import type { Session } from "@/lib/session";
+import { track, type Session } from "@/lib/session";
 import study from "@/data/study.json";
 
 // Highlight colours for each fact in the AIs' notes (fills behind ink text).
@@ -47,144 +48,216 @@ export function Results({
 }) {
   const failed = session.predictions.filter((p) => p.status === "failed");
   const profile = session.profile!;
+  const [tab, setTab] = useState<ResultsTab>("ranking");
   const [selected, setSelected] = useState(ranked[0]?.model ?? null);
+  const [showAll, setShowAll] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const selectedRank = ranked.find((r) => r.model === selected);
+  const shown = showAll ? ranked : ranked.slice(0, 3);
+  const hidden = ranked.length - shown.length + (showAll ? 0 : failed.length);
+
+  // The insight cards, in order; the "split" card only when there's a real split.
+  const insights = [
+    { key: "went-on", title: "What they went on", node: <WhatTheyUsed ranked={ranked} profile={profile} /> },
+    { key: "shared", title: "What they all assumed", node: <SharedAssumption ranked={ranked} user={user.profile} /> },
+    ...(ranked.length > 1 && biggestSplit(ranked).range >= 25
+      ? [{ key: "split", title: "Where they split", node: <Split ranked={ranked} /> }]
+      : []),
+    { key: "bold", title: "Bold vs right", node: <BoldVsRight ranked={ranked} /> },
+    { key: "baseline", title: "Did knowing you help?", node: <Baseline ranked={ranked} user={user.profile} /> },
+  ];
+
+  function pickTab(next: ResultsTab) {
+    setTab(next);
+    track("results_tab", { tab: next });
+  }
 
   return (
     <>
       <NavBar current="results" finished />
-      <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-14 px-4 pt-8 pb-16 sm:px-6">
-        <section>
+      <main className="screen mx-auto w-full max-w-2xl flex-1 px-4 pt-6 pb-16 sm:px-6">
+        <header className="mb-4">
           {ranked.length > 0 ? (
             <HandTitle className="text-4xl!">{modelInfo(ranked[0].model).name} guessed closest</HandTitle>
           ) : (
             <HandTitle>None of the AIs answered</HandTitle>
           )}
-          <p className="mt-2 text-ink-soft">
-            Match = 100 minus the average gap, in percentage points, between an AI&rsquo;s guess and your own answers
-            across the five traits. Your result: <span className="font-medium text-ink">{user.type}</span>.
+          <p className="mt-1 text-ink-soft">
+            Your result: <span className="font-medium text-ink">{user.type}</span>
           </p>
-  
-          <ol className="mt-6">
-            {ranked.map((r) => (
-              <li key={r.model} className="flex items-center gap-3 border-b border-line py-3">
-                <span className="w-7 font-hand text-2xl">{r.rank}</span>
-                <Character slot={modelInfo(r.model).character} size={40} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="truncate font-medium">{modelInfo(r.model).name}</span>
-                    <span className="font-medium whitespace-nowrap">
-                      {r.match.toFixed(1)}
-                      <span className={`ml-1 inline-block w-3 text-ink-soft ${r.closeToNext ? "" : "invisible"}`}>≈</span>
-                    </span>
-                  </div>
-                  <div className="mt-1 h-1.5 w-full rounded-full bg-line/60">
-                    <div
-                      className="h-full rounded-full"
-                      style={{ width: `${Math.max(0, r.match)}%`, background: modelInfo(r.model).colour }}
-                    />
-                  </div>
-                </div>
-              </li>
-            ))}
-            {failed.map((p) => (
-              <li key={p.model} className="flex items-center gap-3 border-b border-line py-3 text-ink-soft">
-                <span className="w-7" />
-                <span className="opacity-50">
-                  <Character slot={modelInfo(p.model).character} size={40} />
-                </span>
-                <span className="flex-1">{modelInfo(p.model).name}</span>
-                <span className="text-sm">didn&rsquo;t answer</span>
-              </li>
-            ))}
-          </ol>
-          {ranked.some((r) => r.closeToNext) && (
-            <p className="mt-3 text-sm text-ink-soft">
-              ≈ less than {CHANCE_GAP} points ahead of the next AI, so the order between them may be chance.
-            </p>
-          )}
-          <ChanceNote className="mt-1" />
-        </section>
-  
-        {selected && selectedRank && (
-          <section>
-            <h2 className="text-2xl">What each AI thought of you</h2>
-            <p className="mt-1 text-ink-soft">After answering as you, each AI wrote a short note about its guess.</p>
-            <div className="mt-4 flex flex-wrap gap-2" role="tablist" aria-label="Choose an AI">
-              {ranked.map((r) => (
-                <button
-                  key={r.model}
-                  role="tab"
-                  aria-selected={selected === r.model}
-                  onClick={() => setSelected(r.model)}
-                  className={`press min-h-11 rounded-full border px-3 text-sm ${
-                    selected === r.model ? "border-ink bg-cream" : "border-line"
-                  }`}
-                >
-                  <ModelChip model={r.model} />
-                </button>
-              ))}
-            </div>
-            <div className="mt-6 space-y-6 rounded-card border-[1.5px] border-ink bg-cream p-4 sm:p-5">
-              <Note r={selectedRank} profile={profile} user={user.profile} />
-              <div className="pt-2">
-                <p className="text-sm text-ink-soft">The black dot is you; the coloured dot is its guess.</p>
-                <TraitBars user={user.profile} guess={selectedRank.guess} model={selectedRank.model} />
-              </div>
-            </div>
-          </section>
-        )}
-  
+        </header>
+
         {ranked.length > 0 && (
-          <section className="space-y-12">
-            <h2 className="text-2xl">What stood out</h2>
-            <WhatTheyUsed ranked={ranked} profile={profile} />
-            <SharedAssumption ranked={ranked} user={user.profile} />
-            <Split ranked={ranked} />
-            <BoldVsRight ranked={ranked} />
-            <Baseline ranked={ranked} user={user.profile} />
-          </section>
+          <Tabs
+            label="Your results"
+            value={tab}
+            onChange={pickTab}
+            tabs={[
+              { key: "ranking", label: "Ranking" },
+              { key: "each", label: "Each AI" },
+              { key: "insights", label: "Insights" },
+            ]}
+          />
         )}
-  
-        <section className="space-y-4">
-          <h2 className="text-2xl">Keep exploring</h2>
+
+        <div className="mt-6">
+          {tab === "ranking" && (
+            <TabPanel id="ranking">
+              <p className="text-sm text-ink-soft">
+                Match = 100 minus the average gap, in points, between an AI&rsquo;s guess and your own answers across
+                the five traits.
+              </p>
+              <ol className="mt-3">
+                {shown.map((r) => (
+                  <li key={r.model} className="flex items-center gap-3 border-b border-line py-3">
+                    <span className="w-7 font-hand text-2xl">{r.rank}</span>
+                    <Character slot={modelInfo(r.model).character} size={40} />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="truncate font-medium">{modelInfo(r.model).name}</span>
+                        <span className="font-medium whitespace-nowrap">
+                          {r.match.toFixed(1)}
+                          <span className={`ml-1 inline-block w-3 text-ink-soft ${r.closeToNext ? "" : "invisible"}`}>
+                            ≈
+                          </span>
+                        </span>
+                      </div>
+                      <div className="mt-1 h-1.5 w-full rounded-full bg-line/60">
+                        <div
+                          className="h-full rounded-full"
+                          style={{ width: `${Math.max(0, r.match)}%`, background: modelInfo(r.model).colour }}
+                        />
+                      </div>
+                    </div>
+                  </li>
+                ))}
+                {showAll &&
+                  failed.map((p) => (
+                    <li key={p.model} className="flex items-center gap-3 border-b border-line py-3 text-ink-soft">
+                      <span className="w-7" />
+                      <span className="opacity-50">
+                        <Character slot={modelInfo(p.model).character} size={40} />
+                      </span>
+                      <span className="flex-1">{modelInfo(p.model).name}</span>
+                      <span className="text-sm">didn&rsquo;t answer</span>
+                    </li>
+                  ))}
+              </ol>
+              {(hidden > 0 || showAll) && (
+                <button
+                  type="button"
+                  onClick={() => setShowAll(!showAll)}
+                  className="press mt-2 h-11 text-sm underline underline-offset-4"
+                >
+                  {showAll ? "Show the top 3 only" : `Show all ${ranked.length + failed.length}`}
+                </button>
+              )}
+              {ranked.some((r) => r.closeToNext) && (
+                <p className="mt-3 text-sm text-ink-soft">
+                  ≈ less than {CHANCE_GAP} points ahead of the next AI, so the order between them may be chance.
+                </p>
+              )}
+              <ChanceNote className="mt-1" />
+              <div className="mt-6 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => pickTab("each")}
+                  className="press h-11 rounded-full border border-ink px-4 text-xs font-medium tracking-wider uppercase"
+                >
+                  See what each AI thought →
+                </button>
+              </div>
+            </TabPanel>
+          )}
+
+          {tab === "each" && selected && selectedRank && (
+            <TabPanel id="each">
+              <p className="text-ink-soft">After answering as you, each AI wrote a short note about its guess.</p>
+              <div className="-mx-4 mt-3 overflow-x-auto px-4 sm:-mx-6 sm:px-6">
+                <div className="flex w-max gap-2 pb-1" role="radiogroup" aria-label="Choose an AI">
+                  {ranked.map((r) => (
+                    <button
+                      key={r.model}
+                      type="button"
+                      role="radio"
+                      aria-checked={selected === r.model}
+                      onClick={() => setSelected(r.model)}
+                      className={`press min-h-11 shrink-0 rounded-full border px-3 text-sm ${
+                        selected === r.model ? "border-ink bg-cream" : "border-line"
+                      }`}
+                    >
+                      <span className="mr-1 text-ink-soft">{r.rank}.</span>
+                      <ModelChip model={r.model} />
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div key={selected} className="screen mt-4 space-y-6 rounded-card border-[1.5px] border-ink bg-cream p-4 sm:p-5">
+                <Note r={selectedRank} profile={profile} user={user.profile} />
+                <div className="pt-2">
+                  <p className="text-sm text-ink-soft">The black dot is you; the coloured dot is its guess.</p>
+                  <TraitBars user={user.profile} guess={selectedRank.guess} model={selectedRank.model} />
+                </div>
+              </div>
+              <div className="mt-4 flex justify-between gap-3">
+                {(() => {
+                  const i = ranked.findIndex((r) => r.model === selected);
+                  return (
+                    <>
+                      <button
+                        type="button"
+                        disabled={i <= 0}
+                        onClick={() => setSelected(ranked[i - 1].model)}
+                        className="press h-11 rounded-full border border-ink px-4 text-xs font-medium tracking-wider uppercase disabled:invisible"
+                      >
+                        ← Previous AI
+                      </button>
+                      <button
+                        type="button"
+                        disabled={i >= ranked.length - 1}
+                        onClick={() => setSelected(ranked[i + 1].model)}
+                        className="press h-11 rounded-full border border-ink px-4 text-xs font-medium tracking-wider uppercase disabled:invisible"
+                      >
+                        Next AI →
+                      </button>
+                    </>
+                  );
+                })()}
+              </div>
+            </TabPanel>
+          )}
+
+          {tab === "insights" && ranked.length > 0 && (
+            <TabPanel id="insights">
+              <Deck cards={insights} label="What stood out" />
+            </TabPanel>
+          )}
+        </div>
+
+        <footer className="mt-14 space-y-4 border-t border-line pt-8">
           <Link
             href="/what-if"
             className="press inline-flex h-12 items-center rounded-full bg-cobalt px-7 font-medium text-cobalt-ink"
           >
             What if you were someone else?
           </Link>
-          <div className="flex flex-wrap gap-2">
-            {[
-              ["/without-mask", "Meet the AIs without a mask"],
-              ["/lessons", "More about AI and you"],
-            ].map(([href, label]) => (
-              <Link
-                key={href}
-                href={href}
-                className="press inline-flex h-11 items-center rounded-full border border-ink px-4 text-xs font-medium tracking-wider uppercase"
-              >
-                {label}
-              </Link>
-            ))}
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="outline" onClick={() => (confirming ? onStartOver() : setConfirming(true))}>
+              {confirming ? "Erase my results?" : "Start over"}
+            </Button>
+            {confirming && (
+              <p className="w-full text-sm text-ink-soft">
+                Tap again to erase your results and start over. Each visitor gets one set of guesses per day.
+              </p>
+            )}
           </div>
-        </section>
-  
-        <div className="flex flex-wrap items-center gap-3">
-          <Button variant="outline" onClick={() => (confirming ? onStartOver() : setConfirming(true))}>
-            {confirming ? "Erase my results?" : "Start over"}
-          </Button>
-          {confirming && (
-            <p className="w-full text-sm text-ink-soft">
-              Tap again to erase your results and start over. Each visitor gets one set of guesses per day.
-            </p>
-          )}
-        </div>
+        </footer>
       </main>
     </>
   );
 }
+
+type ResultsTab = "ranking" | "each" | "insights";
 
 /** One AI's note, with mentions of the user's facts highlighted. */
 function Note({ r, profile, user }: { r: Ranked; profile: UserProfile; user: Profile5 }) {
@@ -251,14 +324,20 @@ function measuredLevel(points: number): number {
 
 function Dots({ level, label }: { level: number; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1" role="img" aria-label={label}>
-      {[1, 2, 3].map((i) => (
-        <span
+    <svg viewBox="0 0 46 14" className="h-3.5 w-[46px] overflow-visible" role="img" aria-label={label}>
+      {[0, 1, 2].map((i) => (
+        <circle
           key={i}
-          className={`h-3 w-3 rounded-full border-[1.5px] border-ink ${i <= level ? "bg-ink" : "bg-transparent"}`}
+          cx={7 + i * 16}
+          cy="7"
+          r="5"
+          fill={i < level ? "var(--color-ink)" : "transparent"}
+          stroke="var(--color-ink)"
+          strokeWidth="1.6"
+          filter="url(#wobble)"
         />
       ))}
-    </span>
+    </svg>
   );
 }
 

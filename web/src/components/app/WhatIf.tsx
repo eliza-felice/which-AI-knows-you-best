@@ -1,7 +1,7 @@
 // Step 5: the what-if explorer. Lesson: stereotyping and bias. The user
 // changes one of their four facts and sees how each chosen AI's guess shifts.
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Character } from "@/components/Character";
 import { NavBar } from "@/components/NavBar";
 import { Circled } from "@/components/Doodles";
@@ -35,6 +35,7 @@ type Result = {
   field: WhatIfField;
   from: string | number;
   to: string | number;
+  models: string[];
   before: Map<string, Prediction>;
   after: Map<string, Prediction>;
   done: boolean;
@@ -78,6 +79,7 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
   const [error, setError] = useState<string | null>(null);
   const [left, setLeft] = useState<number | null>(null);
   const busy = result !== null && !result.done;
+  const resultsTop = useRef<HTMLDivElement>(null);
 
   function pickField(next: WhatIfField) {
     setField(next);
@@ -99,8 +101,18 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
     if (!value) return setError(`Choose a new ${FIELD_LABELS[field].toLowerCase()} first.`);
     if (models.length === 0) return setError("Choose at least one AI.");
     setError(null);
-    const current: Result = { field, from: profile[field], to: value, before: new Map(), after: new Map(), done: false };
+    const current: Result = {
+      field,
+      from: profile[field],
+      to: value,
+      models,
+      before: new Map(),
+      after: new Map(),
+      done: false,
+    };
     setResult(current);
+    // Bring the results into view as they start arriving.
+    setTimeout(() => resultsTop.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
     let response: Response;
     try {
       response = await fetch("/api/whatif", {
@@ -279,17 +291,29 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
           </p>
         </div>
   
-        {result && <ResultView result={result} models={models} />}
+        <div ref={resultsTop} className="scroll-mt-20" />
+        {result && <ResultView key={`${result.field}:${result.to}:${result.models.join()}`} result={result} />}
       </main>
     </>
   );
 }
 
-function ResultView({ result, models }: { result: Result; models: string[] }) {
+/** How far one AI's guess moved, in words, or null while it's still coming. */
+function shiftSummary(before?: Prediction, after?: Prediction): { text: string; points: number } | null {
+  if (before?.status === "failed" || after?.status === "failed") return { text: "didn't answer", points: -1 };
+  if (before?.status !== "ok" || after?.status !== "ok") return null;
+  const shifts = DIMENSIONS.map((d) => Math.abs(after.profile[d] - before.profile[d]));
+  const points = shifts.reduce((x, y) => x + y, 0) / shifts.length;
+  return { text: points < CHANCE_GAP ? "barely moved" : `moved ${Math.round(points)} pts per trait`, points };
+}
+
+function ResultView({ result }: { result: Result }) {
+  const { models } = result;
+  const [chosen, setChosen] = useState(models[0]);
   const expected = models.length * 2;
   const got = result.before.size + result.after.size;
   return (
-    <section aria-live="polite" className="space-y-8">
+    <section aria-live="polite" className="space-y-6">
       <h2 className="text-2xl">
         {FIELD_LABELS[result.field]}: {show(result.field, result.from)} → {show(result.field, result.to)}
       </h2>
@@ -298,9 +322,27 @@ function ResultView({ result, models }: { result: Result; models: string[] }) {
           {got} of {expected} guesses in. A live guess can take up to a minute.
         </p>
       )}
-      {models.map((model) => (
-        <ModelShift key={model} model={model} before={result.before.get(model)} after={result.after.get(model)} />
-      ))}
+      <div className="grid gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Choose an AI to see its change">
+        {models.map((model) => {
+          const summary = shiftSummary(result.before.get(model), result.after.get(model));
+          return (
+            <button
+              key={model}
+              type="button"
+              role="radio"
+              aria-checked={chosen === model}
+              onClick={() => setChosen(model)}
+              className={`press rounded-card border px-3 py-2 text-left ${
+                chosen === model ? "border-ink bg-cream" : "border-line"
+              }`}
+            >
+              <ModelChip model={model} className="text-sm" />
+              <span className="block text-sm text-ink-soft">{summary?.text ?? "thinking..."}</span>
+            </button>
+          );
+        })}
+      </div>
+      <ModelShift key={chosen} model={chosen} before={result.before.get(chosen)} after={result.after.get(chosen)} />
       {result.done && <ChanceNote />}
       {result.done && <StudyFinding field={result.field} to={String(result.to)} />}
       {result.done && (
