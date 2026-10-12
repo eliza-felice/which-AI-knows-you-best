@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Character } from "@/components/Character";
 import { Scribble } from "@/components/Doodles";
 
-export type NavKey = "results" | "whatif" | "mask" | "lessons" | "test";
+export type NavKey = "results" | "whatif" | "explore" | "wrapup" | "test";
 
 export function NavBar({ current, finished }: { current?: NavKey; finished: boolean }) {
   const [open, setOpen] = useState(false);
@@ -19,10 +19,13 @@ export function NavBar({ current, finished }: { current?: NavKey; finished: bool
       ? [
           { key: "results" as const, href: "/?step=results", label: "My results" },
           { key: "whatif" as const, href: "/what-if", label: "What if?" },
+          { key: "explore" as const, href: "/explore", label: "Explore" },
+          { key: "wrapup" as const, href: "/wrap-up", label: "Wrap-up" },
         ]
-      : [{ key: "test" as const, href: "/?step=profile", label: "Take the test" }]),
-    { key: "mask", href: "/without-mask", label: "Without a mask" },
-    { key: "lessons", href: "/lessons", label: "Lessons" },
+      : [
+          { key: "test" as const, href: "/?step=profile", label: "Take the test" },
+          { key: "explore" as const, href: "/explore", label: "Explore" },
+        ]),
   ];
 
   useEffect(() => {

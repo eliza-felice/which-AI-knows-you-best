@@ -1,4 +1,4 @@
-# Which AI Knows You Best? (web app, V2)
+# Which AI Knows You Best? (web app, V3)
 
 Twelve AI models (every model in `config/models.json`) guess a visitor's personality from their age, gender,
 nationality and job. The visitor then takes the same 60-statement test, and
@@ -20,6 +20,24 @@ profiling and accuracy vs confidence.
   visitor per day (`WHATIFS_PER_IP_PER_DAY`).
 - **Meet the AIs without a mask** (`/without-mask`): each AI's own answers
   with no persona, from the study (no API calls), next to its guess about you.
+
+**V3** completes the journey (steps 7-9) and adds a share card:
+
+- **Explore** (`/explore`): every screen after the reveal, to visit in any
+  order, each ticked once seen.
+- **Same question, different answer** (`/reliability`): repeated answers from
+  the study, how the personality "type" flips between runs, and how asking one
+  statement at a time changes the answers.
+- **How much does each AI play along?** (`/play-along`): a leaderboard of how
+  far a persona moves each AI from its own answers, and the link to role-play
+  jailbreaks.
+- **Wrap-up** (`/wrap-up`): a three-question quiz with instant feedback, and
+  a share card (`/api/card`, a 1080 x 1350 PNG with no demographic details).
+- **The research** (`/research`): how the study worked, what it found and its
+  limits, in plain language.
+
+All V3 screens use study data or the visitor's own result: none makes a
+live model call.
 
  Nothing that identifies a user is
 stored. The AIs' guesses for a profile without free text are cached and
@@ -100,11 +118,13 @@ that the Vercel plan allows that.
 ## Files
 
 ```
-src/app/page.tsx, lessons/, what-if/, without-mask/   pages (render in the browser only)
+src/app/page.tsx and the other folders in src/app   pages (render in the browser only)
 src/app/api/predict/route.ts         every model's guess for a profile, streamed back
 src/app/api/whatif/route.ts          before and after guesses for a one-fact change
+src/app/api/card/route.tsx           the share card image
+src/assets/fonts/                    Gochi Hand for the share card (SIL Open Font Licence, see GochiHand-OFL.txt)
 src/app/api/dev/answers/route.ts     development only: save and load your own test answers
-src/components/app/                  App.tsx (the core loop), Lessons.tsx, WhatIf.tsx, WithoutMask.tsx
+src/components/app/                  App.tsx (the core loop) and one file per screen after it
 src/components/screens/              one file per screen
 src/components/Character.tsx         the masked characters, one per model (12 drawn so far)
 src/components/Doodles.tsx           hand-drawn bits: wobbly line filters, speech bubble, bracket
@@ -120,6 +140,12 @@ src/lib/server/                      guesses.ts (study, cache or live), gateway 
 
 ## Choices made where the PRD left room
 
+- **No saved results or cross-user leaderboard** (PRD V3, L5). Users don't
+  save anything about themselves: the wrap-up has the quiz and the share card
+  only.
+- **Explore hub.** The PRD lets steps 5-8 be visited in any order after the
+  reveal; the Explore page lists them, so the navbar stays short (My results,
+  What if?, Explore, Wrap-up).
 - **No Postgres in V2.** The PRD planned Postgres for the prediction cache;
   the Upstash Redis store already holds the cache, limits and saved responses,
   so it isn't needed yet.
@@ -165,3 +191,13 @@ src/lib/server/                      guesses.ts (study, cache or live), gateway 
 - **Illustrations** are simple SVG stand-ins drawn in code, with a "boiling"
   line effect that turns off under reduced motion. They can be replaced by
   hand-drawn SVGs later.
+
+## Before launch
+
+- Set up Upstash Redis (see "Deploying to Vercel"): the cache, the limits and
+  the anonymous response log need it in production.
+- Check the consent wording against PDPA, and whether ethics
+  review applies if this is tied to university research (PRD, "Data and
+  privacy").
+- Replace the link text on `/research` with a real link to the write-up once
+  the repository is public.

@@ -243,6 +243,18 @@ export function Results({
             What if you were someone else?
           </Link>
           <div className="flex flex-wrap items-center gap-2">
+            {[
+              ["/explore", "Explore more"],
+              ["/wrap-up", "Wrap up"],
+            ].map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                className="press inline-flex h-11 items-center rounded-full border border-ink px-4 text-xs font-medium tracking-wider uppercase"
+              >
+                {label}
+              </Link>
+            ))}
             <Button variant="outline" onClick={() => (confirming ? onStartOver() : setConfirming(true))}>
               {confirming ? "Erase my results?" : "Start over"}
             </Button>

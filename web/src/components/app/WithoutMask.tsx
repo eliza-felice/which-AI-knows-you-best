@@ -9,7 +9,7 @@ import { NavBar } from "@/components/NavBar";
 import { LessonBlock } from "@/components/ui";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension, type Profile5 } from "@/lib/experiment";
 import { MODELS } from "@/lib/models";
-import { loadSession, track, type Session } from "@/lib/session";
+import { loadSession, markVisited, track, type Session } from "@/lib/session";
 import study from "@/data/study.json";
 
 type StudyModel = { no_persona: Profile5; no_persona_runs: number };
@@ -29,6 +29,7 @@ export default function WithoutMask() {
   const [session] = useState<Session>(loadSession);
   useEffect(() => {
     track("without_mask_viewed");
+    markVisited("mask");
   }, []);
   const finished =
     session.profile && QUESTIONS.every((q) => session.answers[q.id] !== undefined);
@@ -42,7 +43,7 @@ export default function WithoutMask() {
 
   return (
     <>
-      <NavBar current="mask" finished={Boolean(finished)} />
+      <NavBar current="explore" finished={Boolean(finished)} />
       <main className="screen w-full flex-1 bg-cream">
         <div className="mx-auto max-w-3xl space-y-10 px-4 pt-8 pb-16 sm:px-6">
           <header>

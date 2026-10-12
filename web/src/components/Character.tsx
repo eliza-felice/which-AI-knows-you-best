@@ -113,6 +113,9 @@ export function Character({
   className = "",
   title,
   unmasked = false,
+  plain = false,
+  holes = "var(--color-cream)",
+  pupils = "var(--color-ink)",
 }: {
   /** 1 to 12. */
   slot: number;
@@ -126,11 +129,16 @@ export function Character({
   title?: string;
   /** Mask off, held in a hand ("Meet the AI without a mask"). */
   unmasked?: boolean;
+  /** No wobble filter (for the share card image, which can't draw SVG filters). */
+  plain?: boolean;
+  /** Eye-hole and pupil colours (plain values for the share card, which can't read CSS variables). */
+  holes?: string;
+  pupils?: string;
 }) {
   const shape = SHAPES[(slot - 1) % SHAPES.length];
   const colour = CHARACTER_COLOURS[(slot - 1) % CHARACTER_COLOURS.length];
   const [mx, my, mw] = shape.mask;
-  const filter = `url(#${boil ? "boil" : "wobble"})`;
+  const filter = plain ? undefined : `url(#${boil ? "boil" : "wobble"})`;
   return (
     <svg
       viewBox="0 0 120 120"
@@ -153,32 +161,32 @@ export function Character({
         {!unmasked && <path d={`M${mx - mw} ${my} L${mx - mw - 4} ${my - 2} M${mx + mw} ${my} L${mx + mw + 4} ${my - 2}`} />}
       </g>
       {unmasked ? (
-        <>
+        <g>
           {/* Bare face: just the dot eyes. */}
           <circle cx={mx - mw / 2} cy={my + 0.3} r="1.8" fill={line} />
           <circle cx={mx + mw / 2} cy={my + 0.3} r="1.8" fill={line} />
           {/* The mask, held off to the side. */}
           <g filter={filter} transform="translate(97 94) rotate(-20) scale(1.15)">
             <path d="M-12 0 C-12 -6 -3 -6 0 -3 C3 -6 12 -6 12 0 C12 6 3 6 0 3 C-3 6 -12 6 -12 0 Z" fill={line} />
-            <ellipse cx="-6" cy="0" rx="3" ry="2.4" fill="var(--color-cream)" />
-            <ellipse cx="6" cy="0" rx="3" ry="2.4" fill="var(--color-cream)" />
+            <ellipse cx="-6" cy="0" rx="3" ry="2.4" fill={holes} />
+            <ellipse cx="6" cy="0" rx="3" ry="2.4" fill={holes} />
             <path d="M12 0 L18 6" stroke={line} strokeWidth="2.6" strokeLinecap="round" />
           </g>
-        </>
+        </g>
       ) : (
-        <>
+        <g>
         {/* The mask: an ink band with two eye holes and dot eyes. */}
         <g filter={filter}>
           <path
             d={`M${mx - mw} ${my} C${mx - mw} ${my - 6} ${mx - 3} ${my - 6} ${mx} ${my - 3} C${mx + 3} ${my - 6} ${mx + mw} ${my - 6} ${mx + mw} ${my} C${mx + mw} ${my + 6} ${mx + 3} ${my + 6} ${mx} ${my + 3} C${mx - 3} ${my + 6} ${mx - mw} ${my + 6} ${mx - mw} ${my} Z`}
             fill={line}
           />
-          <ellipse cx={mx - mw / 2} cy={my} rx={mw / 4} ry="2.4" fill="var(--color-cream)" />
-          <ellipse cx={mx + mw / 2} cy={my} rx={mw / 4} ry="2.4" fill="var(--color-cream)" />
-          <circle cx={mx - mw / 2} cy={my + 0.3} r="1.3" fill="var(--color-ink)" />
-          <circle cx={mx + mw / 2} cy={my + 0.3} r="1.3" fill="var(--color-ink)" />
+          <ellipse cx={mx - mw / 2} cy={my} rx={mw / 4} ry="2.4" fill={holes} />
+          <ellipse cx={mx + mw / 2} cy={my} rx={mw / 4} ry="2.4" fill={holes} />
+          <circle cx={mx - mw / 2} cy={my + 0.3} r="1.3" fill={pupils} />
+          <circle cx={mx + mw / 2} cy={my + 0.3} r="1.3" fill={pupils} />
         </g>
-        </>
+        </g>
       )}
     </svg>
   );

@@ -1,7 +1,7 @@
 // Step 5: the what-if explorer. Lesson: stereotyping and bias. The user
 // changes one of their four facts and sees how each chosen AI's guess shifts.
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Character } from "@/components/Character";
 import { NavBar } from "@/components/NavBar";
 import { Circled } from "@/components/Doodles";
@@ -11,7 +11,7 @@ import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension } from
 import { CHANCE_GAP, rankModels, type Prediction } from "@/lib/match";
 import { MODELS, modelInfo } from "@/lib/models";
 import { GENDERS, JOBS, MAX_AGE, MIN_AGE, NATIONALITIES, type UserProfile } from "@/lib/profile";
-import { loadSession, track, type Session } from "@/lib/session";
+import { loadSession, markVisited, track, type Session } from "@/lib/session";
 import {
   BASE_PERSONA,
   MAX_WHATIF_MODELS,
@@ -68,6 +68,7 @@ export default function WhatIf() {
 }
 
 function Explorer({ session, profile }: { session: Session; profile: UserProfile }) {
+  useEffect(() => markVisited("whatif"), []);
   const topModels = useMemo(() => {
     const user = scoreAnswers(session.answers).profile;
     return rankModels(session.predictions, user).slice(0, MAX_WHATIF_MODELS).map((r) => r.model);

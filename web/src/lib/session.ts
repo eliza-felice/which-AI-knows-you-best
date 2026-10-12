@@ -69,9 +69,10 @@ export function saveSession(session: Session) {
   }
 }
 
+/** Start over: forgets the result, the wrap-up and the explore ticks in this tab. */
 export function clearSession() {
   try {
-    sessionStorage.removeItem(KEY);
+    for (const key of [KEY, VISITED_KEY, WRAPUP_KEY]) sessionStorage.removeItem(key);
   } catch {}
 }
 
@@ -134,4 +135,42 @@ export async function requestPredictions(
     for (const line of lines) if (line.trim()) onPrediction(JSON.parse(line));
   }
   return null;
+}
+
+/** The explore screens seen in this tab, for the ticks on the Explore page. */
+export type ExploreKey = "whatif" | "mask" | "reliability" | "playalong" | "lessons" | "research";
+const VISITED_KEY = "which-ai-knows-you:visited";
+
+export function markVisited(key: ExploreKey) {
+  try {
+    const seen = new Set(visited());
+    seen.add(key);
+    sessionStorage.setItem(VISITED_KEY, JSON.stringify([...seen]));
+  } catch {}
+}
+
+export function visited(): ExploreKey[] {
+  try {
+    return JSON.parse(sessionStorage.getItem(VISITED_KEY) ?? "[]");
+  } catch {
+    return [];
+  }
+}
+
+/** The wrap-up's state in this tab: the quiz answers. */
+export type WrapUpState = { quiz: (number | null)[] };
+const WRAPUP_KEY = "which-ai-knows-you:wrapup";
+
+export function loadWrapUp(): WrapUpState {
+  try {
+    return { quiz: [], ...JSON.parse(sessionStorage.getItem(WRAPUP_KEY) ?? "{}") };
+  } catch {
+    return { quiz: [] };
+  }
+}
+
+export function saveWrapUp(state: WrapUpState) {
+  try {
+    sessionStorage.setItem(WRAPUP_KEY, JSON.stringify(state));
+  } catch {}
 }

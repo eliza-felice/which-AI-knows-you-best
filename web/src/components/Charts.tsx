@@ -235,3 +235,53 @@ export function RepeatDots({
     </figure>
   );
 }
+
+/**
+ * Per AI, its answer on one trait asked two ways: hollow for the first,
+ * filled for the second, joined by a line. The first trait is on the left.
+ */
+export function TraitArrows({
+  d,
+  rows,
+  summary,
+}: {
+  d: Dimension;
+  rows: { model: string; from: number; to: number }[];
+  summary: string;
+}) {
+  return (
+    <figure role="img" aria-label={summary} className="my-2">
+      <div className="grid grid-cols-[8.5rem_1fr] gap-2 sm:grid-cols-[10rem_1fr]">
+        <span />
+        <TraitEnds d={d} />
+      </div>
+      <div className="mt-1 space-y-1.5">
+        {rows.map((row) => {
+          const info = modelInfo(row.model);
+          const left = Math.min(x(row.from), x(row.to));
+          return (
+            <div key={row.model} className="grid grid-cols-[8.5rem_1fr] items-center gap-2 sm:grid-cols-[10rem_1fr]">
+              <span className="text-[13px] leading-tight">{info.name}</span>
+              <div className="relative h-5">
+                <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-line" />
+                <div className="absolute top-1/2 left-1/2 h-3 w-px -translate-y-1/2 bg-ink-soft" />
+                <div
+                  className="absolute top-1/2 h-[3px] -translate-y-1/2"
+                  style={{ left: `${left}%`, width: `${Math.abs(row.to - row.from)}%`, background: info.colour }}
+                />
+                <span
+                  className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-paper"
+                  style={{ left: `${x(row.from)}%`, borderColor: info.colour }}
+                />
+                <span
+                  className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-ink"
+                  style={{ left: `${x(row.to)}%`, background: info.colour }}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </figure>
+  );
+}

@@ -1,5 +1,5 @@
 {
-  "exported": "2026-10-05",
+  "exported": "2026-10-12",
   "mode": "one_shot",
   "base_persona": {
     "age": 40,
@@ -1029,6 +1029,406 @@
         48.6
       ]
     }
+  },
+  "base_by_mode": {
+    "gpt-4o-mini": {
+      "one_by_one": {
+        "profile": {
+          "EI": 44.7,
+          "SN": 29.8,
+          "TF": 42.8,
+          "JP": 70.5,
+          "AT": 61.9
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 51.0,
+          "SN": 27.4,
+          "TF": 35.3,
+          "JP": 77.2,
+          "AT": 59.4
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 61.5,
+          "SN": 29.8,
+          "TF": 43.5,
+          "JP": 68.8,
+          "AT": 62.9
+        },
+        "runs": 10
+      }
+    },
+    "gpt-5-mini": {
+      "one_by_one": {
+        "profile": {
+          "EI": 37.4,
+          "SN": 30.3,
+          "TF": 43.3,
+          "JP": 73.6,
+          "AT": 63.9
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 24.0,
+          "SN": 30.5,
+          "TF": 41.1,
+          "JP": 77.7,
+          "AT": 65.0
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 26.2,
+          "SN": 36.0,
+          "TF": 42.6,
+          "JP": 70.8,
+          "AT": 58.3
+        },
+        "runs": 10
+      }
+    },
+    "gpt-5.4-nano": {
+      "one_by_one": {
+        "profile": {
+          "EI": 53.7,
+          "SN": 35.9,
+          "TF": 40.3,
+          "JP": 67.7,
+          "AT": 74.2
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 51.3,
+          "SN": 29.5,
+          "TF": 43.9,
+          "JP": 75.2,
+          "AT": 70.8
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 52.8,
+          "SN": 34.6,
+          "TF": 47.5,
+          "JP": 69.2,
+          "AT": 64.9
+        },
+        "runs": 10
+      }
+    },
+    "gemini-3.1-flash-lite": {
+      "one_by_one": {
+        "profile": {
+          "EI": 31.9,
+          "SN": 32.3,
+          "TF": 47.8,
+          "JP": 80.7,
+          "AT": 71.6
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 19.7,
+          "SN": 32.8,
+          "TF": 45.2,
+          "JP": 85.4,
+          "AT": 71.4
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 20.7,
+          "SN": 26.3,
+          "TF": 49.4,
+          "JP": 84.0,
+          "AT": 65.7
+        },
+        "runs": 10
+      }
+    },
+    "gemini-3.5-flash-lite": {
+      "one_by_one": {
+        "profile": {
+          "EI": 34.3,
+          "SN": 33.8,
+          "TF": 47.8,
+          "JP": 80.2,
+          "AT": 70.2
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 20.3,
+          "SN": 32.8,
+          "TF": 45.5,
+          "JP": 84.1,
+          "AT": 72.5
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 20.2,
+          "SN": 26.5,
+          "TF": 50.6,
+          "JP": 84.1,
+          "AT": 66.5
+        },
+        "runs": 10
+      }
+    },
+    "deepseek-v4-flash": {
+      "one_by_one": {
+        "profile": {
+          "EI": 32.6,
+          "SN": 32.3,
+          "TF": 42.5,
+          "JP": 65.9,
+          "AT": 56.9
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 22.0,
+          "SN": 24.3,
+          "TF": 43.6,
+          "JP": 74.1,
+          "AT": 57.5
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 21.1,
+          "SN": 23.7,
+          "TF": 44.8,
+          "JP": 69.9,
+          "AT": 63.4
+        },
+        "runs": 10
+      }
+    },
+    "deepseek-v4-1-flash-260910": {
+      "one_by_one": {
+        "profile": {
+          "EI": 34.3,
+          "SN": 32.6,
+          "TF": 42.0,
+          "JP": 68.2,
+          "AT": 56.1
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 21.7,
+          "SN": 25.6,
+          "TF": 40.9,
+          "JP": 70.8,
+          "AT": 57.5
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 19.3,
+          "SN": 23.6,
+          "TF": 46.2,
+          "JP": 74.2,
+          "AT": 63.0
+        },
+        "runs": 10
+      }
+    },
+    "claude-haiku-4-5-20251001": {
+      "one_by_one": {
+        "profile": {
+          "EI": 45.0,
+          "SN": 33.6,
+          "TF": 44.4,
+          "JP": 66.2,
+          "AT": 50.3
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 37.7,
+          "SN": 32.9,
+          "TF": 41.1,
+          "JP": 72.1,
+          "AT": 61.4
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 47.0,
+          "SN": 32.3,
+          "TF": 41.1,
+          "JP": 75.6,
+          "AT": 50.8
+        },
+        "runs": 5
+      }
+    },
+    "grok-4.3": {
+      "one_by_one": {
+        "profile": {
+          "EI": 28.0,
+          "SN": 38.7,
+          "TF": 51.4,
+          "JP": 70.2,
+          "AT": 62.5
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 21.6,
+          "SN": 44.6,
+          "TF": 55.8,
+          "JP": 78.2,
+          "AT": 65.6
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 22.3,
+          "SN": 29.0,
+          "TF": 61.4,
+          "JP": 79.5,
+          "AT": 68.6
+        },
+        "runs": 5
+      }
+    },
+    "glm-5.2": {
+      "one_by_one": {
+        "profile": {
+          "EI": 34.7,
+          "SN": 29.5,
+          "TF": 46.9,
+          "JP": 62.5,
+          "AT": 51.4
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 25.0,
+          "SN": 31.5,
+          "TF": 39.2,
+          "JP": 75.1,
+          "AT": 61.1
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 23.3,
+          "SN": 25.6,
+          "TF": 51.1,
+          "JP": 52.8,
+          "AT": 44.7
+        },
+        "runs": 5
+      }
+    },
+    "qwen3.6-flash": {
+      "one_by_one": {
+        "profile": {
+          "EI": 44.0,
+          "SN": 40.3,
+          "TF": 51.4,
+          "JP": 65.6,
+          "AT": 61.9
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 38.7,
+          "SN": 26.7,
+          "TF": 47.2,
+          "JP": 80.5,
+          "AT": 71.4
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 34.3,
+          "SN": 30.3,
+          "TF": 62.5,
+          "JP": 78.2,
+          "AT": 69.4
+        },
+        "runs": 5
+      }
+    },
+    "MiniMax-M2.7": {
+      "one_by_one": {
+        "profile": {
+          "EI": 36.3,
+          "SN": 35.1,
+          "TF": 48.3,
+          "JP": 64.9,
+          "AT": 64.7
+        },
+        "runs": 5
+      },
+      "chunks_of_5": {
+        "profile": {
+          "EI": 31.3,
+          "SN": 38.2,
+          "TF": 42.5,
+          "JP": 66.7,
+          "AT": 58.1
+        },
+        "runs": 5
+      },
+      "one_shot": {
+        "profile": {
+          "EI": 25.3,
+          "SN": 40.8,
+          "TF": 48.0,
+          "JP": 65.9,
+          "AT": 47.5
+        },
+        "runs": 5
+      }
+    }
+  },
+  "persona_pull": {
+    "gpt-4o-mini": 3.9,
+    "gpt-5-mini": 13.3,
+    "gpt-5.4-nano": 1.5,
+    "gemini-3.1-flash-lite": 20.4,
+    "gemini-3.5-flash-lite": 18.6,
+    "deepseek-v4-flash": 9.0,
+    "deepseek-v4-1-flash-260910": 8.7,
+    "claude-haiku-4-5-20251001": 10.2,
+    "grok-4.3": 12.0,
+    "glm-5.2": 10.5,
+    "qwen3.6-flash": 17.0,
+    "MiniMax-M2.7": 14.2
   },
   "total_runs": 1252
 }

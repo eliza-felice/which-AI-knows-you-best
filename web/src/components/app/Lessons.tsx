@@ -1,17 +1,18 @@
-// The V1 lessons page: privacy, stereotypes in the study, and how unstable an
-// AI's answers are. It adds to the reveal rather than repeating it, using the
-// visitor's own profile where the study tested it.
+// The lessons page: privacy, and stereotypes measured in the study. It adds to
+// the reveal rather than repeating it, using the visitor's own profile where
+// the study tested it. (How unstable the answers are is on /reliability; how
+// much each AI plays along is on /play-along.)
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Cast } from "@/components/Character";
-import { BarList, ChartCaption, RepeatDots } from "@/components/Charts";
+import { BarList, ChartCaption } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
 import { Deck } from "@/components/Organise";
-import { LessonBlock, ModelChip } from "@/components/ui";
-import { QUESTIONS, type Dimension } from "@/lib/experiment";
-import { COMPANIES, MODELS, modelInfo } from "@/lib/models";
+import { LessonBlock } from "@/components/ui";
+import { QUESTIONS } from "@/lib/experiment";
+import { COMPANIES, MODELS } from "@/lib/models";
 import type { UserProfile } from "@/lib/profile";
-import { loadSession, track, type Session } from "@/lib/session";
+import { loadSession, markVisited, track, type Session } from "@/lib/session";
 import { BASE_PERSONA, biggestShift } from "@/lib/whatif";
 import study from "@/data/study.json";
 
@@ -76,6 +77,7 @@ export default function Lessons() {
   const [session] = useState<Session>(loadSession);
   useEffect(() => {
     track("lessons_viewed");
+    markVisited("lessons");
   }, []);
 
   const finished =
@@ -85,21 +87,12 @@ export default function Lessons() {
       : null;
   const profile = finished?.profile ?? null;
   const effects = study.attribute_effect as Record<string, number>;
-  const adherence = Object.entries(
-    study.model_adherence as Record<string, number>,
-  ).sort((a, b) => a[1] - b[1]);
-  const noPersona = Object.entries(
-    study.models as Record<string, { no_persona: Record<Dimension, number> }>,
-  );
-  const confidentDefaults = noPersona.filter(
-    ([, m]) => m.no_persona.AT >= 80,
-  ).length;
   const totalRuns = study.total_runs.toLocaleString("en");
   const findings = findingsFor(profile);
 
   return (
     <>
-      <NavBar current="lessons" finished={Boolean(finished)} />
+      <NavBar current="explore" finished={Boolean(finished)} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-14 px-4 pt-8 pb-16 sm:px-6">
         <header>
           <Cast size={30} className="mb-4 flex-nowrap! justify-start! gap-0!" />
@@ -228,79 +221,8 @@ export default function Lessons() {
                     ))}
                   </ul>
                   <p>
-                    Real people do differ a little by age and job, but probably
-                    far less than this. Some AIs also play along far more than
-                    others. Average shift when one fact changed, for those{" "}
-                    {study.models_in_averages.length} AIs:
-                  </p>
-                  <BarList
-                    max={Math.max(...adherence.map(([, shift]) => shift))}
-                    summary="Some AIs change their answers a lot when the persona changes; GPT-4o mini and GPT-5.4 nano barely do."
-                    rows={[...adherence].reverse().map(([model, shift]) => ({
-                      key: model,
-                      label: <ModelChip model={model} />,
-                      value: shift,
-                      display: `${shift} points`,
-                      colour: modelInfo(model).colour,
-                    }))}
-                  />
-                  <ChartCaption>
-                    Longer bar = the AI changes its answers more when it&rsquo;s
-                    told a different job, age, gender or nationality.
-                  </ChartCaption>
-                </LessonBlock>
-              ),
-            },
-            {
-              key: "again",
-              title: "Ask again, get a different answer",
-              node: (
-                <LessonBlock
-                  title="Ask again, get a different answer"
-                  question="If a test gives a different result each time, what is it really measuring?"
-                  speaker={7}
-                  answer={
-                    <p>
-                      Partly the person, and partly noise: chance, wording and
-                      format. A good test keeps the noise small compared with
-                      the real differences it measures. For these AIs, the noise
-                      (2 to 6 points between runs, 11 to 15 between formats) is
-                      as big as some of the effects we found, such as
-                      nationality ({study.attribute_effect.nationality} points).
-                    </p>
-                  }
-                >
-                  <p>
-                    Every guess you saw was made once. In our study, the same AI
-                    with the same prompt moved by about 2 to 6 points between
-                    runs, and {modelInfo("gpt-5-mini").name}&rsquo;s Extraverted
-                    score moved 17 points between two days.
-                  </p>
-                  <RepeatDots
-                    d="EI"
-                    summary="The same AI, asked the same thing several times, gives a spread of answers; some spread much more than others."
-                    rows={Object.entries(
-                      study.base_runs as Record<string, Record<Dimension, number[]>>,
-                    ).map(([model, runs]) => ({ model, values: runs.EI }))}
-                  />
-                  <ChartCaption>
-                    Each dot is one answer from the same AI about the same
-                    made-up person (a Singaporean woman in her 40s working as a
-                    software engineer), asked again and again. A wide spread
-                    means one answer on its own can&rsquo;t be trusted much.
-                  </ChartCaption>
-                  <p>
-                    The format matters too: asked one statement at a time
-                    instead of all 60 at once, most AIs&rsquo; answers came out
-                    11 to 15 points less extreme. Same AI, same person,
-                    different number.
-                  </p>
-                  <p>
-                    And with no persona at all, {confidentDefaults} of the{" "}
-                    {noPersona.length} AIs described themselves as at least 80%
-                    calm and confident (&ldquo;Assertive&rdquo;). That says more
-                    about how they were trained to come across than about anyone
-                    they describe.
+                    Real people do differ a little by age and job, but
+                    probably far less than this.
                   </p>
                 </LessonBlock>
               ),

@@ -62,6 +62,19 @@ def export_experiment():
     })
 
 
+def base_by_mode(config, models):
+    """{model: {mode: {"profile": {...}, "runs": n}}} for the base persona."""
+    df = load_results(config)
+    df = df[df["varied_attribute"] == "base"]
+    out = {}
+    for model in models:
+        for mode in ["one_by_one", "chunks_of_5", "one_shot"]:
+            rows = df[(df["model"] == model) & (df["experiment_mode"] == mode)]
+            if len(rows):
+                out.setdefault(model, {})[mode] = {"profile": mean_profile(rows), "runs": len(rows)}
+    return out
+
+
 def export_study():
     config = lab.load_persona_config()
     df = load_results(config)
@@ -138,6 +151,16 @@ def export_study():
             model: {d: [round(float(v), 1) for v in df[(df["model"] == model) & (df["varied_attribute"] == "base")][first_side_column(d)]]
                     for d in DIMENSIONS}
             for model in per_model
+        },
+        # Base persona at each chunk size (questions per API call), per model:
+        # mean first-side percentages, for the "same question, different
+        # answer" screen.
+        "base_by_mode": base_by_mode(config, list(per_model)),
+        # How far the base persona moves each model from its own answers (no
+        # persona), averaged over the five traits: how much it "plays along".
+        "persona_pull": {
+            model: round(float(sum(abs(v["base"][d] - v["no_persona"][d]) for d in DIMENSIONS) / len(DIMENSIONS)), 1)
+            for model, v in per_model.items()
         },
         "total_runs": int(len(load_results(config))),
     })
