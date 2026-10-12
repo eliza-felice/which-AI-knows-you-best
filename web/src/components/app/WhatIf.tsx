@@ -6,7 +6,7 @@ import { Character } from "@/components/Character";
 import { NavBar } from "@/components/NavBar";
 import { Circled } from "@/components/Doodles";
 import { SearchSelect } from "@/components/SearchSelect";
-import { Button, ChanceNote, LessonBlock, ModelChip } from "@/components/ui";
+import { BackLink, Button, ChanceNote, LessonBlock, ModelChip } from "@/components/ui";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension } from "@/lib/experiment";
 import { CHANCE_GAP, rankModels, type Prediction } from "@/lib/match";
 import { MODELS, modelInfo } from "@/lib/models";
@@ -160,6 +160,7 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
     <>
       <NavBar current="whatif" finished />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-10 px-4 pt-8 pb-16 sm:px-6">
+        <div className="relative z-10 -mb-2"><BackLink href="/?step=results" label="My results" /></div>
         <header className="flex items-end gap-3">
           <div className="shrink-0">
             <HatCharacter />

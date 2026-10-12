@@ -8,7 +8,7 @@ import { Cast } from "@/components/Character";
 import { BarList, ChartCaption } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
 import { Deck } from "@/components/Organise";
-import { LessonBlock } from "@/components/ui";
+import { BackLink, LessonBlock } from "@/components/ui";
 import { QUESTIONS } from "@/lib/experiment";
 import { COMPANIES, MODELS } from "@/lib/models";
 import type { UserProfile } from "@/lib/profile";
@@ -94,6 +94,7 @@ export default function Lessons() {
     <>
       <NavBar current="explore" finished={Boolean(finished)} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-14 px-4 pt-8 pb-16 sm:px-6">
+        <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
         <header>
           <Cast size={30} className="mb-4 flex-nowrap! justify-start! gap-0!" />
           <h1 className="text-3xl">Beyond your result</h1>

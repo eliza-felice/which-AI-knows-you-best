@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Character } from "@/components/Character";
 import { BarList, ChartCaption } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
-import { LessonBlock, ModelChip } from "@/components/ui";
+import { BackLink, LessonBlock, ModelChip } from "@/components/ui";
 import { MODELS, modelInfo } from "@/lib/models";
 import { finishedResult } from "@/lib/result";
 import { loadSession, markVisited, track } from "@/lib/session";
@@ -35,6 +35,7 @@ export default function PlayAlong() {
     <>
       <NavBar current="explore" finished={result !== null} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 pt-6 pb-16 sm:px-6">
+        <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
         <header>
           <h1 className="font-hand text-4xl leading-tight font-normal">How much does each AI play along?</h1>
           <p className="mt-2 leading-relaxed">

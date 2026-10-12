@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Character } from "@/components/Character";
 import { BarList, ChartCaption } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
-import { LessonBlock } from "@/components/ui";
+import { BackLink, LessonBlock } from "@/components/ui";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension, type Profile5 } from "@/lib/experiment";
 import { MODELS } from "@/lib/models";
 import { loadSession, markVisited, track, type Session } from "@/lib/session";
@@ -46,6 +46,7 @@ export default function WithoutMask() {
       <NavBar current="explore" finished={Boolean(finished)} />
       <main className="screen w-full flex-1 bg-cream">
         <div className="mx-auto max-w-3xl space-y-10 px-4 pt-8 pb-16 sm:px-6">
+          <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
           <header>
             <h1 className="font-hand text-4xl leading-tight font-normal">Meet the AIs without a mask</h1>
             <p className="mt-2 leading-relaxed">

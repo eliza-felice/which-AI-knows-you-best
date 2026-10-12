@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Character } from "@/components/Character";
 import { NavBar } from "@/components/NavBar";
-import { Button, HandTitle } from "@/components/ui";
+import { BackLink, Button, HandTitle } from "@/components/ui";
 import { sharedAssumption } from "@/lib/insights";
 import { modelInfo } from "@/lib/models";
 import { finishedResult } from "@/lib/result";
@@ -62,6 +62,7 @@ export default function WrapUp() {
       <NavBar current="wrapup" finished />
       <main className="screen w-full flex-1 bg-cream">
         <div className="mx-auto max-w-2xl space-y-14 px-4 pt-6 pb-16 sm:px-6">
+          <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
           <header className="flex items-end gap-3">
             <div className="hop shrink-0">
               <Character slot={modelInfo(winner.model).character} size={96} boil title={`${modelInfo(winner.model).name}, waving`} />

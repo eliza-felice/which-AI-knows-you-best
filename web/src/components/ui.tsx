@@ -1,4 +1,5 @@
 // Building blocks from design.md, section 6.
+import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { DIMENSIONS, TRAIT_NAMES, type Dimension, type Profile5 } from "@/lib/experiment";
 import { CHANCE_GAP, describeTrait } from "@/lib/match";
@@ -156,5 +157,18 @@ export function TraitBars({ user, guess, model }: { user: Profile5; guess?: Prof
         <TraitBar key={d} dimension={d} user={user[d]} guess={guess?.[d]} model={model} />
       ))}
     </div>
+  );
+}
+
+/**
+ * "← Back to ..." at the top of a screen. Goes to the screen's logical parent
+ * (not the browser's previous page), so it always lands somewhere sensible,
+ * even after a refresh or when the page was opened directly.
+ */
+export function BackLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link href={href} className="press -ml-1 inline-flex h-11 items-center px-1 text-sm underline underline-offset-4">
+      ← {label}
+    </Link>
   );
 }

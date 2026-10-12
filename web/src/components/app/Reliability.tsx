@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { ChartCaption, RepeatDots, TraitArrows } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
-import { LessonBlock } from "@/components/ui";
+import { BackLink, LessonBlock } from "@/components/ui";
 import { DIMENSIONS, type Dimension, type Profile5 } from "@/lib/experiment";
 import { MODELS, modelInfo } from "@/lib/models";
 import { finishedResult } from "@/lib/result";
@@ -49,6 +49,7 @@ export default function Reliability() {
     <>
       <NavBar current="explore" finished={result !== null} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 pt-6 pb-16 sm:px-6">
+        <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
         <header>
           <h1 className="font-hand text-4xl leading-tight font-normal">Same question, different answer</h1>
           <p className="mt-2 leading-relaxed">
