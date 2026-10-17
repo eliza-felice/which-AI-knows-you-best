@@ -437,8 +437,8 @@ function shiftSummary(before?: Prediction, after?: Prediction): { text: string; 
 function ResultView({ result }: { result: Result }) {
   const { models } = result;
   const [chosen, setChosen] = useState(models[0]);
-  const expected = models.length * 2;
-  const got = result.before.size + result.after.size;
+  // An AI counts as in once both its before and after guesses are.
+  const got = models.filter((model) => result.before.has(model) && result.after.has(model)).length;
   const words = result.field === "words";
   return (
     <section aria-live="polite" className="space-y-6">
@@ -447,7 +447,7 @@ function ResultView({ result }: { result: Result }) {
       </h2>
       {!result.done && (
         <p className="text-ink-soft">
-          {got} of {expected} guesses in. A live guess can take up to a minute.
+          {got} of {models.length} AIs have answered. A live guess can take up to a minute.
         </p>
       )}
       {result.done && result.live === 0 && (
