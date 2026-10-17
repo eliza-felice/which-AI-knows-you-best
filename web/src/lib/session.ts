@@ -69,10 +69,10 @@ export function saveSession(session: Session) {
   }
 }
 
-/** Start over: forgets the result, the wrap-up and the explore ticks in this tab. */
+/** Start over: forgets the result and the explore ticks in this tab. */
 export function clearSession() {
   try {
-    for (const key of [KEY, VISITED_KEY, WRAPUP_KEY]) sessionStorage.removeItem(key);
+    for (const key of [KEY, VISITED_KEY]) sessionStorage.removeItem(key);
   } catch {}
 }
 
@@ -155,22 +155,4 @@ export function visited(): ExploreKey[] {
   } catch {
     return [];
   }
-}
-
-/** The wrap-up's state in this tab: the quiz answers. */
-export type WrapUpState = { quiz: (number | null)[] };
-const WRAPUP_KEY = "which-ai-knows-you:wrapup";
-
-export function loadWrapUp(): WrapUpState {
-  try {
-    return { quiz: [], ...JSON.parse(sessionStorage.getItem(WRAPUP_KEY) ?? "{}") };
-  } catch {
-    return { quiz: [] };
-  }
-}
-
-export function saveWrapUp(state: WrapUpState) {
-  try {
-    sessionStorage.setItem(WRAPUP_KEY, JSON.stringify(state));
-  } catch {}
 }

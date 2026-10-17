@@ -12,16 +12,26 @@ profiling and accuracy vs confidence.
 
 **V2** adds, after the reveal:
 
-- **What-if explorer** (`/what-if`): change one of your four facts and see
-  how up to 3 AIs' guesses shift, trait by trait, next to the study's finding
-  for that kind of change. Defaults to your top 3 from the reveal. Uses only
-  the four facts, never free text, so a what-if is free when the study or the
-  cache already has both profiles. Live what-ifs are limited to 10 per
-  visitor per day (`WHATIFS_PER_IP_PER_DAY`).
+- **What-if explorer** (`/what-if`), with two tabs:
+  - **Change one thing**: change one of your four facts, or your own words,
+    and see how up to 3 AIs' guesses shift trait by trait, plus each AI's
+    description of you before and after, with the new words highlighted. The
+    study's finding for that kind of change is shown alongside. Defaults to
+    your top 3 from the reveal.
+  - **Slide through a fact**: step through every age, job, nationality and
+    gender the study tested, on the study's test person, and watch each AI's
+    guess slide. Always free (it's all study data). "Try this on me" runs the
+    same change on your own profile as a normal what-if.
+
+  Live AI use is capped at 10 live what-ifs per visitor per day
+  (`WHATIFS_PER_IP_PER_DAY`), and the page shows how many are left before you
+  use one (`GET /api/whatif`). A what-if answered from the study or the cache
+  is free and says so. Changing your words is always live and never cached,
+  but only the "after" guesses are asked: "before" is your reveal.
 - **Meet the AIs without a mask** (`/without-mask`): each AI's own answers
   with no persona, from the study (no API calls), next to its guess about you.
 
-**V3** completes the journey (steps 7-9) and adds a share card:
+**V3** completes the journey (steps 7 and 8):
 
 - **Explore** (`/explore`): every screen after the reveal, to visit in any
   order, each ticked once seen.
@@ -31,8 +41,6 @@ profiling and accuracy vs confidence.
 - **How much does each AI play along?** (`/play-along`): a leaderboard of how
   far a persona moves each AI from its own answers, and the link to role-play
   jailbreaks.
-- **Wrap-up** (`/wrap-up`): a three-question quiz with instant feedback, and
-  a share card (`/api/card`, a 1080 x 1350 PNG with no demographic details).
 - **The research** (`/research`): how the study worked, what it found and its
   limits, in plain language.
 
@@ -121,8 +129,6 @@ that the Vercel plan allows that.
 src/app/page.tsx and the other folders in src/app   pages (render in the browser only)
 src/app/api/predict/route.ts         every model's guess for a profile, streamed back
 src/app/api/whatif/route.ts          before and after guesses for a one-fact change
-src/app/api/card/route.tsx           the share card image
-src/assets/fonts/                    Gochi Hand for the share card (SIL Open Font Licence, see GochiHand-OFL.txt)
 src/app/api/dev/answers/route.ts     development only: save and load your own test answers
 src/components/app/                  App.tsx (the core loop) and one file per screen after it
 src/components/screens/              one file per screen
@@ -140,12 +146,11 @@ src/lib/server/                      guesses.ts (study, cache or live), gateway 
 
 ## Choices made where the PRD left room
 
-- **No saved results or cross-user leaderboard** (PRD V3, L5). Users don't
-  save anything about themselves: the wrap-up has the quiz and the share card
-  only.
+- **No wrap-up** (PRD step 9: quiz, share card, saved results and leaderboard).
+  Left out by choice.
 - **Explore hub.** The PRD lets steps 5-8 be visited in any order after the
   reveal; the Explore page lists them, so the navbar stays short (My results,
-  What if?, Explore, Wrap-up).
+  What if?, Explore).
 - **No Postgres in V2.** The PRD planned Postgres for the prediction cache;
   the Upstash Redis store already holds the cache, limits and saved responses,
   so it isn't needed yet.

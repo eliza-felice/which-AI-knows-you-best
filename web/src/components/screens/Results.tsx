@@ -245,7 +245,6 @@ export function Results({
           <div className="flex flex-wrap items-center gap-2">
             {[
               ["/explore", "Explore more"],
-              ["/wrap-up", "Wrap up"],
             ].map(([href, label]) => (
               <Link
                 key={href}

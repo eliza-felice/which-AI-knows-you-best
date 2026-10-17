@@ -3,12 +3,15 @@
 import { DIMENSIONS, TRAIT_NAMES, type Dimension } from "@/lib/experiment";
 import study from "@/data/study.json";
 
-export const WHATIF_FIELDS = ["age", "gender", "nationality", "job"] as const;
+// "words" is the user's own description ("anything else about you").
+export const WHATIF_FIELDS = ["age", "gender", "nationality", "job", "words"] as const;
 export type WhatIfField = (typeof WHATIF_FIELDS)[number];
+/** The four facts the study tested (everything except the user's own words). */
+export type FactField = Exclude<WhatIfField, "words">;
 export const MAX_WHATIF_MODELS = 3;
 
 /** The study's name for each field. */
-export const STUDY_ATTRIBUTE: Record<WhatIfField, string> = {
+export const STUDY_ATTRIBUTE: Record<FactField, string> = {
   age: "age",
   gender: "gender",
   nationality: "nationality",
@@ -32,6 +35,6 @@ export function biggestShift(attribute: string, value: string) {
 }
 
 /** How many values of each attribute the study tested, including the base. */
-export function testedCount(field: WhatIfField): number {
+export function testedCount(field: FactField): number {
   return (study.tested_values as Record<string, unknown[]>)[STUDY_ATTRIBUTE[field]].length;
 }

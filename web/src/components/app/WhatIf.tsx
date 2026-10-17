@@ -1,16 +1,35 @@
-// Step 5: the what-if explorer. Lesson: stereotyping and bias. The user
-// changes one of their four facts and sees how each chosen AI's guess shifts.
+// Step 5: the what-if explorer. Lesson: stereotyping and bias.
+//
+// Two ways in:
+//   "Change one thing": change one of your four facts, or your own words, and
+//     see how each chosen AI's guess and description shift. Live calls are
+//     capped (WHATIFS_PER_IP_PER_DAY); anything the study or the cache already
+//     has is free.
+//   "Slide through a fact": step through every value the study tested, on the
+//     study's test person. Always free (FactSlider.tsx).
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Character } from "@/components/Character";
-import { NavBar } from "@/components/NavBar";
 import { Circled } from "@/components/Doodles";
+import { NavBar } from "@/components/NavBar";
+import { TabPanel, Tabs } from "@/components/Organise";
 import { SearchSelect } from "@/components/SearchSelect";
 import { BackLink, Button, ChanceNote, LessonBlock, ModelChip } from "@/components/ui";
+import { FactSlider } from "@/components/app/FactSlider";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension } from "@/lib/experiment";
 import { CHANCE_GAP, rankModels, type Prediction } from "@/lib/match";
 import { MODELS, modelInfo } from "@/lib/models";
-import { GENDERS, JOBS, MAX_AGE, MIN_AGE, NATIONALITIES, type UserProfile } from "@/lib/profile";
+import {
+  DETAILS_MAX_LENGTH,
+  GENDERS,
+  JOBS,
+  MAX_AGE,
+  MIN_AGE,
+  NATIONALITIES,
+  cleanDetails,
+  detailsProblem,
+  type UserProfile,
+} from "@/lib/profile";
 import { loadSession, markVisited, track, type Session } from "@/lib/session";
 import {
   BASE_PERSONA,
@@ -19,15 +38,27 @@ import {
   WHATIF_FIELDS,
   biggestShift,
   testedCount,
+  type FactField,
   type WhatIfField,
 } from "@/lib/whatif";
 import study from "@/data/study.json";
 
-const FIELD_LABELS: Record<WhatIfField, string> = { age: "Age", gender: "Gender", nationality: "Nationality", job: "Job" };
+const FIELD_LABELS: Record<WhatIfField, string> = {
+  age: "Age",
+  gender: "Gender",
+  nationality: "Nationality",
+  job: "Job",
+  words: "Your words",
+};
+
+function current(profile: UserProfile, field: WhatIfField): string | number {
+  return field === "words" ? profile.details : profile[field];
+}
 
 function show(field: WhatIfField, value: string | number): string {
   if (field === "gender") return GENDERS.find((g) => g.value === value)?.label ?? String(value);
   if (field === "job") return String(value)[0].toUpperCase() + String(value).slice(1);
+  if (field === "words") return value ? `“${value}”` : "nothing written";
   return String(value);
 }
 
@@ -38,13 +69,14 @@ type Result = {
   models: string[];
   before: Map<string, Prediction>;
   after: Map<string, Prediction>;
+  /** How many guesses needed a live call (0 = free). */
+  live: number | null;
   done: boolean;
 };
 
 export default function WhatIf() {
   const [session] = useState<Session>(loadSession);
-  const finished =
-    session.profile && QUESTIONS.every((q) => session.answers[q.id] !== undefined);
+  const finished = session.profile && QUESTIONS.every((q) => session.answers[q.id] !== undefined);
 
   if (!finished || !session.profile) {
     return (
@@ -73,6 +105,7 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
     const user = scoreAnswers(session.answers).profile;
     return rankModels(session.predictions, user).slice(0, MAX_WHATIF_MODELS).map((r) => r.model);
   }, [session]);
+  const [tab, setTab] = useState<"change" | "slide">("change");
   const [field, setField] = useState<WhatIfField>("job");
   const [value, setValue] = useState<string>("");
   const [models, setModels] = useState<string[]>(topModels.length ? topModels : MODELS.slice(0, 3).map((m) => m.id));
@@ -82,44 +115,63 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
   const busy = result !== null && !result.done;
   const resultsTop = useRef<HTMLDivElement>(null);
 
+  // How many live what-ifs are left today, before using one.
+  useEffect(() => {
+    fetch("/api/whatif")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((body) => setLeft(body?.remaining ?? null))
+      .catch(() => {});
+  }, []);
+
   function pickField(next: WhatIfField) {
     setField(next);
-    setValue("");
+    setValue(next === "words" ? profile.details : "");
     setError(null);
   }
 
   function toggleModel(id: string) {
-    setModels((current) =>
-      current.includes(id)
-        ? current.filter((m) => m !== id)
-        : current.length < MAX_WHATIF_MODELS
-          ? [...current, id]
-          : current,
+    setModels((chosen) =>
+      chosen.includes(id)
+        ? chosen.filter((m) => m !== id)
+        : chosen.length < MAX_WHATIF_MODELS
+          ? [...chosen, id]
+          : chosen,
     );
   }
 
-  async function run() {
-    if (!value) return setError(`Choose a new ${FIELD_LABELS[field].toLowerCase()} first.`);
+  async function run(runField: WhatIfField = field, runValue: string = value) {
+    const words = runField === "words";
+    if (!runValue.trim()) return setError(words ? "Write something about yourself first." : `Choose a new ${FIELD_LABELS[runField].toLowerCase()} first.`);
+    if (words && cleanDetails(runValue) === profile.details) return setError("Change your words first.");
+    if (words && detailsProblem(cleanDetails(runValue))) return setError(detailsProblem(cleanDetails(runValue))!);
     if (models.length === 0) return setError("Choose at least one AI.");
     setError(null);
-    const current: Result = {
-      field,
-      from: profile[field],
-      to: value,
+    const run: Result = {
+      field: runField,
+      from: current(profile, runField),
+      to: words ? cleanDetails(runValue) : runValue,
       models,
-      before: new Map(),
+      // For your words, "before" is what the AIs said at the reveal: no new call.
+      before: words
+        ? new Map(
+            models.map((m): [string, Prediction] => [
+              m,
+              session.predictions.find((p) => p.model === m) ?? { model: m, status: "failed", reason: "no guess" },
+            ]),
+          )
+        : new Map(),
       after: new Map(),
+      live: null,
       done: false,
     };
-    setResult(current);
-    // Bring the results into view as they start arriving.
+    setResult(run);
     setTimeout(() => resultsTop.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
     let response: Response;
     try {
       response = await fetch("/api/whatif", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ profile: { ...profile, details: "" }, change: { field, value }, models }),
+        body: JSON.stringify({ profile: { ...profile, details: "" }, change: { field: runField, value: runValue }, models }),
       });
     } catch {
       setResult(null);
@@ -133,7 +185,6 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
-    let live = 0;
     for (;;) {
       const chunk = await reader.read().catch(() => ({ done: true, value: undefined }));
       if (chunk.done) break;
@@ -143,119 +194,49 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
       for (const line of lines.filter((l) => l.trim())) {
         const message = JSON.parse(line);
         if (message.meta) {
-          live = message.meta.live;
+          run.live = message.meta.live;
           if (message.meta.remaining !== null) setLeft(message.meta.remaining);
           continue;
         }
         const { which, ...prediction } = message as { which: "before" | "after" } & Prediction;
-        current[which].set(prediction.model, prediction);
-        setResult({ ...current });
+        run[which].set(prediction.model, prediction);
+        setResult({ ...run });
       }
     }
-    setResult({ ...current, done: true });
-    track("whatif_run", { field, live });
+    setResult({ ...run, done: true });
+    track("whatif_run", { field: runField, live: run.live ?? 0 });
   }
+
+  function tryOnMe(fact: FactField, factValue: string) {
+    setTab("change");
+    setField(fact);
+    setValue(factValue);
+    run(fact, factValue);
+  }
+
+  const outOfLive = left === 0;
 
   return (
     <>
       <NavBar current="whatif" finished />
-      <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-10 px-4 pt-8 pb-16 sm:px-6">
-        <div className="relative z-10 -mb-2"><BackLink href="/?step=results" label="My results" /></div>
+      <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-8 px-4 pt-8 pb-16 sm:px-6">
+        <div className="relative z-10 -mb-2">
+          <BackLink href="/?step=results" label="My results" />
+        </div>
         <header className="flex items-end gap-3">
           <div className="shrink-0">
             <HatCharacter />
           </div>
           <div>
             <h1 className="font-hand text-4xl leading-tight font-normal">What if you were someone else?</h1>
-            <p className="mt-1 text-ink-soft">Change one fact about yourself and watch the AIs change their minds.</p>
+            <p className="mt-1 text-ink-soft">Change one thing about yourself and watch the AIs change their minds.</p>
           </div>
         </header>
-  
-        <section aria-labelledby="change">
-          <h2 id="change" className="text-xl">
-            1. Pick one fact to change
-          </h2>
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup">
-            {WHATIF_FIELDS.map((f) => (
-              <button
-                key={f}
-                type="button"
-                role="radio"
-                aria-checked={field === f}
-                onClick={() => pickField(f)}
-                className="press relative min-h-16 rounded-card border border-line bg-cream px-3 py-2 text-left"
-              >
-                {field === f && <Circled />}
-                <span className="block text-xs text-ink-soft">{FIELD_LABELS[f]}</span>
-                <span className="block font-medium">{show(f, profile[f])}</span>
-              </button>
-            ))}
-          </div>
-  
-          <div className="mt-4">
-            {field === "age" && (
-              <label className="block">
-                <span className="mb-1.5 block text-sm font-medium">New age</span>
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  min={MIN_AGE}
-                  max={MAX_AGE}
-                  value={value}
-                  onChange={(event) => setValue(event.target.value)}
-                  className="h-12 w-32 rounded-input border border-line bg-cream px-4 outline-none focus:border-ink"
-                />
-                <span className="mt-1 block text-sm text-ink-soft">
-                  The AIs only see your age group (&ldquo;in your 20s&rdquo;), so pick a different decade.
-                </span>
-              </label>
-            )}
-            {field === "gender" && (
-              <fieldset>
-                <legend className="mb-1.5 text-sm font-medium">New gender</legend>
-                <div className="flex flex-wrap gap-2">
-                  {GENDERS.filter((g) => g.value !== profile.gender).map((g) => (
-                    <button
-                      key={g.value}
-                      type="button"
-                      onClick={() => setValue(g.value)}
-                      className={`press h-11 rounded-full border px-4 ${
-                        value === g.value ? "border-cobalt bg-cobalt text-cobalt-ink" : "border-ink"
-                      }`}
-                    >
-                      {g.label}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-            )}
-            {field === "nationality" && (
-              <SearchSelect
-                label="New nationality"
-                options={NATIONALITIES.filter((n) => n !== profile.nationality)}
-                value={value}
-                onChange={setValue}
-                placeholder="Choose or type"
-              />
-            )}
-            {field === "job" && (
-              <SearchSelect
-                label="New job"
-                options={JOBS.filter((j) => j !== profile.job)}
-                value={value}
-                onChange={setValue}
-                placeholder="Choose or type"
-                capitalise
-              />
-            )}
-          </div>
-        </section>
-  
+
         <section aria-labelledby="who">
-          <h2 id="who" className="text-xl">
-            2. Choose up to {MAX_WHATIF_MODELS} AIs
+          <h2 id="who" className="text-lg">
+            Which AIs? <span className="font-normal text-ink-soft">(up to {MAX_WHATIF_MODELS}; your top {MAX_WHATIF_MODELS} to start)</span>
           </h2>
-          <p className="mt-1 text-sm text-ink-soft">Your top {MAX_WHATIF_MODELS} from the reveal are picked to start.</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {MODELS.map((m) => {
               const on = models.includes(m.id);
@@ -276,27 +257,158 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
             })}
           </div>
         </section>
-  
-        <div>
-          {error && (
-            <p role="alert" className="mb-2 font-medium text-tomato">
-              {error}
-            </p>
-          )}
-          <Button onClick={run} disabled={busy}>
-            {busy ? "Asking..." : "See what changes"}
-          </Button>
-          <p className="mt-2 text-sm text-ink-soft">
-            Uses only your four facts, not what you wrote. If we&rsquo;ve seen a profile before, or tested it in our
-            study, the answer is instant and free; otherwise the changed profile is sent to the AIs you chose.
-            {left !== null && ` You have ${left} live what-if${left === 1 ? "" : "s"} left today.`}
-          </p>
-        </div>
-  
-        <div ref={resultsTop} className="scroll-mt-20" />
-        {result && <ResultView key={`${result.field}:${result.to}:${result.models.join()}`} result={result} />}
+
+        <Tabs
+          label="What-if"
+          value={tab}
+          onChange={setTab}
+          tabs={[
+            { key: "change", label: "Change one thing" },
+            { key: "slide", label: "Slide through a fact" },
+          ]}
+        />
+
+        {tab === "slide" && (
+          <TabPanel id="slide">
+            <FactSlider models={models} profile={profile} onTryOnMe={tryOnMe} />
+          </TabPanel>
+        )}
+
+        {tab === "change" && (
+          <TabPanel id="change">
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="What to change">
+                {WHATIF_FIELDS.map((f) => (
+                  <button
+                    key={f}
+                    type="button"
+                    role="radio"
+                    aria-checked={field === f}
+                    onClick={() => pickField(f)}
+                    className="press relative min-h-16 rounded-card border border-line bg-cream px-3 py-2 text-left"
+                  >
+                    {field === f && <Circled />}
+                    <span className="block text-xs text-ink-soft">{FIELD_LABELS[f]}</span>
+                    <span className="block truncate font-medium">{show(f, current(profile, f))}</span>
+                  </button>
+                ))}
+              </div>
+
+              <ChangeInput field={field} value={value} onChange={setValue} profile={profile} />
+
+              <div>
+                {error && (
+                  <p role="alert" className="mb-2 font-medium">
+                    ! {error}
+                  </p>
+                )}
+                <Button onClick={() => run()} disabled={busy || (outOfLive && field === "words")}>
+                  {busy ? "Asking..." : "See what changes"}
+                </Button>
+                <p className="mt-2 text-sm text-ink-soft">
+                  {field === "words"
+                    ? "Your words are always sent to the AIs you chose, and never kept. Each try uses one live what-if."
+                    : "Free if we've seen this profile before or tested it in our study; otherwise it uses one live what-if."}
+                  {left !== null &&
+                    (outOfLive
+                      ? " You've used today's live what-ifs; ones we've seen before still work."
+                      : ` ${left} live what-if${left === 1 ? "" : "s"} left today.`)}
+                </p>
+              </div>
+
+              <div ref={resultsTop} className="scroll-mt-20" />
+              {result && <ResultView key={`${result.field}:${result.to}:${result.models.join()}`} result={result} />}
+            </div>
+          </TabPanel>
+        )}
       </main>
     </>
+  );
+}
+
+function ChangeInput({
+  field,
+  value,
+  onChange,
+  profile,
+}: {
+  field: WhatIfField;
+  value: string;
+  onChange: (value: string) => void;
+  profile: UserProfile;
+}) {
+  if (field === "age") {
+    return (
+      <label className="block">
+        <span className="mb-1.5 block text-sm font-medium">New age</span>
+        <input
+          type="number"
+          inputMode="numeric"
+          min={MIN_AGE}
+          max={MAX_AGE}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="h-12 w-32 rounded-input border border-line bg-cream px-4 outline-none focus:border-ink"
+        />
+        <span className="mt-1 block text-sm text-ink-soft">
+          The AIs only see your age group (&ldquo;in your 20s&rdquo;), so pick a different decade.
+        </span>
+      </label>
+    );
+  }
+  if (field === "gender") {
+    return (
+      <fieldset>
+        <legend className="mb-1.5 text-sm font-medium">New gender</legend>
+        <div className="flex flex-wrap gap-2">
+          {GENDERS.filter((g) => g.value !== profile.gender).map((g) => (
+            <button
+              key={g.value}
+              type="button"
+              onClick={() => onChange(g.value)}
+              className={`press h-11 rounded-full border px-4 ${
+                value === g.value ? "border-cobalt bg-cobalt text-cobalt-ink" : "border-ink"
+              }`}
+            >
+              {g.label}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+    );
+  }
+  if (field === "nationality" || field === "job") {
+    return (
+      <SearchSelect
+        label={`New ${field}`}
+        options={(field === "job" ? JOBS : NATIONALITIES).filter((v) => v !== profile[field])}
+        value={value}
+        onChange={onChange}
+        placeholder="Choose or type"
+        capitalise={field === "job"}
+      />
+    );
+  }
+  const problem = detailsProblem(cleanDetails(value));
+  return (
+    <label className="block">
+      <span className="mb-1.5 block text-sm font-medium">Describe yourself differently</span>
+      <textarea
+        value={value}
+        maxLength={DETAILS_MAX_LENGTH}
+        onChange={(event) => onChange(event.target.value)}
+        rows={3}
+        placeholder="e.g. I love meeting new people and I'm always the first to plan a night out"
+        className="w-full rounded-input border border-line bg-cream px-4 py-3 outline-none focus:border-ink"
+      />
+      <span className="mt-1 flex justify-between gap-3 text-sm text-ink-soft">
+        <span>Try describing your personality, or something you never mentioned. No names or contact details.</span>
+        <span>
+          {value.length}/{DETAILS_MAX_LENGTH}
+        </span>
+      </span>
+      {problem && <span className="mt-1 block text-sm font-medium">! {problem}</span>}
+    </label>
   );
 }
 
@@ -314,6 +426,7 @@ function ResultView({ result }: { result: Result }) {
   const [chosen, setChosen] = useState(models[0]);
   const expected = models.length * 2;
   const got = result.before.size + result.after.size;
+  const words = result.field === "words";
   return (
     <section aria-live="polite" className="space-y-6">
       <h2 className="text-2xl">
@@ -322,6 +435,11 @@ function ResultView({ result }: { result: Result }) {
       {!result.done && (
         <p className="text-ink-soft">
           {got} of {expected} guesses in. A live guess can take up to a minute.
+        </p>
+      )}
+      {result.done && result.live === 0 && (
+        <p className="text-sm text-ink-soft">
+          ✓ Free: these guesses came from our study or from earlier visitors, so no AI was asked.
         </p>
       )}
       <div className="grid gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Choose an AI to see its change">
@@ -345,29 +463,50 @@ function ResultView({ result }: { result: Result }) {
         })}
       </div>
       <ModelShift key={chosen} model={chosen} before={result.before.get(chosen)} after={result.after.get(chosen)} />
+      <NotesSideBySide
+        key={`notes-${chosen}`}
+        before={result.before.get(chosen)}
+        after={result.after.get(chosen)}
+        beforeLabel={words ? "With your original words" : `As ${show(result.field, result.from)}`}
+        afterLabel={words ? "With your new words" : `As ${show(result.field, result.to)}`}
+      />
       {result.done && <ChanceNote />}
-      {result.done && <StudyFinding field={result.field} to={String(result.to)} />}
+      {result.done &&
+        (words ? <WordsFinding /> : <StudyFinding field={result.field as FactField} to={String(result.to)} />)}
       {result.done && (
         <LessonBlock
-          title="One word, a whole new person"
-          question="If changing one fact about you changes what an AI assumes about your whole personality, where else could that matter?"
+          title={words ? "Tell it who you are" : "One word, a whole new person"}
+          question={
+            words
+              ? "If describing yourself changes the guess more than your job does, what does that say about how AIs judge people?"
+              : "If changing one fact about you changes what an AI assumes about your whole personality, where else could that matter?"
+          }
           speaker={6}
           answer={
-            <>
+            words ? (
               <p>
-                Anywhere an AI sorts or judges people: screening job applications, writing references, recommending
-                courses or content, or simulating &ldquo;typical&rdquo; people in research.
+                That they lean on whatever they&rsquo;re given. With only a job or an age to go on, they fill the gaps
+                with stereotypes. Tell them who you are and they mostly repeat it back, which sounds accurate but is
+                really just your own words returned to you.
               </p>
-              <p>
-                Nobody told these AIs anything about your personality, only a category you belong to. A stereotype
-                that is harmless in a quiz can be unfair when it decides who gets an interview.
-              </p>
-            </>
+            ) : (
+              <>
+                <p>
+                  Anywhere an AI sorts or judges people: screening job applications, writing references, recommending
+                  courses or content, or simulating &ldquo;typical&rdquo; people in research.
+                </p>
+                <p>
+                  Nobody told these AIs anything about your personality, only a category you belong to. A stereotype
+                  that is harmless in a quiz can be unfair when it decides who gets an interview.
+                </p>
+              </>
+            )
           }
         >
           <p>
-            You changed one fact. Everything else about you stayed the same, and so did you. Any shift you see is the
-            AI&rsquo;s idea of what people with that {FIELD_LABELS[result.field].toLowerCase()} are like.
+            {words
+              ? "You only changed how you described yourself. Your age, gender, nationality and job stayed the same."
+              : `You changed one fact. Everything else about you stayed the same, and so did you. Any shift you see is the AI's idea of what people with that ${FIELD_LABELS[result.field].toLowerCase()} are like.`}
           </p>
         </LessonBlock>
       )}
@@ -410,6 +549,72 @@ function ModelShift({ model, before, after }: { model: string; before?: Predicti
   );
 }
 
+// Words too common to count as a change in a description.
+const COMMON = new Set(
+  "about after also and are because being both but can come comes could from have into just like more most much only other really some such than that their them then there these they this very what when which while with would your yours".split(
+    " ",
+  ),
+);
+
+const wordKey = (word: string) => word.toLowerCase().replace(/[^\p{L}'-]/gu, "");
+
+/** The AI's own note before and after, with the words that are new in the "after" note highlighted. */
+function NotesSideBySide({
+  before,
+  after,
+  beforeLabel,
+  afterLabel,
+}: {
+  before?: Prediction;
+  after?: Prediction;
+  beforeLabel: string;
+  afterLabel: string;
+}) {
+  const beforeNote = before?.status === "ok" ? before.summary : "";
+  const afterNote = after?.status === "ok" ? after.summary : "";
+  if (!before || !after) return null;
+  if (!beforeNote || !afterNote) {
+    return (
+      <p className="text-sm text-ink-soft">
+        No side-by-side description for this one: guesses from our study don&rsquo;t come with a note.
+      </p>
+    );
+  }
+  const seen = new Set(beforeNote.split(/\s+/).map(wordKey));
+  const isNew = (word: string) => {
+    const key = wordKey(word);
+    return key.length >= 4 && !COMMON.has(key) && !seen.has(key);
+  };
+  return (
+    <section aria-label="In its own words, before and after" className="space-y-2">
+      <h3 className="font-medium">In its own words</h3>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <figure className="rounded-card border border-line bg-paper p-3">
+          <figcaption className="text-xs font-medium text-ink-soft">{beforeLabel}</figcaption>
+          <blockquote className="mt-1 text-sm leading-relaxed">&ldquo;{beforeNote}&rdquo;</blockquote>
+        </figure>
+        <figure className="rounded-card border-[1.5px] border-ink bg-cream p-3">
+          <figcaption className="text-xs font-medium text-ink-soft">{afterLabel}</figcaption>
+          <blockquote className="mt-1 text-sm leading-relaxed">
+            &ldquo;
+            {afterNote.split(/(\s+)/).map((part, i) =>
+              isNew(part) ? (
+                <mark key={i} className="rounded bg-mustard/60 px-0.5 text-ink">
+                  {part}
+                </mark>
+              ) : (
+                <span key={i}>{part}</span>
+              ),
+            )}
+            &rdquo;
+          </blockquote>
+        </figure>
+      </div>
+      <p className="text-xs text-ink-soft">Highlighted: words that are new in the second description.</p>
+    </section>
+  );
+}
+
 function ShiftBar({ d, before, after, colour }: { d: Dimension; before: number; after: number; colour: string }) {
   const [left, right] = TRAIT_NAMES[d];
   const x = (value: number) => 100 - value; // the first trait is on the left
@@ -446,7 +651,7 @@ function ShiftBar({ d, before, after, colour }: { d: Dimension; before: number; 
 }
 
 /** W5: what the study found, worded as a study finding. */
-function StudyFinding({ field, to }: { field: WhatIfField; to: string }) {
+function StudyFinding({ field, to }: { field: FactField; to: string }) {
   const effects = study.attribute_effect as Record<string, number>;
   const models = study.models_in_averages.length;
   // The study tested ages by decade (20, 30, ...), with the base persona in her 40s.
@@ -468,6 +673,19 @@ function StudyFinding({ field, to }: { field: WhatIfField; to: string }) {
       </p>
       <p className="mt-2 text-sm text-ink-soft">
         Your result is one guess per AI, so it can differ from the study&rsquo;s averages.
+      </p>
+    </div>
+  );
+}
+
+function WordsFinding() {
+  return (
+    <div className="rounded-card border border-dashed border-ink-soft p-4">
+      <p className="text-sm font-medium">What our tests found</p>
+      <p className="mt-1 leading-relaxed">
+        In a small test of ours (one run per AI), adding hobbies like &ldquo;hiking and board games&rdquo; moved the
+        answers only about 6 points, the size of chance. Describing personality directly (&ldquo;I avoid social
+        events&rdquo;) moved them 19 to 35 points: more than changing any single fact like the job.
       </p>
     </div>
   );

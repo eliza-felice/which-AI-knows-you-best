@@ -1,13 +1,13 @@
 # AI Personality Lab: results so far
 
-*Last updated 5 October 2026. Steps 1, 1b, 2 and 3a–3e complete for the original 7 models, plus a repeat of the base persona and no-persona control. 5 models added on 5 October have steps 1, 1b and 2, and part of step 3 (see "New models" below). 1,252 test runs in total. Step 4 (optional) not run.*
+*Last updated 17 October 2026. Steps 1, 1b, 2 and 3a–3e complete for the original 7 models, plus a repeat of the base persona and no-persona control. Of the 5 models added on 5 October, Claude and Grok now have all of step 3 (run on 17 October); GLM, Qwen and MiniMax have steps 1, 1b and 2 and part of step 3 (see "New models" below). 1,372 test runs in total. Step 4 (optional) not run.*
 
 ## Setup in brief
 
 - **Test:** 60 statements, each rated from −3 (strongly disagree) to +3 (strongly agree), scored on five dimensions: Extraverted/Introverted, Observant/Intuitive, Thinking/Feeling, Judging/Prospecting, Assertive/Turbulent. Each score is a percentage; 50% means no lean.
 - **Persona:** given as the system prompt. The **base persona** is *"a Singaporean woman in her 40s, working as a software engineer."* Each other persona changes exactly one attribute (age, gender, nationality or occupation). The **no-persona control** has no system prompt at all.
 - **Models (7 original):** gpt-4o-mini, gpt-5-mini, gpt-5.4-nano, gemini-3.1-flash-lite, gemini-3.5-flash-lite, deepseek-v4-flash, deepseek-v4-1-flash-260910. Steps 1 to 3 below are about these 7.
-- **Models (5 added on 5 October):** claude-haiku-4-5, grok-4.3, glm-5.2, qwen3.6-flash, MiniMax-M2.7. Partly tested, to save API credits; see "New models".
+- **Models (5 added on 5 October):** claude-haiku-4-5, grok-4.3, glm-5.2, qwen3.6-flash, MiniMax-M2.7. Claude and Grok are fully tested on the one-shot steps; the other three only partly, to save API credits. See "New models".
 - **Chunk size:** questions asked one per call (`one_by_one`), five per call (`chunks_of_5`) or all 60 at once (`one_shot`).
 - **Repetitions:** 5 per persona × model × chunk size, except the base persona and no-persona control at `one_shot`, which have 10 (5 on 3 October, 5 on 5 October). Error bars and "significant" markers use 95% confidence intervals.
 
@@ -143,12 +143,14 @@ This supports using `one_shot` for the step 3 results.
 | gemini-3.5-flash-lite | 8.6 | 15.3 |
 | deepseek-v4-1-flash | 8.9 | 15.9 |
 | deepseek-v4-flash | 9.6 | 16.6 |
+| claude-haiku-4-5 (added) | 5.6 | 8.0 |
+| grok-4.3 (added) | 9.3 | 17.8 |
 
 **When the models react, they react the same way.** Of the 32 persona changes that moved a dimension by 5 points or more on average, all 7 models moved in the same direction in 69% of cases, and at least 5 of 7 did in every case. The models share the same stereotypes and differ mainly in how strongly they act on them.
 
 ## New models (added 5 October)
 
-*claude-haiku-4-5, grok-4.3, glm-5.2, qwen3.6-flash and MiniMax-M2.7. Steps 1, 1b and 2 are complete (5 repetitions each). Step 3 was stopped early to save API credits: the age personas are complete for Claude and Grok, partly done for GLM and Qwen, and missing for MiniMax; gender, nationality and occupation weren't run. Step 3e (age with chunks of 5) is complete for Grok and GLM only.* Charts: the same files as above, which now include these models.
+*claude-haiku-4-5, grok-4.3, glm-5.2, qwen3.6-flash and MiniMax-M2.7. Steps 1, 1b and 2 are complete (5 repetitions each). Claude and Grok also have all of step 3 (age, gender, nationality and occupation; gender, nationality and occupation run on 17 October). For GLM, Qwen and MiniMax, step 3 was stopped early to save API credits: the age personas are partly done (missing for MiniMax) and gender, nationality and occupation weren't run. Step 3e (age with chunks of 5) is complete for Grok and GLM only.* Charts: the same files as above, which now include these models.
 
 ### Base persona and no persona
 
@@ -168,6 +170,23 @@ This supports using `one_shot` for the step 3 results.
 ### Chunk size
 
 **Asking one question at a time makes answers less extreme for four of the five**, as for the original models. Average distance from 50/50 across the five traits, one at a time vs all at once: Claude 9 vs 11, Grok 14 vs 22, GLM 11 vs 12, Qwen 9 vs 19. MiniMax is the exception (12 vs 11). All five are less Introverted one at a time. (Original 7 on average: 15 one at a time, 17 all at once.)
+
+### Claude and Grok: every attribute
+
+Run on 17 October, so these two can be compared with the original 7 on every attribute.
+
+| | Gender | Nationality | Occupation | Age |
+|---|---|---|---|---|
+| claude-haiku-4-5 | **6.1** | 3.3 | 8.0 | 3.9 |
+| grok-4.3 | 3.3 | 3.3 | **17.8** | 3.5 |
+| original 7 (average) | 3.1 | 2.5 | 11.9 | 4.5 |
+
+*Average shift from the base persona, in points.*
+
+- **Grok follows job stereotypes harder than any other model.** Its average occupation shift (17.8) is the largest of all 9 fully tested models. As a salesperson it is 58 points more Extraverted; as an artist, 59 points more Prospecting and 38 points more Feeling; as a construction worker, 44 points more Extraverted and 42 points more Observant.
+- **Claude reacts less to jobs but more to gender.** Its occupation shifts are below the original 7's average (8.0 against 11.9), but its gender shift is about twice theirs: the male persona is 9 points more Introverted and 7 points more Thinking. Its biggest single shift is still a job one (construction worker: 33 points more Observant).
+- **Both share the same stereotypes.** Of the 32 persona changes that clearly moved the original 7 (5 points or more on average), Claude moved the same way in 28 and Grok in 30.
+- **With them included, the overall picture holds.** Averaged over all 9 fully tested models: occupation 12.1, age 4.3, gender 3.4, nationality 2.7 points. The web app now uses these 9-model figures.
 
 ### Age (partial)
 
@@ -194,7 +213,7 @@ These are hypotheses worth testing, not established conclusions.
 - **The questionnaire is unbalanced.** Observant/Intuitive has 9 Intuitive-worded statements against 4 Observant ones, and Assertive/Turbulent has 8 Turbulent-worded against 4 Assertive ones. A model that agreed with everything would score 69% Intuitive and 67% Turbulent. So **part of the models' Intuitive lean may simply reflect a tendency to agree**. The Assertive lean goes *against* that bias, so it is more robust.
 - **One statement may be mis-assigned.** "Your emotions control you more than you control them" is scored as Feeling but arguably measures emotional stability (Assertive/Turbulent).
 - **Small samples.** 5 repetitions for most conditions (10 for the original models' base and no-persona `one_shot` runs); small shifts (under about 5 points) should not be over-interpreted.
-- **The 5 newer models are only partly tested.** Gender, nationality and occupation weren't run for them, so every study-wide figure in step 3 (and in the web app's lessons) comes from the original 7.
+- **3 of the 5 newer models are only partly tested.** Gender, nationality and occupation weren't run for GLM, Qwen and MiniMax, so the study-wide figures in step 3 (and in the web app) come from the 9 fully tested models: the original 7 plus Claude and Grok.
 - **Results can drift between days.** Repeating the base and no-persona runs two days later mostly matched, but Extraverted/Introverted moved 10–17 points for the GPT-5 models (see step 1).
 - **One base persona.** All shifts are relative to a Singaporean female software engineer in her 40s; a different base could give different shifts.
 - **Mostly one chunk size.** Step 3 used `one_shot`. Step 3e confirmed the age results at `chunks_of_5`, but gender, nationality and occupation were only tested at `one_shot`.

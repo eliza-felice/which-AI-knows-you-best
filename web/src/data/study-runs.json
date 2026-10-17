@@ -3722,6 +3722,58 @@
     ]
   },
   "You are a Singaporean man in his 40s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 38.5,
+          "TF": 48.6,
+          "JP": 62.8,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 38.5,
+          "TF": 47.2,
+          "JP": 73.1,
+          "AT": 54.2
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.3,
+          "SN": 35.9,
+          "TF": 48.6,
+          "JP": 70.5,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.3,
+          "SN": 35.9,
+          "TF": 45.8,
+          "JP": 67.9,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 36.7,
+          "SN": 35.9,
+          "TF": 51.4,
+          "JP": 73.1,
+          "AT": 58.3
+        },
+        "type": "INTJA"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -4085,9 +4137,113 @@
         },
         "type": "INTJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 29.5,
+          "TF": 66.7,
+          "JP": 76.9,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 28.2,
+          "TF": 68.1,
+          "JP": 73.1,
+          "AT": 70.8
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 34.6,
+          "TF": 69.4,
+          "JP": 75.6,
+          "AT": 75.0
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 28.2,
+          "TF": 68.1,
+          "JP": 75.6,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 25.6,
+          "TF": 61.1,
+          "JP": 76.9,
+          "AT": 73.6
+        },
+        "type": "INTJA"
+      }
     ]
   },
   "You are an American woman in her 40s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 73.1,
+          "AT": 58.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 67.9,
+          "AT": 55.6
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 33.3,
+          "TF": 40.3,
+          "JP": 65.4,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 65.4,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 26.9,
+          "TF": 40.3,
+          "JP": 70.5,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -4451,9 +4607,113 @@
         },
         "type": "ENFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 23.1,
+          "TF": 51.4,
+          "JP": 78.2,
+          "AT": 63.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 33.3,
+          "TF": 58.3,
+          "JP": 82.1,
+          "AT": 65.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 32.1,
+          "TF": 51.4,
+          "JP": 80.8,
+          "AT": 69.4
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 25.6,
+          "TF": 52.8,
+          "JP": 76.9,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 17.9,
+          "TF": 51.4,
+          "JP": 75.6,
+          "AT": 72.2
+        },
+        "type": "INTJA"
+      }
     ]
   },
   "You are a British woman in her 40s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 30.8,
+          "TF": 43.1,
+          "JP": 64.1,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 29.5,
+          "TF": 40.3,
+          "JP": 73.1,
+          "AT": 55.6
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 32.1,
+          "TF": 43.1,
+          "JP": 71.8,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 29.5,
+          "TF": 34.7,
+          "JP": 69.2,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 70.5,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -4817,9 +5077,113 @@
         },
         "type": "ENFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 26.9,
+          "TF": 56.9,
+          "JP": 74.4,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 30.8,
+          "TF": 59.7,
+          "JP": 79.5,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 23.1,
+          "TF": 54.2,
+          "JP": 76.9,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 24.4,
+          "TF": 66.7,
+          "JP": 75.6,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 26.9,
+          "TF": 58.3,
+          "JP": 80.8,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      }
     ]
   },
   "You are a Chinese woman in her 40s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 34.6,
+          "TF": 41.7,
+          "JP": 71.8,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 29.5,
+          "TF": 41.7,
+          "JP": 66.7,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 30.8,
+          "TF": 41.7,
+          "JP": 62.8,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 33.3,
+          "TF": 43.1,
+          "JP": 65.4,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 38.3,
+          "SN": 30.8,
+          "TF": 43.1,
+          "JP": 76.9,
+          "AT": 47.2
+        },
+        "type": "INFJT"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -5183,9 +5547,113 @@
         },
         "type": "INFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 25.6,
+          "TF": 52.8,
+          "JP": 73.1,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 23.1,
+          "TF": 45.8,
+          "JP": 74.4,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 30.8,
+          "TF": 56.9,
+          "JP": 76.9,
+          "AT": 62.5
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 35.9,
+          "TF": 63.9,
+          "JP": 75.6,
+          "AT": 58.3
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 16.7,
+          "SN": 29.5,
+          "TF": 56.9,
+          "JP": 80.8,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      }
     ]
   },
   "You are an Indian woman in her 40s, working as a software engineer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 30.8,
+          "TF": 40.3,
+          "JP": 64.1,
+          "AT": 52.8
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 50.0,
+          "SN": 29.5,
+          "TF": 41.7,
+          "JP": 71.8,
+          "AT": 48.6
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 53.3,
+          "SN": 33.3,
+          "TF": 38.9,
+          "JP": 71.8,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 28.2,
+          "TF": 36.1,
+          "JP": 74.4,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.7,
+          "SN": 30.8,
+          "TF": 40.3,
+          "JP": 66.7,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -5549,9 +6017,113 @@
         },
         "type": "ENFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 31.7,
+          "SN": 26.9,
+          "TF": 40.3,
+          "JP": 74.4,
+          "AT": 55.6
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 32.1,
+          "TF": 56.9,
+          "JP": 75.6,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 20.5,
+          "TF": 48.6,
+          "JP": 74.4,
+          "AT": 58.3
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 34.6,
+          "TF": 55.6,
+          "JP": 88.5,
+          "AT": 61.1
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 25.0,
+          "SN": 23.1,
+          "TF": 52.8,
+          "JP": 78.2,
+          "AT": 68.1
+        },
+        "type": "INTJA"
+      }
     ]
   },
   "You are a Singaporean woman in her 40s, working as an accountant.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 43.3,
+          "SN": 51.3,
+          "TF": 44.4,
+          "JP": 78.2,
+          "AT": 52.8
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 47.4,
+          "TF": 41.7,
+          "JP": 78.2,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 48.3,
+          "SN": 46.2,
+          "TF": 43.1,
+          "JP": 75.6,
+          "AT": 51.4
+        },
+        "type": "INFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 55.1,
+          "TF": 44.4,
+          "JP": 76.9,
+          "AT": 52.8
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 51.3,
+          "TF": 43.1,
+          "JP": 76.9,
+          "AT": 52.8
+        },
+        "type": "ISFJA"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -5915,9 +6487,113 @@
         },
         "type": "ENFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 18.3,
+          "SN": 53.8,
+          "TF": 63.9,
+          "JP": 85.9,
+          "AT": 68.1
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 48.7,
+          "TF": 68.1,
+          "JP": 79.5,
+          "AT": 66.7
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 47.4,
+          "TF": 59.7,
+          "JP": 85.9,
+          "AT": 63.9
+        },
+        "type": "INTJA"
+      },
+      {
+        "profile": {
+          "EI": 20.0,
+          "SN": 64.1,
+          "TF": 61.1,
+          "JP": 91.0,
+          "AT": 55.6
+        },
+        "type": "ISTJA"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 65.4,
+          "TF": 63.9,
+          "JP": 85.9,
+          "AT": 68.1
+        },
+        "type": "ISTJA"
+      }
     ]
   },
   "You are a Singaporean woman in her 40s, working as an artist.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 53.3,
+          "SN": 23.1,
+          "TF": 31.9,
+          "JP": 53.8,
+          "AT": 47.2
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 24.4,
+          "TF": 34.7,
+          "JP": 52.6,
+          "AT": 41.7
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 46.7,
+          "SN": 21.8,
+          "TF": 29.2,
+          "JP": 55.1,
+          "AT": 45.8
+        },
+        "type": "INFJT"
+      },
+      {
+        "profile": {
+          "EI": 53.3,
+          "SN": 15.4,
+          "TF": 33.3,
+          "JP": 50.0,
+          "AT": 41.7
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 53.3,
+          "SN": 12.8,
+          "TF": 33.3,
+          "JP": 56.4,
+          "AT": 38.9
+        },
+        "type": "ENFJT"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -6281,9 +6957,113 @@
         },
         "type": "ENFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 26.7,
+          "SN": 12.8,
+          "TF": 26.4,
+          "JP": 25.6,
+          "AT": 40.3
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 21.7,
+          "SN": 12.8,
+          "TF": 23.6,
+          "JP": 19.2,
+          "AT": 33.3
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 10.3,
+          "TF": 25.0,
+          "JP": 19.2,
+          "AT": 34.7
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 35.0,
+          "SN": 9.0,
+          "TF": 20.8,
+          "JP": 15.4,
+          "AT": 33.3
+        },
+        "type": "INFPT"
+      },
+      {
+        "profile": {
+          "EI": 23.3,
+          "SN": 12.8,
+          "TF": 22.2,
+          "JP": 24.4,
+          "AT": 43.1
+        },
+        "type": "INFPT"
+      }
     ]
   },
   "You are a Singaporean woman in her 40s, working as a construction worker.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 64.1,
+          "TF": 41.7,
+          "JP": 64.1,
+          "AT": 48.6
+        },
+        "type": "ISFJT"
+      },
+      {
+        "profile": {
+          "EI": 40.0,
+          "SN": 66.7,
+          "TF": 41.7,
+          "JP": 65.4,
+          "AT": 44.4
+        },
+        "type": "ISFJT"
+      },
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 64.1,
+          "TF": 43.1,
+          "JP": 64.1,
+          "AT": 48.6
+        },
+        "type": "ISFJT"
+      },
+      {
+        "profile": {
+          "EI": 38.3,
+          "SN": 64.1,
+          "TF": 43.1,
+          "JP": 64.1,
+          "AT": 51.4
+        },
+        "type": "ISFJA"
+      },
+      {
+        "profile": {
+          "EI": 41.7,
+          "SN": 65.4,
+          "TF": 41.7,
+          "JP": 66.7,
+          "AT": 44.4
+        },
+        "type": "ISFJT"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -6647,9 +7427,113 @@
         },
         "type": "INTJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 67.9,
+          "TF": 62.5,
+          "JP": 74.4,
+          "AT": 69.4
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 65.4,
+          "TF": 62.5,
+          "JP": 74.4,
+          "AT": 68.1
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 78.2,
+          "TF": 69.4,
+          "JP": 83.3,
+          "AT": 83.3
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 69.2,
+          "TF": 59.7,
+          "JP": 73.1,
+          "AT": 72.2
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 66.7,
+          "SN": 76.9,
+          "TF": 73.6,
+          "JP": 87.2,
+          "AT": 79.2
+        },
+        "type": "ESTJA"
+      }
     ]
   },
   "You are a Singaporean woman in her 40s, working as a lawyer.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 60.0,
+          "SN": 35.9,
+          "TF": 43.1,
+          "JP": 74.4,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 44.9,
+          "TF": 47.2,
+          "JP": 75.6,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.7,
+          "SN": 41.0,
+          "TF": 44.4,
+          "JP": 73.1,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 56.7,
+          "SN": 39.7,
+          "TF": 43.1,
+          "JP": 73.1,
+          "AT": 48.6
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 51.7,
+          "SN": 43.6,
+          "TF": 50.0,
+          "JP": 74.4,
+          "AT": 58.3
+        },
+        "type": "ENTJA"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -7013,9 +7897,113 @@
         },
         "type": "ENFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 29.5,
+          "TF": 69.4,
+          "JP": 76.9,
+          "AT": 68.1
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 58.3,
+          "SN": 28.2,
+          "TF": 50.0,
+          "JP": 75.6,
+          "AT": 72.2
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 42.3,
+          "TF": 66.7,
+          "JP": 88.5,
+          "AT": 65.3
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 43.6,
+          "TF": 69.4,
+          "JP": 89.7,
+          "AT": 69.4
+        },
+        "type": "ENTJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 39.7,
+          "TF": 65.3,
+          "JP": 79.5,
+          "AT": 70.8
+        },
+        "type": "ENTJA"
+      }
     ]
   },
   "You are a Singaporean woman in her 40s, working as a nurse.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 41.0,
+          "TF": 34.7,
+          "JP": 73.1,
+          "AT": 41.7
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 41.0,
+          "TF": 33.3,
+          "JP": 70.5,
+          "AT": 43.1
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 39.7,
+          "TF": 29.2,
+          "JP": 67.9,
+          "AT": 40.3
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 44.9,
+          "TF": 36.1,
+          "JP": 76.9,
+          "AT": 45.8
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 39.7,
+          "TF": 31.9,
+          "JP": 74.4,
+          "AT": 43.1
+        },
+        "type": "ENFJT"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -7379,9 +8367,113 @@
         },
         "type": "ENFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 44.9,
+          "TF": 40.3,
+          "JP": 74.4,
+          "AT": 56.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 61.7,
+          "SN": 38.5,
+          "TF": 37.5,
+          "JP": 76.9,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 44.9,
+          "TF": 40.3,
+          "JP": 75.6,
+          "AT": 68.1
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 26.9,
+          "TF": 16.7,
+          "JP": 82.1,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 52.6,
+          "TF": 33.3,
+          "JP": 80.8,
+          "AT": 62.5
+        },
+        "type": "ESFJA"
+      }
     ]
   },
   "You are a Singaporean woman in her 40s, working as a primary school teacher.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 61.7,
+          "SN": 38.5,
+          "TF": 38.9,
+          "JP": 74.4,
+          "AT": 44.4
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 63.3,
+          "SN": 43.6,
+          "TF": 37.5,
+          "JP": 74.4,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 38.5,
+          "TF": 34.7,
+          "JP": 73.1,
+          "AT": 44.4
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 55.0,
+          "SN": 38.5,
+          "TF": 34.7,
+          "JP": 73.1,
+          "AT": 41.7
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 65.0,
+          "SN": 37.2,
+          "TF": 34.7,
+          "JP": 73.1,
+          "AT": 45.8
+        },
+        "type": "ENFJT"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -7745,9 +8837,113 @@
         },
         "type": "ENFJA"
       }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 42.3,
+          "TF": 38.9,
+          "JP": 76.9,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 75.0,
+          "SN": 46.2,
+          "TF": 37.5,
+          "JP": 78.2,
+          "AT": 72.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 73.3,
+          "SN": 42.3,
+          "TF": 37.5,
+          "JP": 79.5,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 41.0,
+          "TF": 33.3,
+          "JP": 82.1,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 42.3,
+          "TF": 36.1,
+          "JP": 80.8,
+          "AT": 63.9
+        },
+        "type": "ENFJA"
+      }
     ]
   },
   "You are a Singaporean woman in her 40s, working as a salesperson.": {
+    "claude-haiku-4-5-20251001": [
+      {
+        "profile": {
+          "EI": 68.3,
+          "SN": 48.7,
+          "TF": 41.7,
+          "JP": 69.2,
+          "AT": 54.2
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 46.2,
+          "TF": 40.3,
+          "JP": 67.9,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 71.7,
+          "SN": 42.3,
+          "TF": 37.5,
+          "JP": 74.4,
+          "AT": 52.8
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 48.7,
+          "TF": 40.3,
+          "JP": 75.6,
+          "AT": 48.6
+        },
+        "type": "ENFJT"
+      },
+      {
+        "profile": {
+          "EI": 70.0,
+          "SN": 51.3,
+          "TF": 38.9,
+          "JP": 66.7,
+          "AT": 48.6
+        },
+        "type": "ESFJT"
+      }
+    ],
     "deepseek-v4-1-flash-260910": [
       {
         "profile": {
@@ -8108,6 +9304,58 @@
           "TF": 47.2,
           "JP": 70.5,
           "AT": 66.7
+        },
+        "type": "ENFJA"
+      }
+    ],
+    "grok-4.3": [
+      {
+        "profile": {
+          "EI": 80.0,
+          "SN": 47.4,
+          "TF": 47.2,
+          "JP": 75.6,
+          "AT": 65.3
+        },
+        "type": "ENFJA"
+      },
+      {
+        "profile": {
+          "EI": 78.3,
+          "SN": 50.0,
+          "TF": 43.1,
+          "JP": 80.8,
+          "AT": 63.9
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 78.3,
+          "SN": 55.1,
+          "TF": 41.7,
+          "JP": 80.8,
+          "AT": 70.8
+        },
+        "type": "ESFJA"
+      },
+      {
+        "profile": {
+          "EI": 81.7,
+          "SN": 57.7,
+          "TF": 58.3,
+          "JP": 80.8,
+          "AT": 73.6
+        },
+        "type": "ESTJA"
+      },
+      {
+        "profile": {
+          "EI": 83.3,
+          "SN": 35.9,
+          "TF": 38.9,
+          "JP": 75.6,
+          "AT": 65.3
         },
         "type": "ENFJA"
       }

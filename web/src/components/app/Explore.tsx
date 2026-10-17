@@ -1,5 +1,5 @@
 // The Explore hub: every screen after the reveal, to visit in any order
-// (PRD, steps 5-8), each ticked once seen, and the wrap-up at the end.
+// (PRD, steps 5-8), each ticked once seen.
 import Link from "next/link";
 import { useState } from "react";
 import { Character } from "@/components/Character";
@@ -103,18 +103,6 @@ export default function Explore() {
           })}
         </ul>
 
-        {result && (
-          <div className="mt-12 rounded-card border border-dashed border-ink-soft p-5 text-center">
-            <p className="font-hand text-2xl">Ready to wrap up?</p>
-            <p className="mt-1 text-ink-soft">Three quick questions, then your share card.</p>
-            <Link
-              href="/wrap-up"
-              className="press mt-4 inline-flex h-12 items-center rounded-full bg-cobalt px-7 font-medium text-cobalt-ink"
-            >
-              Go to the wrap-up
-            </Link>
-          </div>
-        )}
       </main>
     </>
   );

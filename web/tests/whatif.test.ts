@@ -7,7 +7,7 @@ const predict = vi.fn();
 vi.mock("@/lib/server/gateway", () => ({ predict, PROMPT_FINGERPRINT: "whatif-test" }));
 vi.mock("@/lib/server/responses", () => ({ recordResponse: vi.fn() }));
 
-const { POST } = await import("@/app/api/whatif/route");
+const { GET, POST } = await import("@/app/api/whatif/route");
 
 const ME = { age: 24, gender: "female", nationality: "Singaporean", job: "nurse", details: "I love cats." };
 const TWO = ["gpt-5-mini", "glm-5.2"];
@@ -83,5 +83,36 @@ describe("/api/whatif", () => {
     expect(first.status).toBe(200);
     const second = await whatIf({ field: "job", value: "pilot" }, TWO, base, "2.0.0.2");
     expect(second.status).toBe(429);
+  });
+
+  it("asks only the 'after' guesses for your own words, live, and counts each try", async () => {
+    vi.stubEnv("WHATIFS_PER_IP_PER_DAY", "2");
+    const words = "I love meeting new people.";
+    const first = await whatIf({ field: "words", value: words }, TWO, ME, "3.0.0.3");
+    expect(first.status).toBe(200);
+    expect(first.lines[0]).toEqual({ meta: { live: 2, remaining: 1 } });
+    expect(first.lines.slice(1).every((l) => l.which === "after")).toBe(true);
+    for (const [, systemPrompt, details] of predict.mock.calls) {
+      expect(details).toBe(words);
+      expect(systemPrompt).toContain(words);
+    }
+    // The same words again aren't cached (free text never is), so it's another live try.
+    expect((await whatIf({ field: "words", value: words }, TWO, ME, "3.0.0.3")).status).toBe(200);
+    expect((await whatIf({ field: "words", value: words }, TWO, ME, "3.0.0.3")).status).toBe(429);
+  });
+
+  it("rejects empty words and contact details", async () => {
+    expect((await whatIf({ field: "words", value: "   " })).status).toBe(400);
+    expect((await whatIf({ field: "words", value: "email me at a@b.com" })).status).toBe(400);
+  });
+
+  it("says how many live what-ifs are left without using one", async () => {
+    vi.stubEnv("WHATIFS_PER_IP_PER_DAY", "10");
+    const check = async () =>
+      (await GET(new Request("http://test/api/whatif", { headers: { "x-forwarded-for": "4.0.0.4" } }))).json();
+    expect(await check()).toEqual({ remaining: 10 });
+    expect(await check()).toEqual({ remaining: 10 });
+    await whatIf({ field: "job", value: "chef" }, TWO, ME, "4.0.0.4");
+    expect(await check()).toEqual({ remaining: 9 });
   });
 });

@@ -75,6 +75,22 @@ def base_by_mode(config, models):
     return out
 
 
+def persona_means(df, config, models):
+    out = {}
+    for attribute, values in config["variations"].items():
+        for value in values:
+            if value == config["base"][attribute]:
+                rows = df[df["varied_attribute"] == "base"]
+            else:
+                rows = df[(df["varied_attribute"] == attribute)
+                          & (df[f"persona_{attribute}"].astype(str) == str(value))]
+            for model in models:
+                model_rows = rows[rows["model"] == model]
+                if len(model_rows):
+                    out.setdefault(attribute, {}).setdefault(str(value), {})[model] = mean_profile(model_rows)
+    return out
+
+
 def export_study():
     config = lab.load_persona_config()
     df = load_results(config)
@@ -162,6 +178,10 @@ def export_study():
             model: round(float(sum(abs(v["base"][d] - v["no_persona"][d]) for d in DIMENSIONS) / len(DIMENSIONS)), 1)
             for model, v in per_model.items()
         },
+        # Each model's mean answers for every persona, by attribute and value
+        # (the base persona included under each attribute), for the what-if
+        # slider: {"age": {"20": {"gpt-5-mini": {...}}, ...}, ...}.
+        "persona_means": persona_means(df, config, list(per_model)),
         "total_runs": int(len(load_results(config))),
     })
     return attribute_effect

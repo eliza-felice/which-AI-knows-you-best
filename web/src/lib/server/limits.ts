@@ -16,7 +16,7 @@
 // and never stored as they are.
 import "server-only";
 import { createHash } from "node:crypto";
-import { increment } from "@/lib/server/store";
+import { getMany, increment } from "@/lib/server/store";
 
 const DAY_SECONDS = 24 * 60 * 60;
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
@@ -74,6 +74,16 @@ export async function claim(kind: keyof typeof KINDS, ip: string): Promise<Claim
     return { refusal: limits.overTotal };
   }
   return { remaining: Number.isFinite(perIp) ? perIp - used : Infinity };
+}
+
+/** How many of this kind the visitor has left today, without using one (null = no limit). */
+export async function remaining(kind: keyof typeof KINDS, ip: string): Promise<number | null> {
+  const perIp = KINDS[kind].perIp();
+  if (!Number.isFinite(perIp)) return null;
+  const day = new Date().toISOString().slice(0, 10);
+  const ipHash = createHash("sha256").update(`${day}:${ip}`).digest("hex").slice(0, 24);
+  const [used] = await getMany([`${kind}s:${day}:ip:${ipHash}`]);
+  return Math.max(0, perIp - Number(used ?? 0));
 }
 
 /** Counts one full profile run. Returns a message for the user if it isn't allowed. */
