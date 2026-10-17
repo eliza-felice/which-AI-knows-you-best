@@ -14,7 +14,7 @@ import { Circled } from "@/components/Doodles";
 import { NavBar } from "@/components/NavBar";
 import { TabPanel, Tabs } from "@/components/Organise";
 import { SearchSelect } from "@/components/SearchSelect";
-import { BackLink, Button, ChanceNote, LessonBlock, ModelChip } from "@/components/ui";
+import { BackLink, Button, ChanceNote, ExploreFooter, LessonBlock, ModelChip } from "@/components/ui";
 import { FactSlider } from "@/components/app/FactSlider";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension } from "@/lib/experiment";
 import { CHANCE_GAP, rankModels, type Prediction } from "@/lib/match";
@@ -221,17 +221,26 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
       <NavBar current="whatif" finished />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-8 px-4 pt-8 pb-16 sm:px-6">
         <div className="relative z-10 -mb-2">
-          <BackLink href="/?step=results" label="My results" />
+          <BackLink href="/explore" label="Explore" />
         </div>
-        <header className="flex items-end gap-3">
-          <div className="shrink-0">
-            <HatCharacter />
-          </div>
-          <div>
-            <h1 className="font-hand text-4xl leading-tight font-normal">What if you were someone else?</h1>
-            <p className="mt-1 text-ink-soft">Change one thing about yourself and watch the AIs change their minds.</p>
-          </div>
+        <header>
+          <h1 className="font-hand text-4xl leading-tight font-normal">What if you were someone else?</h1>
+          <p className="mt-1 text-ink-soft">Change one thing about yourself and watch the AIs change their minds.</p>
         </header>
+
+        <aside className="rounded-card border border-dashed border-ink-soft p-4 text-sm leading-relaxed">
+          <p className="font-medium">
+            {left === null
+              ? "Live guesses are limited to keep costs down."
+              : outOfLive
+                ? "You've used today's live what-ifs."
+                : `You have ${left} live what-if${left === 1 ? "" : "s"} left today.`}
+          </p>
+          <p className="mt-1 text-ink-soft">
+            Anything our study or earlier visitors already covered is free and instant; anything new asks the AIs live
+            and uses one. Changing your own words always does.
+          </p>
+        </aside>
 
         <section aria-labelledby="who">
           <h2 id="who" className="text-lg">
@@ -305,15 +314,6 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
                 <Button onClick={() => run()} disabled={busy || (outOfLive && field === "words")}>
                   {busy ? "Asking..." : "See what changes"}
                 </Button>
-                <p className="mt-2 text-sm text-ink-soft">
-                  {field === "words"
-                    ? "Your words are always sent to the AIs you chose, and never kept. Each try uses one live what-if."
-                    : "Free if we've seen this profile before or tested it in our study; otherwise it uses one live what-if."}
-                  {left !== null &&
-                    (outOfLive
-                      ? " You've used today's live what-ifs; ones we've seen before still work."
-                      : ` ${left} live what-if${left === 1 ? "" : "s"} left today.`)}
-                </p>
               </div>
 
               <div ref={resultsTop} className="scroll-mt-20" />
@@ -321,6 +321,7 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
             </div>
           </TabPanel>
         )}
+        <ExploreFooter />
       </main>
     </>
   );
@@ -687,19 +688,6 @@ function WordsFinding() {
         answers only about 6 points, the size of chance. Describing personality directly (&ldquo;I avoid social
         events&rdquo;) moved them 19 to 35 points: more than changing any single fact like the job.
       </p>
-    </div>
-  );
-}
-
-/** A character trying on a hat (the what-if illustration). */
-function HatCharacter() {
-  return (
-    <div className="relative" aria-hidden="true">
-      <Character slot={6} size={88} boil />
-      <svg viewBox="0 0 60 40" className="absolute -top-3 left-[52px] w-12 -rotate-12" filter="url(#wobble)">
-        <path d="M14 30 L18 8 C24 5 36 5 42 8 L46 30 Z" fill="#B8343F" stroke="var(--color-ink)" strokeWidth="2.5" />
-        <path d="M4 31 C20 27 40 27 56 31" fill="none" stroke="var(--color-ink)" strokeWidth="2.5" strokeLinecap="round" />
-      </svg>
     </div>
   );
 }

@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { ChartCaption, RepeatDots, TraitArrows } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
-import { BackLink, LessonBlock } from "@/components/ui";
+import { BackLink, ExploreFooter, LessonBlock } from "@/components/ui";
 import { DIMENSIONS, type Dimension, type Profile5 } from "@/lib/experiment";
 import { MODELS, modelInfo } from "@/lib/models";
 import { finishedResult } from "@/lib/result";
@@ -141,6 +141,7 @@ export default function Reliability() {
             might say. That&rsquo;s worth remembering whenever an AI gives you a single, confident answer about a person.
           </p>
         </LessonBlock>
+        <ExploreFooter />
       </main>
     </>
   );

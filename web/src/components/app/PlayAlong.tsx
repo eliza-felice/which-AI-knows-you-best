@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Character } from "@/components/Character";
 import { BarList, ChartCaption } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
-import { BackLink, LessonBlock, ModelChip } from "@/components/ui";
+import { BackLink, ExploreFooter, LessonBlock, ModelChip } from "@/components/ui";
 import { MODELS, modelInfo } from "@/lib/models";
 import { finishedResult } from "@/lib/result";
 import { loadSession, markVisited, track } from "@/lib/session";
@@ -140,6 +140,7 @@ export default function PlayAlong() {
             fully may be better for simulation, and also easier to steer somewhere it shouldn&rsquo;t go.
           </p>
         </LessonBlock>
+        <ExploreFooter />
       </main>
     </>
   );

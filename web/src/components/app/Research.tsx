@@ -1,12 +1,10 @@
 // The research behind the app (PRD L6): how the study worked, what it found,
-// and its limits, in plain language. Numbers come from study.json; the full
-// write-up is results.md in the project.
-import Link from "next/link";
+// and its limits, in plain language. Numbers come from study.json.
 import { useEffect, useState, type ReactNode } from "react";
 import { Cast } from "@/components/Character";
 import { BarList, ChartCaption } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
-import { BackLink } from "@/components/ui";
+import { BackLink, ExploreFooter } from "@/components/ui";
 import { MODELS, modelInfo } from "@/lib/models";
 import { finishedResult } from "@/lib/result";
 import { loadSession, markVisited, track } from "@/lib/session";
@@ -140,20 +138,9 @@ export default function Research() {
               about 5 points may be chance.
             </li>
           </ul>
-          <p className="text-sm text-ink-soft">
-            The full write-up, with every table and the method in detail, is <code>results.md</code> in the project&rsquo;s
-            code repository.
-          </p>
         </section>
 
-        <div className="flex flex-wrap gap-3">
-          <Link
-            href={finished ? "/explore" : "/?step=profile"}
-            className="press inline-flex h-12 items-center rounded-full bg-cobalt px-7 font-medium text-cobalt-ink"
-          >
-            {finished ? "Back to explore" : "Take the test"}
-          </Link>
-        </div>
+        <ExploreFooter />
       </main>
     </>
   );

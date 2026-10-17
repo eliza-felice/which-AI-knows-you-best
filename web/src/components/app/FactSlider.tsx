@@ -127,7 +127,11 @@ export function FactSlider({
 
       <div>
         <p className="font-hand text-3xl leading-tight">
-          {value === baseValue ? "Our test person: " : field === "gender" ? "What if our test person were " : "What if she were "}
+          {value === baseValue
+            ? "Our test person: "
+            : field === "gender"
+              ? "What if our test person were "
+              : "What if she were "}
           {describe(field, value)}
           {value === baseValue ? "" : "?"}
         </p>
@@ -223,9 +227,7 @@ export function FactSlider({
         <div className="rounded-card border border-dashed border-ink-soft p-4">
           <p className="font-medium">Would they do the same with you?</p>
           <p className="mt-1 text-sm text-ink-soft">
-            Runs a normal what-if on your own profile. It&rsquo;s free if
-            we&rsquo;ve seen it before, otherwise it uses one of your live
-            what-ifs.
+            Runs the same change on your own profile, in the other tab.
           </p>
           <button
             type="button"

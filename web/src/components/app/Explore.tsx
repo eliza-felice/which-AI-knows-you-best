@@ -50,8 +50,8 @@ const SCREENS: {
   {
     key: "lessons",
     href: "/lessons",
-    title: "What you shared, and stereotypes",
-    blurb: "Where your details went, and the stereotypes we measured.",
+    title: "Stereotypes, measured",
+    blurb: "What happened when we changed one fact about a made-up person.",
     slot: 5,
   },
   {

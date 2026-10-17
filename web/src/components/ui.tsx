@@ -172,3 +172,17 @@ export function BackLink({ href, label }: { href: string; label: string }) {
     </Link>
   );
 }
+
+/** The one button at the end of every Explore screen. */
+export function ExploreFooter() {
+  return (
+    <footer className="border-t border-line pt-8">
+      <Link
+        href="/explore"
+        className="press inline-flex h-12 items-center rounded-full bg-cobalt px-7 font-medium text-cobalt-ink"
+      >
+        ← Back to Explore
+      </Link>
+    </footer>
+  );
+}

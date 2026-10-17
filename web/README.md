@@ -204,5 +204,3 @@ src/lib/server/                      guesses.ts (study, cache or live), gateway 
 - Check the consent wording against PDPA, and whether ethics
   review applies if this is tied to university research (PRD, "Data and
   privacy").
-- Replace the link text on `/research` with a real link to the write-up once
-  the repository is public.

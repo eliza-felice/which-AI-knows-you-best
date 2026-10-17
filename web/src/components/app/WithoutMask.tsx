@@ -1,12 +1,11 @@
 // Step 6: meet the AI without a mask. Lesson: AI self-reports and
 // anthropomorphism. Each model's own answers with no persona at all, from the
 // study (no API calls), next to its guess about the user if there is one.
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Character } from "@/components/Character";
 import { BarList, ChartCaption } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
-import { BackLink, LessonBlock } from "@/components/ui";
+import { BackLink, ExploreFooter, LessonBlock } from "@/components/ui";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension, type Profile5 } from "@/lib/experiment";
 import { MODELS } from "@/lib/models";
 import { loadSession, markVisited, track, type Session } from "@/lib/session";
@@ -152,22 +151,7 @@ export default function WithoutMask() {
             </p>
           </LessonBlock>
   
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href={finished ? "/what-if" : "/"}
-              className="press inline-flex h-12 items-center rounded-full bg-cobalt px-7 font-medium text-cobalt-ink"
-            >
-              {finished ? "Try a what-if" : "Take the test"}
-            </Link>
-            {finished && (
-              <Link
-                href="/?step=results"
-                className="press inline-flex h-11 items-center rounded-full border border-ink px-4 text-xs font-medium tracking-wider uppercase"
-              >
-                Back to my results
-              </Link>
-            )}
-          </div>
+          <ExploreFooter />
         </div>
       </main>
     </>
