@@ -129,7 +129,11 @@ export function TestScreen({
         ) : (
           answer !== undefined &&
           !isLast && (
-            <button type="button" onClick={() => onChange(answers, index + 1)} className="press h-11 underline underline-offset-4">
+            <button
+              type="button"
+              onClick={() => onChange(answers, index + 1)}
+              className="press h-11 underline underline-offset-4"
+            >
               Next
             </button>
           )
@@ -137,7 +141,12 @@ export function TestScreen({
         {isLast && !allAnswered && (
           <button
             type="button"
-            onClick={() => onChange(answers, TEST_ORDER.findIndex((q) => answers[q.id] === undefined))}
+            onClick={() =>
+              onChange(
+                answers,
+                TEST_ORDER.findIndex((q) => answers[q.id] === undefined),
+              )
+            }
             className="press h-11 underline underline-offset-4"
           >
             Go to unanswered statement

@@ -43,13 +43,15 @@ export default function Research() {
     <>
       <NavBar current="explore" finished={finished} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 pt-6 pb-16 sm:px-6">
-        <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
+        <div className="relative z-10 -mb-2">
+          <BackLink href="/explore" label="Explore" />
+        </div>
         <header>
           <Cast size={30} className="mb-4 flex-nowrap! justify-start! gap-0!" />
           <h1 className="font-hand text-4xl leading-tight font-normal">The research behind this app</h1>
           <p className="mt-2 leading-relaxed">
-            This app grew out of a study: can AI models guess someone&rsquo;s personality from a few facts, and what
-            do their guesses reveal about them?
+            This app grew out of a study: can AI models guess someone&rsquo;s personality from a few facts, and what do
+            their guesses reveal about them?
           </p>
         </header>
 
@@ -61,13 +63,13 @@ export default function Research() {
               software engineer&rdquo;, then asked it the same 60 statements you answered.
             </li>
             <li>
-              We changed one fact at a time (age, gender, nationality or job) and kept everything else the same, so
-              any change in the answers came from that one fact.
+              We changed one fact at a time (age, gender, nationality or job) and kept everything else the same, so any
+              change in the answers came from that one fact.
             </li>
             <li>
               Each version was asked 5 to 10 times, sometimes one statement at a time and sometimes all at once, and
-              with no persona at all. That&rsquo;s {study.total_runs.toLocaleString("en")} tests across{" "}
-              {MODELS.length} AIs ({fullyTested} tested on everything, the newer ones on part).
+              with no persona at all. That&rsquo;s {study.total_runs.toLocaleString("en")} tests across {MODELS.length}{" "}
+              AIs ({fullyTested} tested on everything, the newer ones on part).
             </li>
           </ul>
         </section>
@@ -87,8 +89,8 @@ export default function Research() {
                 ].map(([key, label]) => ({ key, label, value: EFFECTS[key], display: `${EFFECTS[key]} points` }))}
               />
               <ChartCaption>
-                How far the answers moved, on average, when only that fact changed (each trait is scored out of 100).
-                A salesperson came out {Math.round(study.persona_shifts.occupation.salesperson.EI)} points more
+                How far the answers moved, on average, when only that fact changed (each trait is scored out of 100). A
+                salesperson came out {Math.round(study.persona_shifts.occupation.salesperson.EI)} points more
                 Extraverted than a software engineer.
               </ChartCaption>
             </Finding>
@@ -130,8 +132,7 @@ export default function Research() {
               &ldquo;Turbulent&rdquo;, so an AI that tends to agree drifts that way.
             </li>
             <li>
-              Every shift is measured from one made-up person. A different starting person might give different
-              shifts.
+              Every shift is measured from one made-up person. A different starting person might give different shifts.
             </li>
             <li>
               Small samples (5 to 10 runs), one API provider, and AI models that change over time. Differences under

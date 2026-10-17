@@ -12,10 +12,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Character } from "@/components/Character";
 import { Circled } from "@/components/Doodles";
 import { NavBar } from "@/components/NavBar";
-import { TabPanel, Tabs } from "@/components/Organise";
+import { TabPanel, Tabs } from "@/components/Tabs";
 import { SearchSelect } from "@/components/SearchSelect";
 import { BackLink, Button, ChanceNote, ExploreFooter, LessonBlock, ModelChip } from "@/components/ui";
-import { FactSlider } from "@/components/app/FactSlider";
+import { FactSlider } from "@/views/explore/FactSlider";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, scoreAnswers, type Dimension } from "@/lib/experiment";
 import { CHANCE_GAP, rankModels, type Prediction } from "@/lib/match";
 import { MODELS, modelInfo } from "@/lib/models";
@@ -103,7 +103,9 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
   useEffect(() => markVisited("whatif"), []);
   const topModels = useMemo(() => {
     const user = scoreAnswers(session.answers).profile;
-    return rankModels(session.predictions, user).slice(0, MAX_WHATIF_MODELS).map((r) => r.model);
+    return rankModels(session.predictions, user)
+      .slice(0, MAX_WHATIF_MODELS)
+      .map((r) => r.model);
   }, [session]);
   const [tab, setTab] = useState<"change" | "slide">("change");
   const [field, setField] = useState<WhatIfField>("job");
@@ -141,7 +143,10 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
 
   async function run(runField: WhatIfField = field, runValue: string = value) {
     const words = runField === "words";
-    if (!runValue.trim()) return setError(words ? "Write something about yourself first." : `Choose a new ${FIELD_LABELS[runField].toLowerCase()} first.`);
+    if (!runValue.trim())
+      return setError(
+        words ? "Write something about yourself first." : `Choose a new ${FIELD_LABELS[runField].toLowerCase()} first.`,
+      );
     if (words && cleanDetails(runValue) === profile.details) return setError("Change your words first.");
     if (words && detailsProblem(cleanDetails(runValue))) return setError(detailsProblem(cleanDetails(runValue))!);
     if (models.length === 0) return setError("Choose at least one AI.");
@@ -171,7 +176,11 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
       response = await fetch("/api/whatif", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ profile: { ...profile, details: "" }, change: { field: runField, value: runValue }, models }),
+        body: JSON.stringify({
+          profile: { ...profile, details: "" },
+          change: { field: runField, value: runValue },
+          models,
+        }),
       });
     } catch {
       setResult(null);
@@ -244,7 +253,10 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
 
         <section aria-labelledby="who">
           <h2 id="who" className="text-lg">
-            Which AIs? <span className="font-normal text-ink-soft">(up to {MAX_WHATIF_MODELS}; your top {MAX_WHATIF_MODELS} to start)</span>
+            Which AIs?{" "}
+            <span className="font-normal text-ink-soft">
+              (up to {MAX_WHATIF_MODELS}; your top {MAX_WHATIF_MODELS} to start)
+            </span>
           </h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {MODELS.map((m) => {

@@ -1,4 +1,4 @@
-// Building blocks from design.md, section 6.
+// Building blocks from docs/design.md, section 6.
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { DIMENSIONS, TRAIT_NAMES, type Dimension, type Profile5 } from "@/lib/experiment";
@@ -36,8 +36,8 @@ export function HandTitle({ children, className = "" }: { children: ReactNode; c
 export function ChanceNote({ className = "" }: { className?: string }) {
   return (
     <p className={`flex items-center gap-1.5 text-sm text-ink-soft ${className}`}>
-      <Asterisk /> Differences under {CHANCE_GAP} points may be chance: each AI guessed once, and a single
-      guess varies by about 2 to 6 points.
+      <Asterisk /> Differences under {CHANCE_GAP} points may be chance: each AI guessed once, and a single guess varies
+      by about 2 to 6 points.
     </p>
   );
 }
@@ -98,7 +98,7 @@ export function ModelChip({ model, className = "" }: { model: string; className?
  * Extraverted) is on the left. The user's score is an ink dot; the guess is a
  * dot in the model's colour, with the gap bracketed and labelled.
  */
-export function TraitBar({
+function TraitBar({
   dimension,
   user,
   guess,

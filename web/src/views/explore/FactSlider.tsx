@@ -5,12 +5,7 @@
 import { useState } from "react";
 import { ChartCaption } from "@/components/Charts";
 import { ModelChip } from "@/components/ui";
-import {
-  DIMENSIONS,
-  TRAIT_NAMES,
-  type Dimension,
-  type Profile5,
-} from "@/lib/experiment";
+import { DIMENSIONS, TRAIT_NAMES, type Dimension, type Profile5 } from "@/lib/experiment";
 import { modelInfo } from "@/lib/models";
 import type { UserProfile } from "@/lib/profile";
 import { BASE_PERSONA, STUDY_ATTRIBUTE, type FactField } from "@/lib/whatif";
@@ -39,13 +34,8 @@ function forUser(field: FactField, value: string): string {
   return field === "age" ? String(Number(value) + 5) : value;
 }
 
-function sameAsUser(
-  field: FactField,
-  value: string,
-  profile: UserProfile,
-): boolean {
-  if (field === "age")
-    return Math.floor(profile.age / 10) * 10 === Number(value);
+function sameAsUser(field: FactField, value: string, profile: UserProfile): boolean {
+  if (field === "age") return Math.floor(profile.age / 10) * 10 === Number(value);
   return String(profile[field]).toLowerCase() === value.toLowerCase();
 }
 
@@ -61,9 +51,7 @@ export function FactSlider({
   const [field, setField] = useState<FactField>("age");
   const attribute = STUDY_ATTRIBUTE[field];
   const values = Object.keys(MEANS[attribute] ?? {});
-  const baseValue = String(
-    BASE_PERSONA[attribute as keyof typeof BASE_PERSONA],
-  );
+  const baseValue = String(BASE_PERSONA[attribute as keyof typeof BASE_PERSONA]);
   const [index, setIndex] = useState(values.indexOf(baseValue));
   const value = values[Math.min(Math.max(index, 0), values.length - 1)];
   const atValue = MEANS[attribute][value] ?? {};
@@ -74,21 +62,13 @@ export function FactSlider({
   function pick(next: FactField) {
     setField(next);
     const nextValues = Object.keys(MEANS[STUDY_ATTRIBUTE[next]] ?? {});
-    setIndex(
-      nextValues.indexOf(
-        String(
-          BASE_PERSONA[STUDY_ATTRIBUTE[next] as keyof typeof BASE_PERSONA],
-        ),
-      ),
-    );
+    setIndex(nextValues.indexOf(String(BASE_PERSONA[STUDY_ATTRIBUTE[next] as keyof typeof BASE_PERSONA])));
   }
 
   // The trait that moved most, on average, between the test person and this value.
   const moves = DIMENSIONS.map((d) => {
     const changes = shown.map((m) => atValue[m][d] - atBase[m][d]);
-    const mean = changes.length
-      ? changes.reduce((a, b) => a + b, 0) / changes.length
-      : 0;
+    const mean = changes.length ? changes.reduce((a, b) => a + b, 0) / changes.length : 0;
     return { d, mean };
   }).sort((a, b) => Math.abs(b.mean) - Math.abs(a.mean));
   const top = moves[0];
@@ -96,17 +76,12 @@ export function FactSlider({
   return (
     <div className="space-y-6">
       <p className="leading-relaxed">
-        Meet our test person: a {BASE_PERSONA.nationality} woman in her 40s,
-        working as a {BASE_PERSONA.occupation}. Step through every value we
-        tested in our study and watch each AI&rsquo;s guess move. It&rsquo;s all
-        from the study, so it&rsquo;s instant and free.
+        Meet our test person: a {BASE_PERSONA.nationality} woman in her 40s, working as a {BASE_PERSONA.occupation}.
+        Step through every value we tested in our study and watch each AI&rsquo;s guess move. It&rsquo;s all from the
+        study, so it&rsquo;s instant and free.
       </p>
 
-      <div
-        className="flex flex-wrap gap-2"
-        role="radiogroup"
-        aria-label="Fact to slide through"
-      >
+      <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Fact to slide through">
         {FACTS.map((f) => (
           <button
             key={f.field}
@@ -115,9 +90,7 @@ export function FactSlider({
             aria-checked={field === f.field}
             onClick={() => pick(f.field)}
             className={`press h-11 rounded-full border px-4 text-sm ${
-              field === f.field
-                ? "border-ink bg-cream font-medium"
-                : "border-line"
+              field === f.field ? "border-ink bg-cream font-medium" : "border-line"
             }`}
           >
             {f.label}
@@ -137,11 +110,7 @@ export function FactSlider({
         </p>
         {values.length <= 2 ? (
           // Only two values (e.g. gender): two buttons, not a slider.
-          <div
-            className="mt-3 flex gap-2"
-            role="radiogroup"
-            aria-label={FACTS.find((f) => f.field === field)!.label}
-          >
+          <div className="mt-3 flex gap-2" role="radiogroup" aria-label={FACTS.find((f) => f.field === field)!.label}>
             {values.map((v, i) => (
               <button
                 key={v}
@@ -150,9 +119,7 @@ export function FactSlider({
                 aria-checked={index === i}
                 onClick={() => setIndex(i)}
                 className={`press h-11 flex-1 rounded-full border px-4 capitalize ${
-                  index === i
-                    ? "border-cobalt bg-cobalt text-cobalt-ink"
-                    : "border-ink"
+                  index === i ? "border-cobalt bg-cobalt text-cobalt-ink" : "border-ink"
                 }`}
               >
                 {v}
@@ -172,10 +139,7 @@ export function FactSlider({
               aria-valuetext={value}
               className="mt-3 w-full accent-cobalt"
             />
-            <div
-              className="mt-1 flex justify-between text-xs text-ink-soft"
-              aria-hidden="true"
-            >
+            <div className="mt-1 flex justify-between text-xs text-ink-soft" aria-hidden="true">
               <span>{values[0]}</span>
               <span>
                 {index + 1} of {values.length}
@@ -187,16 +151,10 @@ export function FactSlider({
       </div>
 
       {shown.length === 0 ? (
-        <p className="text-ink-soft">
-          None of the AIs you picked were tested on this in our study. Pick
-          others above.
-        </p>
+        <p className="text-ink-soft">None of the AIs you picked were tested on this in our study. Pick others above.</p>
       ) : (
         <div className="space-y-4 rounded-card border-[1.5px] border-ink bg-cream p-4 sm:p-5">
-          <div
-            className="flex flex-wrap gap-x-4 gap-y-1 text-sm"
-            aria-label="AIs shown, top to bottom on each line"
-          >
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm" aria-label="AIs shown, top to bottom on each line">
             {shown.map((m) => (
               <ModelChip key={m} model={m} />
             ))}
@@ -204,9 +162,7 @@ export function FactSlider({
           {DIMENSIONS.map((d) => (
             <SlideBar key={d} d={d} models={shown} at={atValue} base={atBase} />
           ))}
-          <p className="text-xs text-ink-soft">
-            ○ our test person as she is · ● {describe(field, value)}
-          </p>
+          <p className="text-xs text-ink-soft">○ our test person as she is · ● {describe(field, value)}</p>
         </div>
       )}
       {shown.length > 0 && value !== baseValue && (
@@ -218,17 +174,14 @@ export function FactSlider({
       )}
       {untested.length > 0 && (
         <p className="text-sm text-ink-soft">
-          Not tested on this in our study:{" "}
-          {untested.map((m) => modelInfo(m).name).join(", ")}.
+          Not tested on this in our study: {untested.map((m) => modelInfo(m).name).join(", ")}.
         </p>
       )}
 
       {value !== baseValue && (
         <div className="rounded-card border border-dashed border-ink-soft p-4">
           <p className="font-medium">Would they do the same with you?</p>
-          <p className="mt-1 text-sm text-ink-soft">
-            Runs the same change on your own profile, in the other tab.
-          </p>
+          <p className="mt-1 text-sm text-ink-soft">Runs the same change on your own profile, in the other tab.</p>
           <button
             type="button"
             disabled={sameAsUser(field, value, profile)}
@@ -264,10 +217,7 @@ function SlideBar({
         <span>{TRAIT_NAMES[d][0]}</span>
         <span>{TRAIT_NAMES[d][1]}</span>
       </div>
-      <div
-        className="relative mx-1.5 mt-1"
-        style={{ height: 8 + models.length * 12 }}
-      >
+      <div className="relative mx-1.5 mt-1" style={{ height: 8 + models.length * 12 }}>
         <div className="absolute inset-x-0 top-1/2 h-[1.5px] -translate-y-1/2 bg-ink" />
         <div className="absolute top-0 bottom-0 left-1/2 w-px bg-ink-soft" />
         {models.map((m, i) => {

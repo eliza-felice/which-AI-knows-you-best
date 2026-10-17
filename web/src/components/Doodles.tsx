@@ -5,7 +5,7 @@ import { useSyncExternalStore, type ReactNode } from "react";
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 
-export function usePrefersReducedMotion(): boolean {
+function usePrefersReducedMotion(): boolean {
   return useSyncExternalStore(
     (onChange) => {
       const query = window.matchMedia(REDUCED_MOTION);

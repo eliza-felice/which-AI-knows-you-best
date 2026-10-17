@@ -1,5 +1,5 @@
 // Checks the TypeScript port against the Python experiment code. The expected
-// values in parity_fixtures.json are written by `python src/export_for_web.py`.
+// values in parity_fixtures.json are written by `python experiment/src/export_for_web.py`.
 import { describe, expect, it } from "vitest";
 import fixtures from "./parity_fixtures.json";
 import {
@@ -29,9 +29,7 @@ describe("prompt builder matches Python", () => {
 
 describe("scoring matches Python", () => {
   it.each(fixtures.scoring.map((s, i) => ({ ...s, i })))("answer set $i", (fixture) => {
-    const answers = Object.fromEntries(
-      Object.entries(fixture.answers).map(([id, a]) => [Number(id), a]),
-    );
+    const answers = Object.fromEntries(Object.entries(fixture.answers).map(([id, a]) => [Number(id), a]));
     expect(validateAnswers(answers)).toBe(true);
     const percentages = calculatePercentages(calculateScores(answers));
     expect(percentages).toEqual(fixture.percentages);
@@ -57,9 +55,7 @@ describe("parsing model replies", () => {
   });
 
   it("rejects out-of-range, fractional and true/false answers", () => {
-    const good = Object.fromEntries(
-      Object.keys(fixtures.scoring[0].answers).map((id) => [Number(id), 0]),
-    );
+    const good = Object.fromEntries(Object.keys(fixtures.scoring[0].answers).map((id) => [Number(id), 0]));
     expect(validateAnswers(good)).toBe(true);
     expect(validateAnswers({ ...good, 1: 4 })).toBe(false);
     expect(validateAnswers({ ...good, 1: 1.5 })).toBe(false);

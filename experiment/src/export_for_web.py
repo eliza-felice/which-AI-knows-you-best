@@ -1,8 +1,8 @@
 """Export what the web app needs from the experiment.
 
-    python src/export_for_web.py
+    python experiment/src/export_for_web.py
 
-Writes three files into web/:
+Writes these files into the web app (web/, next to experiment/):
     src/data/experiment.json   questions, instructions and model settings, so
                                the app asks exactly what the experiment asked
     src/data/study.json        study findings from experiment_data/ (one_shot):
@@ -27,7 +27,7 @@ import pandas as pd
 import personality_lab as lab
 from plot_results import load_results
 
-WEB_DIR = lab.PROJECT_DIR / "web"
+WEB_DIR = lab.PROJECT_DIR.parent / "web"  # experiment/ and web/ sit side by side
 DIMENSIONS = ["EI", "SN", "TF", "JP", "AT"]
 MODE = "one_shot"
 # Bump when the prompt or scoring changes, so results from different
@@ -40,7 +40,7 @@ def write_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
         f.write("\n")
-    print(f"Wrote {path.relative_to(lab.PROJECT_DIR)}")
+    print(f"Wrote {path.relative_to(lab.PROJECT_DIR.parent)}")
 
 
 def first_side_column(dimension):

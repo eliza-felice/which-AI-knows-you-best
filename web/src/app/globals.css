@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Design tokens from design.md. The app is always on paper (no dark theme):
+/* Design tokens from docs/design.md. The app is always on paper (no dark theme):
    the sketchbook look is part of the design. */
 @theme {
   --color-paper: #efede8;

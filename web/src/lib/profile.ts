@@ -27,32 +27,128 @@ export type UserProfile = {
 // The experiment's values come first, so most users pick something the study
 // actually tested.
 export const NATIONALITIES = [
-  "Singaporean", "American", "British", "Chinese", "Indian",
-  "Malaysian", "Indonesian", "Filipino", "Thai", "Vietnamese", "Burmese",
-  "Cambodian", "Japanese", "Korean", "Taiwanese", "Hong Konger", "Bangladeshi",
-  "Pakistani", "Sri Lankan", "Nepalese", "Australian", "New Zealander",
-  "Canadian", "Mexican", "Brazilian", "Argentinian", "Colombian", "Chilean",
-  "Peruvian", "Irish", "French", "German", "Dutch", "Belgian", "Swiss",
-  "Austrian", "Italian", "Spanish", "Portuguese", "Swedish", "Norwegian",
-  "Danish", "Finnish", "Polish", "Czech", "Hungarian", "Romanian", "Greek",
-  "Ukrainian", "Russian", "Turkish", "Iranian", "Israeli", "Saudi", "Emirati",
-  "Egyptian", "Moroccan", "Nigerian", "Ghanaian", "Kenyan", "Ethiopian",
+  "Singaporean",
+  "American",
+  "British",
+  "Chinese",
+  "Indian",
+  "Malaysian",
+  "Indonesian",
+  "Filipino",
+  "Thai",
+  "Vietnamese",
+  "Burmese",
+  "Cambodian",
+  "Japanese",
+  "Korean",
+  "Taiwanese",
+  "Hong Konger",
+  "Bangladeshi",
+  "Pakistani",
+  "Sri Lankan",
+  "Nepalese",
+  "Australian",
+  "New Zealander",
+  "Canadian",
+  "Mexican",
+  "Brazilian",
+  "Argentinian",
+  "Colombian",
+  "Chilean",
+  "Peruvian",
+  "Irish",
+  "French",
+  "German",
+  "Dutch",
+  "Belgian",
+  "Swiss",
+  "Austrian",
+  "Italian",
+  "Spanish",
+  "Portuguese",
+  "Swedish",
+  "Norwegian",
+  "Danish",
+  "Finnish",
+  "Polish",
+  "Czech",
+  "Hungarian",
+  "Romanian",
+  "Greek",
+  "Ukrainian",
+  "Russian",
+  "Turkish",
+  "Iranian",
+  "Israeli",
+  "Saudi",
+  "Emirati",
+  "Egyptian",
+  "Moroccan",
+  "Nigerian",
+  "Ghanaian",
+  "Kenyan",
+  "Ethiopian",
   "South African",
 ];
 
 export const JOBS = [
-  "software engineer", "nurse", "primary school teacher", "accountant", "artist",
-  "salesperson", "construction worker", "lawyer",
-  "student", "retired", "doctor", "pharmacist", "dentist", "engineer",
-  "data scientist", "designer", "architect", "scientist", "researcher",
-  "lecturer", "secondary school teacher", "civil servant", "police officer",
-  "soldier", "social worker", "counsellor", "psychologist", "manager",
-  "business owner", "consultant", "banker", "financial analyst",
-  "marketing executive", "human resources officer", "administrative assistant",
-  "customer service officer", "retail assistant", "chef", "cook", "waiter",
-  "hairdresser", "cleaner", "driver", "delivery rider", "electrician",
-  "plumber", "mechanic", "farmer", "pilot", "flight attendant", "journalist",
-  "writer", "musician", "photographer", "actor", "athlete", "homemaker",
+  "software engineer",
+  "nurse",
+  "primary school teacher",
+  "accountant",
+  "artist",
+  "salesperson",
+  "construction worker",
+  "lawyer",
+  "student",
+  "retired",
+  "doctor",
+  "pharmacist",
+  "dentist",
+  "engineer",
+  "data scientist",
+  "designer",
+  "architect",
+  "scientist",
+  "researcher",
+  "lecturer",
+  "secondary school teacher",
+  "civil servant",
+  "police officer",
+  "soldier",
+  "social worker",
+  "counsellor",
+  "psychologist",
+  "manager",
+  "business owner",
+  "consultant",
+  "banker",
+  "financial analyst",
+  "marketing executive",
+  "human resources officer",
+  "administrative assistant",
+  "customer service officer",
+  "retail assistant",
+  "chef",
+  "cook",
+  "waiter",
+  "hairdresser",
+  "cleaner",
+  "driver",
+  "delivery rider",
+  "electrician",
+  "plumber",
+  "mechanic",
+  "farmer",
+  "pilot",
+  "flight attendant",
+  "journalist",
+  "writer",
+  "musician",
+  "photographer",
+  "actor",
+  "athlete",
+  "homemaker",
   "caregiver",
 ];
 
@@ -89,9 +185,7 @@ function titleCase(value: string): string {
 }
 
 /** Check and tidy a profile. Returns the cleaned profile or an error message. */
-export function normaliseProfile(
-  input: unknown,
-): { profile: UserProfile } | { error: string } {
+export function normaliseProfile(input: unknown): { profile: UserProfile } | { error: string } {
   const raw = (input ?? {}) as Record<string, unknown>;
   const age = Number(raw.age);
   if (!Number.isInteger(age) || age < MIN_AGE || age > MAX_AGE) {
@@ -101,8 +195,7 @@ export function normaliseProfile(
 
   const nationalityText = cleanOther(String(raw.nationality ?? ""));
   const nationality =
-    NATIONALITIES.find((n) => n.toLowerCase() === nationalityText.toLowerCase()) ??
-    titleCase(nationalityText);
+    NATIONALITIES.find((n) => n.toLowerCase() === nationalityText.toLowerCase()) ?? titleCase(nationalityText);
   const jobText = cleanOther(String(raw.job ?? "")).toLowerCase();
   const job = JOBS.find((j) => j === jobText) ?? jobText;
   if (!nationality) return { error: "Enter a nationality." };
@@ -115,7 +208,7 @@ export function normaliseProfile(
   return { profile: { age, gender: raw.gender as Gender, nationality, job, details } };
 }
 
-export function toPersona(profile: UserProfile): Persona {
+function toPersona(profile: UserProfile): Persona {
   return {
     age: profile.age,
     // "another" is not "female" or "male", so the prompt says "person".
@@ -128,10 +221,7 @@ export function toPersona(profile: UserProfile): Persona {
 /** Exactly what is sent to every model as the system prompt. */
 export function profileSystemPrompt(profile: UserProfile): string {
   // The experiment's sentence, except "working as a retired" reads ", retired".
-  let prompt = buildSystemPrompt(toPersona(profile))!.replace(
-    /, working as a retired\.$/,
-    ", retired.",
-  );
+  let prompt = buildSystemPrompt(toPersona(profile))!.replace(/, working as a retired\.$/, ", retired.");
   if (profile.details) {
     // Inserted as quoted data, after the experiment's persona sentence.
     prompt +=

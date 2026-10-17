@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Character } from "@/components/Character";
 import { Scribble } from "@/components/Doodles";
 
-export type NavKey = "results" | "whatif" | "explore" | "test";
+type NavKey = "results" | "whatif" | "explore" | "test";
 
 export function NavBar({ current, finished }: { current?: NavKey; finished: boolean }) {
   const [open, setOpen] = useState(false);

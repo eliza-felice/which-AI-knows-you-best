@@ -1,5 +1,5 @@
 // Small charts for people who aren't AI specialists: positions on a familiar
-// trait line, and simple bars. Drawn like the rest of the app (design.md,
+// trait line, and simple bars. Drawn like the rest of the app (docs/design.md,
 // "Charts"): ink lines, flat character colours, no grid lines, direct labels
 // instead of legends, and a plain-language caption under each chart.
 import type { ReactNode } from "react";
@@ -72,7 +72,10 @@ export function TraitDots({
           </span>
         )}
         {user !== undefined && (
-          <span className="absolute flex -translate-x-1/2 flex-col items-center" style={{ left: `${x(user)}%`, bottom: 0 }}>
+          <span
+            className="absolute flex -translate-x-1/2 flex-col items-center"
+            style={{ left: `${x(user)}%`, bottom: 0 }}
+          >
             <span className="h-3 w-3 bg-ink" />
             <span className="text-xs font-medium">You</span>
           </span>
@@ -106,7 +109,10 @@ export function BarList({
           <div className="mt-1 h-2.5 w-full rounded-full bg-line/50">
             <div
               className="h-full rounded-full border border-ink"
-              style={{ width: `${Math.max(2, (row.value / max) * 100)}%`, background: row.colour ?? "var(--color-ink)" }}
+              style={{
+                width: `${Math.max(2, (row.value / max) * 100)}%`,
+                background: row.colour ?? "var(--color-ink)",
+              }}
             />
           </div>
         </div>

@@ -27,8 +27,7 @@ export function SearchSelect({
   const searchRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const labelId = useId();
-  const show = (option: string) =>
-    capitalise ? option[0].toUpperCase() + option.slice(1) : option;
+  const show = (option: string) => (capitalise ? option[0].toUpperCase() + option.slice(1) : option);
 
   useEffect(() => {
     if (!open) return;
@@ -71,17 +70,9 @@ export function SearchSelect({
         onClick={() => setOpen(true)}
         className="flex h-12 w-full items-center justify-between rounded-input border border-line bg-cream px-4 text-left focus-visible:border-ink"
       >
-        <span className={value ? "" : "text-ink-soft"}>
-          {value ? show(value) : placeholder}
-        </span>
+        <span className={value ? "" : "text-ink-soft"}>{value ? show(value) : placeholder}</span>
         <svg viewBox="0 0 20 20" className="h-4 w-4" aria-hidden="true">
-          <path
-            d="M5 8 L10 13 L15 8"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
+          <path d="M5 8 L10 13 L15 8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
         </svg>
       </button>
 
@@ -150,11 +141,7 @@ export function SearchSelect({
                     </button>
                   </li>
                 )}
-                {!other && matches.length === 0 && (
-                  <li className="px-4 py-3 text-ink-soft">
-                    Type to add your own.
-                  </li>
-                )}
+                {!other && matches.length === 0 && <li className="px-4 py-3 text-ink-soft">Type to add your own.</li>}
               </ul>
             </div>
           </div>,

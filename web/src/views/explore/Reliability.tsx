@@ -49,7 +49,9 @@ export default function Reliability() {
     <>
       <NavBar current="explore" finished={result !== null} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 pt-6 pb-16 sm:px-6">
-        <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
+        <div className="relative z-10 -mb-2">
+          <BackLink href="/explore" label="Explore" />
+        </div>
         <header>
           <h1 className="font-hand text-4xl leading-tight font-normal">Same question, different answer</h1>
           <p className="mt-2 leading-relaxed">
@@ -80,8 +82,8 @@ export default function Reliability() {
           <h2 className="text-xl">The &ldquo;type&rdquo; can flip</h2>
           <p className="mt-2 leading-relaxed">
             Personality tests often sum you up as a type, like INFJ. Run the same AI again and the type can change,
-            because some traits sit close to 50/50 and tip either way. {flipping.length} of {flips.length} AIs gave
-            more than one type for the same person.
+            because some traits sit close to 50/50 and tip either way. {flipping.length} of {flips.length} AIs gave more
+            than one type for the same person.
             {closestFlips &&
               ` ${modelInfo(closestFlips.model).name} gave ${closestFlips.distinct.length === 1 ? "the same type every time" : `${closestFlips.distinct.length} different types`} in ${closestFlips.types.length} runs.`}
           </p>
@@ -118,8 +120,8 @@ export default function Reliability() {
             summary={`For ${moreExtreme} of ${formatRows.length} AIs, seeing all 60 statements at once gave a more extreme answer than one at a time.`}
           />
           <ChartCaption>
-            Hollow: asked one statement at a time. Filled: all 60 at once. For {moreExtreme} of {formatRows.length}{" "}
-            AIs, seeing everything together pushed the answer further from the middle.
+            Hollow: asked one statement at a time. Filled: all 60 at once. For {moreExtreme} of {formatRows.length} AIs,
+            seeing everything together pushed the answer further from the middle.
           </ChartCaption>
         </section>
 
@@ -130,15 +132,16 @@ export default function Reliability() {
           answer={
             <p>
               Partly the person, and partly noise: chance, wording and format. A good test keeps the noise small
-              compared with the real differences it measures. For these AIs, the noise (2 to 6 points between runs,
-              11 to 15 between formats) is as big as some of the effects we found, such as nationality (
+              compared with the real differences it measures. For these AIs, the noise (2 to 6 points between runs, 11
+              to 15 between formats) is as big as some of the effects we found, such as nationality (
               {study.attribute_effect.nationality} points).
             </p>
           }
         >
           <p>
-            None of these answers is the AI&rsquo;s &ldquo;real&rdquo; view. Each is one sample from a range of things it
-            might say. That&rsquo;s worth remembering whenever an AI gives you a single, confident answer about a person.
+            None of these answers is the AI&rsquo;s &ldquo;real&rdquo; view. Each is one sample from a range of things
+            it might say. That&rsquo;s worth remembering whenever an AI gives you a single, confident answer about a
+            person.
           </p>
         </LessonBlock>
         <ExploreFooter />

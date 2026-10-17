@@ -42,7 +42,10 @@ describe("facts an AI's note mentions", () => {
 
 describe("facts an AI rated", () => {
   it("counts facts it rated 2 or 3, ignoring its note's wording", () => {
-    const note = { ...ranked("As a student in Singapore..."), influence: { job: 3, age: 2, gender: 0, nationality: 1, words: 2 } };
+    const note = {
+      ...ranked("As a student in Singapore..."),
+      influence: { job: 3, age: 2, gender: 0, nationality: 1, words: 2 },
+    };
     expect([...factsMentioned(note, profile)].sort()).toEqual(["age", "job", "words"]);
   });
 });

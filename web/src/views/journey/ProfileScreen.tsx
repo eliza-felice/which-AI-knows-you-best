@@ -57,8 +57,8 @@ export function ProfileScreen({
       </button>
       <h1 className="mt-2 text-3xl">Tell the AIs about yourself</h1>
       <p className="mt-2 text-ink-soft">
-        {numberWord(MODELS.length, true)} AIs will guess your personality from these few facts. Then you take the same test and see who came
-        closest.
+        {numberWord(MODELS.length, true)} AIs will guess your personality from these few facts. Then you take the same
+        test and see who came closest.
       </p>
 
       {/* The cast peeking over the top edge of the form. */}
@@ -112,7 +112,14 @@ export function ProfileScreen({
             onChange={setNationality}
             placeholder="Choose or type"
           />
-          <SearchSelect label="Job" options={JOBS} value={job} onChange={setJob} placeholder="Choose or type" capitalise />
+          <SearchSelect
+            label="Job"
+            options={JOBS}
+            value={job}
+            onChange={setJob}
+            placeholder="Choose or type"
+            capitalise
+          />
 
           <label className="block">
             <span className="mb-1.5 block text-sm font-medium">
@@ -142,22 +149,21 @@ export function ProfileScreen({
           </h2>
           <ul className="list-disc space-y-2 pl-5 leading-relaxed">
             <li>
-              <strong className="font-medium">What is sent:</strong> your age, gender, nationality, job and anything
-              you write above, turned into one sentence. Nothing else.
+              <strong className="font-medium">What is sent:</strong> your age, gender, nationality, job and anything you
+              write above, turned into one sentence. Nothing else.
             </li>
             <li>
               <strong className="font-medium">Who receives it:</strong> {MODELS.length} AI models run by third-party
-              companies ({COMPANY_LIST}), reached through an API gateway. They may keep it under their
-              own policies.
+              companies ({COMPANY_LIST}), reached through an API gateway. They may keep it under their own policies.
             </li>
             <li>
-              <strong className="font-medium">What this app stores:</strong> nothing that identifies you. If you
-              leave the &ldquo;anything else&rdquo; box empty, your age group, gender, nationality and job, with the
-              AIs&rsquo; guesses, are kept with no link to you: reused for 30 days for anyone with the same
-              combination, and saved as anonymous data for our study. If someone with your combination has already
-              been guessed, or we tested it in our study, those guesses are reused instead of asking the AIs again.
-              Anything you write in the box is never kept. Your test answers never leave your device; your progress is
-              kept only in this browser tab and deleted when you close it.
+              <strong className="font-medium">What this app stores:</strong> nothing that identifies you. If you leave
+              the &ldquo;anything else&rdquo; box empty, your age group, gender, nationality and job, with the
+              AIs&rsquo; guesses, are kept with no link to you: reused for 30 days for anyone with the same combination,
+              and saved as anonymous data for our study. If someone with your combination has already been guessed, or
+              we tested it in our study, those guesses are reused instead of asking the AIs again. Anything you write in
+              the box is never kept. Your test answers never leave your device; your progress is kept only in this
+              browser tab and deleted when you close it.
             </li>
           </ul>
 
@@ -181,9 +187,7 @@ export function ProfileScreen({
             onChange={(event) => setOldEnough(event.target.checked)}
             className="mt-0.5 h-6 w-6 shrink-0 accent-cobalt"
           />
-          <span>
-            I am {MIN_AGE} or older, and I agree to my profile being sent to these AI providers.
-          </span>
+          <span>I am {MIN_AGE} or older, and I agree to my profile being sent to these AI providers.</span>
         </label>
 
         <p className="mt-8 font-hand text-2xl">Notice what you&rsquo;re about to share.</p>

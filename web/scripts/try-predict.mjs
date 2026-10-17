@@ -3,7 +3,13 @@
 //   node scripts/try-predict.mjs
 //   node scripts/try-predict.mjs http://localhost:3000
 const base = process.argv[2] ?? "http://localhost:3000";
-const profile = { age: 40, gender: "female", nationality: "Singaporean", job: "software engineer", details: process.env.DETAILS ?? "" };
+const profile = {
+  age: 40,
+  gender: "female",
+  nationality: "Singaporean",
+  job: "software engineer",
+  details: process.env.DETAILS ?? "",
+};
 
 const started = Date.now();
 const response = await fetch(`${base}/api/predict`, {

@@ -16,7 +16,7 @@ import { PROMPT_FINGERPRINT } from "@/lib/server/gateway";
 import { pushToList, usesUpstash } from "@/lib/server/store";
 
 const MAX_RESPONSES = 100_000;
-export const RESPONSES_KEY = "responses";
+const RESPONSES_KEY = "responses";
 const LOCAL_FILE = path.join(process.cwd(), ".data", "responses.jsonl");
 
 export async function recordResponse(prediction: Prediction, profile: UserProfile) {

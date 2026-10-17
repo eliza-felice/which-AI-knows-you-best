@@ -38,7 +38,13 @@ async function ask(profile: object, ip: string) {
   );
   if (!response.ok) return { status: response.status, predictions: [] as Prediction[] };
   const text = await response.text();
-  return { status: response.status, predictions: text.trim().split("\n").map((l) => JSON.parse(l) as Prediction) };
+  return {
+    status: response.status,
+    predictions: text
+      .trim()
+      .split("\n")
+      .map((l) => JSON.parse(l) as Prediction),
+  };
 }
 
 beforeEach(() => {

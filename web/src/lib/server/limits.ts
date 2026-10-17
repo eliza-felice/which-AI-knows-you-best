@@ -23,17 +23,11 @@ const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 function setting(name: string, fallback: number): number {
   const value = Number(process.env[name]);
-  return Number.isFinite(value) && process.env[name] !== "" && process.env[name] !== undefined
-    ? value
-    : fallback;
+  return Number.isFinite(value) && process.env[name] !== "" && process.env[name] !== undefined ? value : fallback;
 }
 
 export function clientIp(request: Request): string {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
+  return request.headers.get("x-forwarded-for")?.split(",")[0].trim() || request.headers.get("x-real-ip") || "unknown";
 }
 
 const KINDS = {
@@ -46,12 +40,13 @@ const KINDS = {
   whatif: {
     perIp: () => setting("WHATIFS_PER_IP_PER_DAY", IS_PRODUCTION ? 10 : Infinity),
     total: () => setting("WHATIFS_PER_DAY", 1000),
-    overIp: "You've used today's live what-ifs. Each visitor gets 10 per day, to keep costs down. What-ifs we've already seen still work.",
+    overIp:
+      "You've used today's live what-ifs. Each visitor gets 10 per day, to keep costs down. What-ifs we've already seen still work.",
     overTotal: "The app has reached today's limit for live what-ifs. Please come back tomorrow.",
   },
 };
 
-export type Claim = { refusal: string } | { remaining: number };
+type Claim = { refusal: string } | { remaining: number };
 
 /**
  * Counts one request that needs live calls. Returns a message for the user if

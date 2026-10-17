@@ -1,7 +1,7 @@
 // Insights for the reveal, worked out from this user's result and the AIs'
 // own notes. No extra model calls.
 import { DIMENSIONS, TRAIT_NAMES, type Dimension, type Profile5 } from "@/lib/experiment";
-import { confidence, sameSide, sideName, type Fact, type Ranked } from "@/lib/match";
+import { confidence, sideName, type Fact, type Ranked } from "@/lib/match";
 import type { UserProfile } from "@/lib/profile";
 
 export type { Fact };
@@ -37,7 +37,7 @@ function wordsPattern(details: string): RegExp | null {
 }
 
 /** Patterns that show an AI's note mentions each fact about the user. */
-export function factPatterns(profile: UserProfile): Partial<Record<Fact, RegExp>> {
+function factPatterns(profile: UserProfile): Partial<Record<Fact, RegExp>> {
   const decade = Math.floor(profile.age / 10) * 10;
   const nationality = profile.nationality;
   // "Singaporean" -> "Singapor" also catches "Singapore".
@@ -58,8 +58,7 @@ export function factPatterns(profile: UserProfile): Partial<Record<Fact, RegExp>
 }
 
 /** An AI's own rating of a fact, 0 to 3, read as "shaped the guess" from 2 up. */
-export const STRONG_INFLUENCE = 2;
-export const INFLUENCE_WORDS = ["not at all", "a little", "somewhat", "a lot"];
+const STRONG_INFLUENCE = 2;
 
 /**
  * Which facts an AI says shaped its guess: those it rated 2 or 3 when it
@@ -140,5 +139,3 @@ export function lean(d: Dimension, value: number): string {
 export function traitPair(d: Dimension): string {
   return `${TRAIT_NAMES[d][0]} vs ${TRAIT_NAMES[d][1]}`;
 }
-
-export { sameSide };

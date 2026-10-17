@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 
 // Uses this tab's saved result (sessionStorage), so it renders in the browser only.
-const PlayAlong = dynamic(() => import("@/components/app/PlayAlong"), {
+const PlayAlong = dynamic(() => import("@/views/explore/PlayAlong"), {
   ssr: false,
   loading: () => <main className="flex-1 bg-paper" />,
 });

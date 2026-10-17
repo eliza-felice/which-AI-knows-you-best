@@ -4,7 +4,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Character } from "@/components/Character";
 import { Button } from "@/components/ui";
-import { Results } from "@/components/screens/Results";
+import { Results } from "@/views/journey/Results";
 import { scoreAnswers } from "@/lib/experiment";
 import { rankModels, type Ranked } from "@/lib/match";
 import { MODELS, modelInfo } from "@/lib/models";

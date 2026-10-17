@@ -30,8 +30,7 @@ export default function WithoutMask() {
     track("without_mask_viewed");
     markVisited("mask");
   }, []);
-  const finished =
-    session.profile && QUESTIONS.every((q) => session.answers[q.id] !== undefined);
+  const finished = session.profile && QUESTIONS.every((q) => session.answers[q.id] !== undefined);
   const user = finished ? scoreAnswers(session.answers).profile : null;
   const guesses = new Map(
     finished ? session.predictions.flatMap((p) => (p.status === "ok" ? [[p.model, p.profile] as const] : [])) : [],
@@ -45,13 +44,15 @@ export default function WithoutMask() {
       <NavBar current="explore" finished={Boolean(finished)} />
       <main className="screen w-full flex-1 bg-cream">
         <div className="mx-auto max-w-3xl space-y-10 px-4 pt-8 pb-16 sm:px-6">
-          <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
+          <div className="relative z-10 -mb-2">
+            <BackLink href="/explore" label="Explore" />
+          </div>
           <header>
             <h1 className="font-hand text-4xl leading-tight font-normal">Meet the AIs without a mask</h1>
             <p className="mt-2 leading-relaxed">
-              Everything so far was the AIs playing a person{finished ? ": you" : ""}. In our study we also gave them the
-              same test with no persona at all, only &ldquo;answer as yourself&rdquo;. This is what each one said about
-              itself, on average.
+              Everything so far was the AIs playing a person{finished ? ": you" : ""}. In our study we also gave them
+              the same test with no persona at all, only &ldquo;answer as yourself&rdquo;. This is what each one said
+              about itself, on average.
             </p>
             <p className="mt-3 font-medium">
               {confident.length} of {models.length} describe themselves as at least 80% calm and confident
@@ -61,7 +62,7 @@ export default function WithoutMask() {
               .
             </p>
           </header>
-  
+
           <section aria-labelledby="confidence-chart">
             <h2 id="confidence-chart" className="text-xl">
               How calm and confident each AI says it is
@@ -90,7 +91,7 @@ export default function WithoutMask() {
             {guesses.size > 0 && <span>○ its guess about you</span>}
             {user && <span>■ your answers</span>}
           </div>
-  
+
           <ul className="grid gap-4 sm:grid-cols-2">
             {models.map((m) => {
               const own = DEFAULTS[m.id];
@@ -124,7 +125,7 @@ export default function WithoutMask() {
               );
             })}
           </ul>
-  
+
           <LessonBlock
             title="Whose personality is it?"
             question="Does an AI have a personality, or was it trained to present one?"
@@ -150,7 +151,7 @@ export default function WithoutMask() {
               anthropomorphism: seeing human qualities in something that isn&rsquo;t human.
             </p>
           </LessonBlock>
-  
+
           <ExploreFooter />
         </div>
       </main>
@@ -182,7 +183,10 @@ function MiniBar({
         <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-ink" />
         <div className="absolute top-1/2 left-1/2 h-2.5 w-px -translate-y-1/2 bg-ink-soft" />
         {user !== undefined && (
-          <span className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 bg-ink" style={{ left: `${x(user)}%` }} />
+          <span
+            className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 bg-ink"
+            style={{ left: `${x(user)}%` }}
+          />
         )}
         {guess !== undefined && (
           <span

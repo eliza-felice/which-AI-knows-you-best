@@ -10,8 +10,7 @@ const gochiHand = Gochi_Hand({ variable: "--font-gochi-hand", subsets: ["latin"]
 
 export const metadata: Metadata = {
   title: "Which AI Knows You Best?",
-  description:
-    `${numberWord(MODELS.length, true)} AIs guess your personality from a few facts about you. Take the test and see which one came closest, and what that says about AI.`,
+  description: `${numberWord(MODELS.length, true)} AIs guess your personality from a few facts about you. Take the test and see which one came closest, and what that says about AI.`,
 };
 
 export const viewport: Viewport = {

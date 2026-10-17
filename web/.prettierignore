@@ -1,0 +1,5 @@
+# Written by python experiment/src/export_for_web.py
+src/data/
+tests/parity_fixtures.json
+.next/
+node_modules/

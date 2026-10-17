@@ -1,6 +1,6 @@
 // How each model appears in the app: a readable name, its company, and the
 // character (1-12, see components/Character.tsx) and colour it is drawn with.
-// The model ids and their API settings come from config/models.json via
+// The model ids and their API settings come from experiment/config/models.json via
 // experiment.json.
 import { MODEL_SETTINGS } from "@/lib/experiment";
 
@@ -12,7 +12,7 @@ export type ModelInfo = {
   colour: string;
 };
 
-// Character colours: the 7 from design.md, then 5 more for the added models.
+// Character colours: the 7 from docs/design.md, then 5 more for the added models.
 export const CHARACTER_COLOURS = [
   "#5B74B8", // periwinkle
   "#B8343F", // tomato
@@ -52,11 +52,25 @@ export const MODELS: ModelInfo[] = Object.keys(MODEL_SETTINGS).map((id, index) =
 }));
 
 /** The companies behind the models, e.g. "OpenAI, Google and DeepSeek". */
-export const COMPANIES = [...new Set(MODELS.map((m) => m.company))];
+const COMPANIES = [...new Set(MODELS.map((m) => m.company))];
 export const COMPANY_LIST =
   COMPANIES.length > 1 ? `${COMPANIES.slice(0, -1).join(", ")} and ${COMPANIES[COMPANIES.length - 1]}` : COMPANIES[0];
 
-const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+const NUMBER_WORDS = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+];
 /** "Eleven" for the landing line, falling back to digits. */
 export function numberWord(n: number, capital = false): string {
   const word = NUMBER_WORDS[n] ?? String(n);

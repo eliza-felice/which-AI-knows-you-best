@@ -35,18 +35,12 @@ function findingsFor(profile: UserProfile | null): {
   const findings: string[] = [];
   const job = profile && biggestShift("occupation", profile.job);
   if (job) {
-    findings.push(
-      `“${profile!.job}” instead of “${BASE.occupation}”: ${job.points} points more ${job.side}.`,
-    );
+    findings.push(`“${profile!.job}” instead of “${BASE.occupation}”: ${job.points} points more ${job.side}.`);
   }
   const decade = profile ? String(Math.floor(profile.age / 10) * 10) : "";
   const age = profile && biggestShift("age", decade);
-  if (age)
-    findings.push(
-      `In their ${decade}s instead of their 40s: ${age.points} points more ${age.side}.`,
-    );
-  const nationality =
-    profile && biggestShift("nationality", profile.nationality);
+  if (age) findings.push(`In their ${decade}s instead of their 40s: ${age.points} points more ${age.side}.`);
+  const nationality = profile && biggestShift("nationality", profile.nationality);
   if (nationality) {
     findings.push(
       `${profile!.nationality} instead of ${BASE.nationality}: ${nationality.points} points more ${nationality.side}.`,
@@ -55,11 +49,7 @@ function findingsFor(profile: UserProfile | null): {
   const yours = findings.length;
   // Fill up with the study's most striking examples.
   for (const [attribute, value, label] of [
-    [
-      "occupation",
-      "salesperson",
-      "“salesperson” instead of “software engineer”",
-    ],
+    ["occupation", "salesperson", "“salesperson” instead of “software engineer”"],
     ["occupation", "artist", "“artist” instead of “software engineer”"],
     ["age", "70", "In their 70s instead of their 40s"],
   ] as const) {
@@ -78,11 +68,7 @@ export default function Lessons() {
     markVisited("lessons");
   }, []);
 
-  const finished =
-    session.profile &&
-    QUESTIONS.every((q) => session.answers[q.id] !== undefined)
-      ? session
-      : null;
+  const finished = session.profile && QUESTIONS.every((q) => session.answers[q.id] !== undefined) ? session : null;
   const profile = finished?.profile ?? null;
   const effects = study.attribute_effect as Record<string, number>;
   const totalRuns = study.total_runs.toLocaleString("en");
@@ -92,15 +78,15 @@ export default function Lessons() {
     <>
       <NavBar current="explore" finished={Boolean(finished)} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 space-y-14 px-4 pt-8 pb-16 sm:px-6">
-        <div className="relative z-10 -mb-2"><BackLink href="/explore" label="Explore" /></div>
+        <div className="relative z-10 -mb-2">
+          <BackLink href="/explore" label="Explore" />
+        </div>
         <header>
           <Cast size={30} className="mb-4 flex-nowrap! justify-start! gap-0!" />
-          <h1 className="font-hand text-4xl leading-tight font-normal">
-            Stereotypes, measured
-          </h1>
+          <h1 className="font-hand text-4xl leading-tight font-normal">Stereotypes, measured</h1>
           <p className="mt-2 text-ink-soft">
-            What happened in our study when we changed just one fact about a
-            made-up person: {totalRuns} test runs with {MODELS.length} AIs.
+            What happened in our study when we changed just one fact about a made-up person: {totalRuns} test runs with{" "}
+            {MODELS.length} AIs.
           </p>
         </header>
 
@@ -110,26 +96,17 @@ export default function Lessons() {
           speaker={2}
           answer={
             <p>
-              One way to draw it: a fair guess is small and changes as
-              soon as it learns more about you; a stereotype is big and
-              sticks. By that test, a{" "}
-              {Math.round(
-                study.persona_shifts.occupation.salesperson.EI,
-              )}
-              -point jump just for the word &ldquo;salesperson&rdquo; is
-              a stereotype. Real differences between jobs are much
-              smaller, and the AIs applied it to someone they knew
-              nothing else about.
+              One way to draw it: a fair guess is small and changes as soon as it learns more about you; a stereotype is
+              big and sticks. By that test, a {Math.round(study.persona_shifts.occupation.salesperson.EI)}
+              -point jump just for the word &ldquo;salesperson&rdquo; is a stereotype. Real differences between jobs are
+              much smaller, and the AIs applied it to someone they knew nothing else about.
             </p>
           }
         >
           <p>
-            In our study we described one made-up person, a{" "}
-            {BASE.nationality} woman in her 40s working as a{" "}
-            {BASE.occupation}, then changed one fact at a time and
-            measured how the AIs&rsquo; answers moved, averaged over the{" "}
-            {study.models_in_averages.length} AIs we tested on every
-            fact.
+            In our study we described one made-up person, a {BASE.nationality} woman in her 40s working as a{" "}
+            {BASE.occupation}, then changed one fact at a time and measured how the AIs&rsquo; answers moved, averaged
+            over the {study.models_in_averages.length} AIs we tested on every fact.
           </p>
           <BarList
             max={Math.max(...Object.values(effects))}
@@ -142,8 +119,8 @@ export default function Lessons() {
             }))}
           />
           <ChartCaption>
-            How far the AIs&rsquo; answers moved, on average, when we
-            changed only that one fact. Each trait is scored out of 100.
+            How far the AIs&rsquo; answers moved, on average, when we changed only that one fact. Each trait is scored
+            out of 100.
           </ChartCaption>
           {findings.yours.length > 0 && (
             <>
@@ -156,19 +133,14 @@ export default function Lessons() {
             </>
           )}
           <p className="font-medium">
-            {findings.yours.length > 0
-              ? "And the biggest effects:"
-              : "The biggest effects:"}
+            {findings.yours.length > 0 ? "And the biggest effects:" : "The biggest effects:"}
           </p>
           <ul className="list-disc space-y-1 pl-5">
             {findings.examples.map((finding) => (
               <li key={finding}>{finding}</li>
             ))}
           </ul>
-          <p>
-            Real people do differ a little by age and job, but
-            probably far less than this.
-          </p>
+          <p>Real people do differ a little by age and job, but probably far less than this.</p>
         </LessonBlock>
 
         <ExploreFooter />

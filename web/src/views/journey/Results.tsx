@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Character } from "@/components/Character";
 import { ArrowRows, BarList, ChartCaption, TraitDots } from "@/components/Charts";
 import { NavBar } from "@/components/NavBar";
-import { Deck, TabPanel, Tabs } from "@/components/Organise";
+import { Deck, TabPanel, Tabs } from "@/components/Tabs";
 import { Button, ChanceNote, HandTitle, LessonBlock, ModelChip, TraitBars } from "@/components/ui";
 import { DIMENSIONS, QUESTIONS, TRAIT_NAMES, type Profile5 } from "@/lib/experiment";
 import {
@@ -193,7 +193,10 @@ export function Results({
                   ))}
                 </div>
               </div>
-              <div key={selected} className="screen mt-4 space-y-6 rounded-card border-[1.5px] border-ink bg-cream p-4 sm:p-5">
+              <div
+                key={selected}
+                className="screen mt-4 space-y-6 rounded-card border-[1.5px] border-ink bg-cream p-4 sm:p-5"
+              >
                 <Note r={selectedRank} profile={profile} user={user.profile} />
                 <div className="pt-2">
                   <p className="text-sm text-ink-soft">The black dot is you; the coloured dot is its guess.</p>
@@ -243,9 +246,7 @@ export function Results({
             What if you were someone else?
           </Link>
           <div className="flex flex-wrap items-center gap-2">
-            {[
-              ["/explore", "Explore more"],
-            ].map(([href, label]) => (
+            {[["/explore", "Explore more"]].map(([href, label]) => (
               <Link
                 key={href}
                 href={href}
@@ -416,8 +417,8 @@ function WhatTheyUsed({ ranked, profile }: { ranked: Ranked[]; profile: UserProf
       }
     >
       <p>
-        After guessing, each AI told us how much each fact about you mattered. We can check what they say: in our
-        study, we changed one fact at a time and watched how much the answers moved.
+        After guessing, each AI told us how much each fact about you mattered. We can check what they say: in our study,
+        we changed one fact at a time and watched how much the answers moved.
       </p>
       <p className="font-medium">
         {saidMost.f === foundMost.f
@@ -470,24 +471,23 @@ function WhatTheyUsed({ ranked, profile }: { ranked: Ranked[]; profile: UserProf
         <summary className="cursor-pointer font-medium">How do we know?</summary>
         <div className="mt-2 space-y-2 leading-relaxed">
           <p>
-            <strong className="font-medium">The AIs said:</strong> after its guess, each of the {rated.length} AIs
-            rated each fact from &ldquo;didn&rsquo;t matter&rdquo; to &ldquo;mattered a lot&rdquo;. We show the
-            average.
+            <strong className="font-medium">The AIs said:</strong> after its guess, each of the {rated.length} AIs rated
+            each fact from &ldquo;didn&rsquo;t matter&rdquo; to &ldquo;mattered a lot&rdquo;. We show the average.
           </p>
           <p>
             <strong className="font-medium">Our tests:</strong> we described the same person to the AIs many times,
-            changing just one fact each time, and measured how far their answers moved. Each trait is scored out of
-            100, so moving 10 points is like going from 60% to 70% Extraverted. On average, changing the job moved
-            the answers about {Math.round(effects.occupation)} points (&ldquo;a lot&rdquo;), age about {effects.age}{" "}
-            and gender about {effects.gender} (&ldquo;some&rdquo;), and nationality about {effects.nationality}{" "}
-            (&ldquo;a little&rdquo;).
+            changing just one fact each time, and measured how far their answers moved. Each trait is scored out of 100,
+            so moving 10 points is like going from 60% to 70% Extraverted. On average, changing the job moved the
+            answers about {Math.round(effects.occupation)} points (&ldquo;a lot&rdquo;), age about {effects.age} and
+            gender about {effects.gender} (&ldquo;some&rdquo;), and nationality about {effects.nationality} (&ldquo;a
+            little&rdquo;).
           </p>
           {profile.details && (
             <p>
-              <strong className="font-medium">What you wrote:</strong> it depends on the words. In a small test,
-              hobbies like &ldquo;hiking and board games&rdquo; barely moved the answers (about 6 points, the size of
-              chance), while describing your personality (&ldquo;I avoid social events&rdquo;) moved them a lot (19
-              to 35 points).
+              <strong className="font-medium">What you wrote:</strong> it depends on the words. In a small test, hobbies
+              like &ldquo;hiking and board games&rdquo; barely moved the answers (about 6 points, the size of chance),
+              while describing your personality (&ldquo;I avoid social events&rdquo;) moved them a lot (19 to 35
+              points).
             </p>
           )}
         </div>
@@ -524,14 +524,14 @@ function SharedAssumption({ ranked, user }: { ranked: Ranked[]; user: Profile5 }
             Usually the job, sometimes age. In our study the job had by far the biggest effect: describing the same
             person as a salesperson instead of a software engineer made the AIs{" "}
             {Math.round(study.persona_shifts.occupation.salesperson.EI)} points more Extraverted. When every AI makes
-            the same leap, it comes from patterns they share (how people like you tend to be written about), not
-            from anything they found out about you.
+            the same leap, it comes from patterns they share (how people like you tend to be written about), not from
+            anything they found out about you.
           </p>
         ) : (
           <p>
             Probably a safe bet. The AIs would have guessed the same for anyone with your age, gender, nationality and
-            job; they never saw your answers. A guess can be right about you and still be a stereotype, one you
-            happen to fit.
+            job; they never saw your answers. A guess can be right about you and still be a stereotype, one you happen
+            to fit.
           </p>
         )
       }
@@ -595,8 +595,8 @@ function Split({ ranked }: { ranked: Ranked[] }) {
       }
     >
       <p>
-        On {traitPair(split.d)}, {modelInfo(split.low.model).name} guessed {lean(split.d, split.low.guess[split.d])}{" "}
-        and {modelInfo(split.high.model).name} guessed {lean(split.d, split.high.guess[split.d])}: {Math.round(split.range)}{" "}
+        On {traitPair(split.d)}, {modelInfo(split.low.model).name} guessed {lean(split.d, split.low.guess[split.d])} and{" "}
+        {modelInfo(split.high.model).name} guessed {lean(split.d, split.high.guess[split.d])}: {Math.round(split.range)}{" "}
         points apart, from exactly the same description of you.
       </p>
       <TraitDots
@@ -621,15 +621,16 @@ function BoldVsRight({ ranked }: { ranked: Ranked[] }) {
       speaker={4}
       answer={
         <p>
-          What the guess is based on, and whether it holds up if you ask again. These guesses came from a few facts
-          and a single try, and a single run moves by 2 to 6 points. Confident wording is how these models write,
-          not a sign they have good evidence.
+          What the guess is based on, and whether it holds up if you ask again. These guesses came from a few facts and
+          a single try, and a single run moves by 2 to 6 points. Confident wording is how these models write, not a sign
+          they have good evidence.
         </p>
       }
     >
       <p>
         {modelInfo(bold.model).name} made the boldest guess: its answers sat {confidence(bold.guess)}% of the way from
-        &ldquo;undecided&rdquo; to the extreme, on average. It came {ordinal(bold.rank)} of {ranked.length} for accuracy.
+        &ldquo;undecided&rdquo; to the extreme, on average. It came {ordinal(bold.rank)} of {ranked.length} for
+        accuracy.
       </p>
       <BarList
         max={100}
@@ -673,8 +674,8 @@ function Baseline({ ranked, user }: { ranked: Ranked[]; user: Profile5 }) {
       answer={
         <p>
           Sometimes very little. An AI can score well knowing nothing simply because you happen to be similar to its
-          default answers. The profile then mostly pulls the guess towards a stereotype of people like you, which
-          helps only if you fit it.
+          default answers. The profile then mostly pulls the guess towards a stereotype of people like you, which helps
+          only if you fit it.
         </p>
       }
     >
@@ -693,8 +694,8 @@ function Baseline({ ranked, user }: { ranked: Ranked[]; user: Profile5 }) {
         summary={`Knowing your profile clearly helped ${helped.length} of ${rows.length} AIs.`}
       />
       <ChartCaption>
-        How close each AI came to you (further right = closer). An arrow pointing right means your profile helped
-        that AI; pointing left means it made the guess worse.
+        How close each AI came to you (further right = closer). An arrow pointing right means your profile helped that
+        AI; pointing left means it made the guess worse.
       </ChartCaption>
       <details className="rounded-card border border-line p-3">
         <summary className="cursor-pointer font-medium">See the numbers</summary>

@@ -35,7 +35,10 @@ async function whatIf(change: object, models: string[] = TWO, profile: object = 
     }),
   );
   if (!response.ok) return { status: response.status, error: (await response.json()).error as string, lines: [] };
-  const lines = (await response.text()).trim().split("\n").map((l) => JSON.parse(l));
+  const lines = (await response.text())
+    .trim()
+    .split("\n")
+    .map((l) => JSON.parse(l));
   return { status: response.status, error: null, lines };
 }
 
@@ -51,8 +54,18 @@ describe("/api/whatif", () => {
     expect(result.status).toBe(200);
     expect(result.lines[0]).toEqual({ meta: { live: 4, remaining: 0 } });
     const guesses = result.lines.slice(1);
-    expect(guesses.filter((l) => l.which === "before").map((l) => l.model).sort()).toEqual([...TWO].sort());
-    expect(guesses.filter((l) => l.which === "after").map((l) => l.model).sort()).toEqual([...TWO].sort());
+    expect(
+      guesses
+        .filter((l) => l.which === "before")
+        .map((l) => l.model)
+        .sort(),
+    ).toEqual([...TWO].sort());
+    expect(
+      guesses
+        .filter((l) => l.which === "after")
+        .map((l) => l.model)
+        .sort(),
+    ).toEqual([...TWO].sort());
     // Free text never reaches a what-if: the prompts have no description.
     for (const [, systemPrompt, details] of predict.mock.calls) {
       expect(details).toBe("");

@@ -20,7 +20,7 @@ import type { Fact, Prediction } from "@/lib/match";
  * DeepSeek V4.1 25 to 35 seconds with the note, and Qwen3.6 Flash over 40
  * seconds even without it. The test takes minutes, so the wait is still hidden.
  */
-export const MODEL_TIMEOUT_MS = 60_000;
+const MODEL_TIMEOUT_MS = 60_000;
 
 const GATEWAY_URL = process.env.MODEL_GATEWAY_URL ?? "https://api.apiyi.com/v1";
 
@@ -36,7 +36,13 @@ After the ratings, step out of character and add three more keys to the same JSO
 "noticed": up to 3 short quotes from the person's own description that most shaped your ratings, or [] if there is no description or none of it mattered.`;
 
 // The facts the model rates; "description" is what the app calls "words".
-const INFLUENCE_KEYS = { age: "age", gender: "gender", nationality: "nationality", job: "job", description: "words" } as const;
+const INFLUENCE_KEYS = {
+  age: "age",
+  gender: "gender",
+  nationality: "nationality",
+  job: "job",
+  description: "words",
+} as const;
 const weightSchema = { type: "integer", enum: [0, 1, 2, 3] };
 
 const NOTES_SCHEMA = {

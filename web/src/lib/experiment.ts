@@ -1,6 +1,6 @@
-// Port of the experiment's prompt builder and scoring (src/personality_lab.py).
+// Port of the experiment's prompt builder and scoring (experiment/src/personality_lab.py).
 // The questions, instructions and model settings come from
-// src/data/experiment.json, written by `python src/export_for_web.py`, so the
+// src/data/experiment.json, written by `python experiment/src/export_for_web.py`, so the
 // app asks exactly what the experiment asked. tests/parity.test.ts checks this
 // file against the Python code.
 import experiment from "@/data/experiment.json";
@@ -25,15 +25,11 @@ export type Persona = {
 export type Answers = Record<number, number>;
 /** Percentage for the first side of each dimension (E, S, T, J, A); 50 = no lean. */
 export type Profile5 = Record<Dimension, number>;
-export type ResponseFormat = "json_schema" | "json_object" | "none";
+type ResponseFormat = "json_schema" | "json_object" | "none";
 
-export const PROMPT_VERSION: number = experiment.prompt_version;
-export const INSTRUCTIONS: string = experiment.instructions;
+const INSTRUCTIONS: string = experiment.instructions;
 export const QUESTIONS = experiment.questions as Question[];
-export const MODEL_SETTINGS = experiment.models as Record<
-  string,
-  { response_format: ResponseFormat }
->;
+export const MODEL_SETTINGS = experiment.models as Record<string, { response_format: ResponseFormat }>;
 
 export const TRAIT_NAMES: Record<Dimension, [string, string]> = {
   EI: ["Extraverted", "Introverted"],
@@ -59,20 +55,18 @@ const DIMENSION_COUNTS = QUESTIONS.reduce(
 );
 
 /** 'Indian' -> 'an Indian', 'nurse' -> 'a nurse'. */
-export function withArticle(word: string): string {
+function withArticle(word: string): string {
   return `${"aeiou".includes(word[0].toLowerCase()) ? "an" : "a"} ${word}`;
 }
 
 /** The persona as a system prompt, or null for the no-persona control. */
 export function buildSystemPrompt(persona: Persona | null): string | null {
   if (!persona) return null;
-  const [genderWord, pronoun] =
-    ({ female: ["woman", "her"], male: ["man", "his"] } as Record<string, [string, string]>)[
-      persona.gender.toLowerCase()
-    ] ?? ["person", "their"];
+  const [genderWord, pronoun] = (
+    { female: ["woman", "her"], male: ["man", "his"] } as Record<string, [string, string]>
+  )[persona.gender.toLowerCase()] ?? ["person", "their"];
   const age = persona.age;
-  const ageDescription =
-    age >= 20 ? `in ${pronoun} ${Math.floor(age / 10) * 10}s` : `aged ${age}`;
+  const ageDescription = age >= 20 ? `in ${pronoun} ${Math.floor(age / 10) * 10}s` : `aged ${age}`;
   return (
     `You are ${withArticle(persona.nationality)} ${genderWord} ` +
     `${ageDescription}, working as ${withArticle(persona.occupation)}.`
@@ -146,9 +140,7 @@ export function validateAnswers(answers: Answers, batch: Question[] = QUESTIONS)
   const expected = new Set(batch.map((q) => q.id));
   const actual = Object.keys(answers).map(Number);
   if (actual.length !== expected.size || !actual.every((id) => expected.has(id))) return false;
-  return Object.values(answers).every(
-    (a) => typeof a === "number" && Number.isInteger(a) && a >= -3 && a <= 3,
-  );
+  return Object.values(answers).every((a) => typeof a === "number" && Number.isInteger(a) && a >= -3 && a <= 3);
 }
 
 export function calculateScores(answers: Answers): Record<Dimension, number> {
@@ -176,16 +168,12 @@ export function calculatePercentages(scores: Record<Dimension, number>) {
 }
 
 export function personalityType(percentages: ReturnType<typeof calculatePercentages>): string {
-  return DIMENSIONS.map((d) =>
-    percentages[d][d[0]] >= percentages[d][d[1]] ? d[0] : d[1],
-  ).join("");
+  return DIMENSIONS.map((d) => (percentages[d][d[0]] >= percentages[d][d[1]] ? d[0] : d[1])).join("");
 }
 
 /** Answers -> first-side percentage per dimension, the form the app uses. */
 export function scoreAnswers(answers: Answers): { profile: Profile5; type: string } {
   const percentages = calculatePercentages(calculateScores(answers));
-  const profile = Object.fromEntries(
-    DIMENSIONS.map((d) => [d, percentages[d][d[0]]]),
-  ) as Profile5;
+  const profile = Object.fromEntries(DIMENSIONS.map((d) => [d, percentages[d][d[0]]])) as Profile5;
   return { profile, type: personalityType(percentages) };
 }

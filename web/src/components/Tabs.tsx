@@ -1,6 +1,6 @@
 "use client";
 // Ways to show one thing at a time instead of one long page ("one idea per
-// screen", design.md): tabs, and a deck of cards stepped through in order.
+// screen", docs/design.md): tabs, and a deck of cards stepped through in order.
 // Both are drawn in the app's sketchbook style: ink lines, a cobalt loop or
 // dot for "you are here".
 import { useRef, useState, type ReactNode } from "react";

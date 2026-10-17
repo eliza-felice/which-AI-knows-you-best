@@ -72,7 +72,9 @@ export default function Explore() {
     <>
       <NavBar current="explore" finished={result !== null} />
       <main className="screen mx-auto w-full max-w-2xl flex-1 px-4 pt-6 pb-16 sm:px-6">
-        <div><BackLink href={result ? "/?step=results" : "/"} label={result ? "My results" : "Home"} /></div>
+        <div>
+          <BackLink href={result ? "/?step=results" : "/"} label={result ? "My results" : "Home"} />
+        </div>
         <h1 className="font-hand text-4xl leading-tight font-normal">Keep exploring</h1>
         <p className="mt-2 text-ink-soft">
           Each screen looks at one idea about AI and you. Visit them in any order
@@ -102,7 +104,6 @@ export default function Explore() {
             );
           })}
         </ul>
-
       </main>
     </>
   );

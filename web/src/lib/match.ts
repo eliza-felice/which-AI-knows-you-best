@@ -44,7 +44,7 @@ export type Ranked = {
 };
 
 /** 100 minus the average point gap across the five traits. */
-export function matchScore(guess: Profile5, user: Profile5): number {
+function matchScore(guess: Profile5, user: Profile5): number {
   const gaps = DIMENSIONS.map((d) => Math.abs(guess[d] - user[d]));
   return Math.round((100 - gaps.reduce((a, b) => a + b, 0) / gaps.length) * 10) / 10;
 }
@@ -56,7 +56,7 @@ export function confidence(guess: Profile5): number {
 }
 
 export function sameSide(a: number, b: number): boolean {
-  return (a >= 50) === (b >= 50);
+  return a >= 50 === b >= 50;
 }
 
 export function rankModels(predictions: Prediction[], user: Profile5): Ranked[] {

@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 
 // The app reads this tab's saved progress (sessionStorage), so it renders in
 // the browser only.
-const App = dynamic(() => import("@/components/app/App"), {
+const App = dynamic(() => import("@/views/journey/App"), {
   ssr: false,
   loading: () => <main className="flex-1 bg-paper" />,
 });

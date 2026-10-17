@@ -50,9 +50,11 @@ export function loadSession(): Session {
       const answered = new Set(session.predictions.map((p) => p.model));
       session.predictions = [
         ...session.predictions,
-        ...MODELS.filter((m) => !answered.has(m.id)).map(
-          (m): Prediction => ({ model: m.id, status: "failed", reason: "page was reloaded" }),
-        ),
+        ...MODELS.filter((m) => !answered.has(m.id)).map((m): Prediction => ({
+          model: m.id,
+          status: "failed",
+          reason: "page was reloaded",
+        })),
       ];
     }
     return session;

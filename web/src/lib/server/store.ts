@@ -1,14 +1,15 @@
 // Server only: a small key-value store for the rate limits and the shared
 // prediction cache. Uses Upstash Redis when UPSTASH_REDIS_REST_URL and
-// UPSTASH_REDIS_REST_TOKEN are set, so data holds across serverless functions;
+// UPSTASH_REDIS_REST_TOKEN are set (or KV_REST_API_URL and KV_REST_API_TOKEN,
+// the names Vercel's Upstash integration may use), so data holds across serverless functions;
 // otherwise keeps it in memory (fine for local use only).
 import "server-only";
 
 const memory = new Map<string, { value: string; expires: number }>();
 
 function upstash() {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
   return url && token ? { url, token } : null;
 }
 

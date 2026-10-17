@@ -1,10 +1,10 @@
 # Which AI Knows You Best? (web app, V3)
 
-Twelve AI models (every model in `config/models.json`) guess a visitor's personality from their age, gender,
+Twelve AI models (every model in `experiment/config/models.json`) guess a visitor's personality from their age, gender,
 nationality and job. The visitor then takes the same 60-statement test, and
 the app reveals which model came closest. Each screen teaches one idea about
-AI. The product spec is [`../PRD.md`](../PRD.md) and the visual design is
-[`../design.md`](../design.md).
+AI. The product spec is [`docs/PRD.md`](docs/PRD.md) and the visual design is
+[`docs/design.md`](docs/design.md).
 
 **V1** is the core loop: consent and profile, hidden guesses, the test, the
 reveal with a no-information baseline, and a lessons page on privacy,
@@ -60,7 +60,7 @@ reused, to cut API costs. Each model's guess comes from the first of:
 3. **A live call**, which is then cached, and saved as an anonymous record:
    age group, gender, nationality, job, the guess, the AI's note, the date
    (`src/lib/server/responses.ts`). `node scripts/export-responses.mjs` writes
-   these to `../experiment_data/_web_app/responses.csv`.
+   these to `../experiment/experiment_data/_web_app/responses.csv`.
 
 Only live calls count towards a visitor's daily limit. Profiles with free text
 are always asked live and never cached or saved.
@@ -78,9 +78,11 @@ Other commands:
 
 | Command | What it does |
 |---|---|
-| `npm test` | checks the TypeScript prompt builder and scoring against the Python experiment code |
+| `npm test` | runs the tests: the TypeScript prompt and scoring against the Python experiment code, the cache, the limits and the what-if (no live calls) |
+| `npm run check` | type check, lint and tests in one go |
+| `npm run format` | formats the code (Prettier, 120 characters a line) |
 | `node scripts/try-predict.mjs` | calls `/api/predict` from the command line (dev server running) and prints each model's guess as it arrives; makes one live call per model. `DETAILS="..."` adds a description |
-| `node scripts/export-responses.mjs` | writes the saved live responses to `../experiment_data/_web_app/responses.csv` |
+| `node scripts/export-responses.mjs` | writes the saved live responses to `../experiment/experiment_data/_web_app/responses.csv` |
 | `npm run build` | production build |
 
 In development there is no daily limit. Set `RUNS_PER_IP_PER_DAY=1` in
@@ -89,11 +91,11 @@ In development there is no daily limit. Set `RUNS_PER_IP_PER_DAY=1` in
 ## How it connects to the experiment
 
 The app asks exactly what the experiment's `one_shot` condition asked. To keep
-the two in step, `python src/export_for_web.py` (run from the project folder)
+the two in step, `python experiment/src/export_for_web.py` (run from the project folder)
 writes:
 
 - `src/data/experiment.json`: the questions, instructions and model settings,
-  taken from `src/personality_lab.py` and `config/models.json`.
+  taken from `experiment/src/personality_lab.py` and `experiment/config/models.json`.
 - `src/data/study.json`: study findings used by the reveal and lessons: each
   model's no-persona default (the baseline), and how much each attribute
   shifts the results.
@@ -126,22 +128,38 @@ that the Vercel plan allows that.
 ## Files
 
 ```
-src/app/page.tsx and the other folders in src/app   pages (render in the browser only)
-src/app/api/predict/route.ts         every model's guess for a profile, streamed back
-src/app/api/whatif/route.ts          before and after guesses for a one-fact change
-src/app/api/dev/answers/route.ts     development only: save and load your own test answers
-src/components/app/                  App.tsx (the core loop) and one file per screen after it
-src/components/screens/              one file per screen
-src/components/Character.tsx         the masked characters, one per model (12 drawn so far)
-src/components/Doodles.tsx           hand-drawn bits: wobbly line filters, speech bubble, bracket
-src/components/ui.tsx                buttons, cards, trait bars, lesson blocks
-src/lib/experiment.ts                prompt builder and scoring, ported from Python
-src/lib/profile.ts                   lists, input checks, the system prompt for a profile
-src/lib/match.ts                     match score, ranking, baseline, summaries
-src/lib/models.ts                    display names and characters per model
-src/lib/session.ts                   progress in this browser tab, the /api/predict client
-src/lib/whatif.ts                    what-if fields and the study's findings about them
-src/lib/server/                      guesses.ts (study, cache or live), gateway call, cache, limits, store (server only)
+src/
+  app/                  routes only: each page.tsx loads its view; api/ holds the server endpoints
+    api/predict/          every model's guess for a profile, streamed back
+    api/whatif/           before and after guesses for a one-thing change; GET = live what-ifs left
+    api/dev/answers/      development only: save and load your own test answers
+  views/                what each page shows
+    journey/              the core loop: Landing, ProfileScreen, GuessingScreen, TestScreen,
+                          RevealScreen (podium), Results; App.tsx moves between them
+    explore/              the screens after the reveal: Explore (the hub), WhatIf + FactSlider,
+                          WithoutMask, Reliability, PlayAlong, Lessons, Research
+  components/           reusable pieces
+    Character.tsx         the masked characters, one per model
+    Charts.tsx            trait-line dots, bars and arrows for the charts
+    Doodles.tsx           hand-drawn bits: wobbly line filters, speech bubble, circle, bracket
+    NavBar.tsx            the top bar
+    SearchSelect.tsx      the searchable nationality and job lists
+    Tabs.tsx              tabs, and the one-card-at-a-time deck
+    ui.tsx                buttons, cards, trait bars, lesson blocks, back link, footer
+  lib/                  logic, no UI
+    experiment.ts         prompt builder and scoring, ported from Python (tests/parity.test.ts)
+    profile.ts            lists, input checks, the system prompt for a profile
+    match.ts              match score, ranking, baseline
+    insights.ts           the reveal's insight cards
+    models.ts             display names, companies and characters per model
+    whatif.ts             what-if fields and the study's findings about them
+    session.ts            progress in this browser tab, the /api/predict client
+    result.ts             the visitor's finished result, for the screens after the reveal
+    server/               server only: guesses.ts (study, cache or live), gateway, cache,
+                          limits, store, responses, studyRuns
+  data/                 written by python experiment/src/export_for_web.py; don't edit by hand
+tests/                  vitest; model calls are faked, so tests cost no API credits
+scripts/                command-line helpers (try-predict, export-responses)
 ```
 
 ## Choices made where the PRD left room
@@ -157,7 +175,7 @@ src/lib/server/                      guesses.ts (study, cache or live), gateway 
 
 - **Age limit:** visitors confirm they are 18 or older (`MIN_AGE` in
   `src/lib/profile.ts`). Check against PDPA and any ethics review before launch.
-- **Answer scale:** 7 dots, not the 5 in design.md, so people answer on the
+- **Answer scale:** 7 dots, not the 5 in docs/design.md, so people answer on the
   same −3 to +3 scale as the models and the scores are directly comparable.
 - **Question order:** the same 60 statements, but taking one trait at a time
   in turn, so people don't get ten extraversion questions in a row. (The

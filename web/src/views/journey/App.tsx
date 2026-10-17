@@ -23,11 +23,11 @@ import {
   type Step,
 } from "@/lib/session";
 import { NavBar } from "@/components/NavBar";
-import { Landing } from "@/components/screens/Landing";
-import { ProfileScreen } from "@/components/screens/ProfileScreen";
-import { GuessingScreen } from "@/components/screens/GuessingScreen";
-import { TestScreen } from "@/components/screens/TestScreen";
-import { RevealScreen } from "@/components/screens/RevealScreen";
+import { Landing } from "@/views/journey/Landing";
+import { ProfileScreen } from "@/views/journey/ProfileScreen";
+import { GuessingScreen } from "@/views/journey/GuessingScreen";
+import { TestScreen } from "@/views/journey/TestScreen";
+import { RevealScreen } from "@/views/journey/RevealScreen";
 
 // Screen names in the address bar.
 const URL_NAMES: Record<Step, string> = {
@@ -122,9 +122,11 @@ export default function App() {
       // Anyone missing when the stream ends didn't answer.
       update((s) => {
         const answered = new Set(s.predictions.map((p) => p.model));
-        const missing = MODELS.filter((m) => !answered.has(m.id)).map(
-          (m): Prediction => ({ model: m.id, status: "failed", reason: "no reply" }),
-        );
+        const missing = MODELS.filter((m) => !answered.has(m.id)).map((m): Prediction => ({
+          model: m.id,
+          status: "failed",
+          reason: "no reply",
+        }));
         return { predictions: [...s.predictions, ...missing] };
       });
     });
@@ -179,8 +181,6 @@ export default function App() {
         </>
       );
     case "reveal":
-      return (
-        <RevealScreen session={view} onRevealed={() => update({ revealed: true })} onStartOver={startOver} />
-      );
+      return <RevealScreen session={view} onRevealed={() => update({ revealed: true })} onStartOver={startOver} />;
   }
 }

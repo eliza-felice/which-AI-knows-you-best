@@ -24,7 +24,10 @@ export async function POST(request: Request) {
   const checked = normaliseProfile((body as { profile?: unknown })?.profile);
   if ("error" in checked) return Response.json({ error: checked.error }, { status: 400 });
 
-  const plan = await planGuesses(checked.profile, MODELS.map((m) => m.id));
+  const plan = await planGuesses(
+    checked.profile,
+    MODELS.map((m) => m.id),
+  );
   // Only live calls cost anything, so only they count towards the limits.
   if (plan.live.length > 0) {
     const refusal = await claimProfileRun(clientIp(request));

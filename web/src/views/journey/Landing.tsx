@@ -11,7 +11,9 @@ export function Landing({ onStart }: { onStart: () => void }) {
         <br />
         KNOWs YOU BEsT?
       </h1>
-      <p className="mt-5 max-w-sm text-lg">{numberWord(MODELS.length, true)} AIs think they know you. Let&rsquo;s find out.</p>
+      <p className="mt-5 max-w-sm text-lg">
+        {numberWord(MODELS.length, true)} AIs think they know you. Let&rsquo;s find out.
+      </p>
       <Button variant="primary-on-cobalt" className="mt-8" onClick={onStart}>
         Start
       </Button>

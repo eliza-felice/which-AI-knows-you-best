@@ -3,7 +3,7 @@
 // her 30s working as a software engineer), each model's guess is one of its
 // saved study runs, picked at random, so no API call is needed. The study
 // asked for ratings only, so these guesses have no note.
-// study-runs.json is written by `python src/export_for_web.py`.
+// study-runs.json is written by `python experiment/src/export_for_web.py`.
 import "server-only";
 import runs from "@/data/study-runs.json";
 import type { Profile5 } from "@/lib/experiment";
