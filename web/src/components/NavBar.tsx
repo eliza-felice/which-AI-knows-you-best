@@ -50,7 +50,7 @@ export function NavBar({ current, finished }: { current?: NavKey; finished: bool
       <nav className="mx-auto flex h-14 max-w-3xl items-center justify-between gap-3 px-4 sm:px-6" aria-label="Main">
         <Link href="/" className="flex items-center gap-1.5" aria-label="Which AI Knows You Best? Home">
           <Character slot={1} size={34} />
-          <span className="font-hand text-xl leading-none">Which Ai knows you?</span>
+          <span className="font-hand text-lg leading-none sm:text-xl">Which Ai knows you best?</span>
         </Link>
 
         <ul className="hidden items-center gap-5 sm:flex">

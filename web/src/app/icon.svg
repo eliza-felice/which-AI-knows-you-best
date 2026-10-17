@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- The tab icon: character 1 (periwinkle, masked) on paper. -->
+  <rect width="120" height="120" rx="26" fill="#EFEDE8"/>
+  <path d="M44 104 C38 80 36 52 44 30 C50 16 66 12 74 26 C84 30 96 36 101 42 C98 49 86 50 75 50 C77 70 76 88 70 104 Z" fill="#5B74B8" transform="translate(4 3) scale(0.97)"/>
+  <g fill="none" stroke="#141414" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M44 104 C38 80 36 52 44 30 C50 16 66 12 74 26 C84 30 96 36 101 42 C98 49 86 50 75 50 C77 70 76 88 70 104 Z"/>
+    <path d="M48 104 L47 112"/>
+    <path d="M65 104 L66 112"/>
+  </g>
+  <path d="M49 33 C49 27 58 27 61 30 C64 27 73 27 73 33 C73 39 64 39 61 36 C58 39 49 39 49 33 Z" fill="#141414"/>
+  <circle cx="55" cy="33" r="2.6" fill="#F7F0E3"/>
+  <circle cx="67" cy="33" r="2.6" fill="#F7F0E3"/>
+</svg>
