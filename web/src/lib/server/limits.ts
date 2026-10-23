@@ -1,13 +1,13 @@
 // Server only: cost limits for live model calls.
 //
 //   LIVE_CALLS_ENABLED=false   stops all live calls (the manual spend switch)
-//   RUNS_PER_IP_PER_DAY        full profile runs per visitor per day (default 1
-//                              in production, unlimited in development)
-//   RUNS_PER_DAY               full profile runs per day for everyone together
+//   RUNS_PER_IP_PER_DAY        full profile runs per visitor per day (default
+//                              unlimited: people on shared Wi-Fi share an IP)
+//   RUNS_PER_DAY              full profile runs per day for everyone together
 //                              (default 200): the app's own spend cap, on top of
 //                              the gateway's monthly cap
-//   WHATIFS_PER_IP_PER_DAY     live what-ifs per visitor per day (default 10 in
-//                              production, unlimited in development)
+//   WHATIFS_PER_IP_PER_DAY     live what-ifs per visitor per day (default
+//                              unlimited)
 //   WHATIFS_PER_DAY            live what-ifs per day for everyone (default 1000)
 //
 // A request answered entirely from the study or the shared cache makes no live
@@ -19,7 +19,6 @@ import { createHash } from "node:crypto";
 import { getMany, increment } from "@/lib/server/store";
 
 const DAY_SECONDS = 24 * 60 * 60;
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 function setting(name: string, fallback: number): number {
   const value = Number(process.env[name]);
@@ -32,16 +31,16 @@ export function clientIp(request: Request): string {
 
 const KINDS = {
   run: {
-    perIp: () => setting("RUNS_PER_IP_PER_DAY", IS_PRODUCTION ? 1 : Infinity),
+    perIp: () => setting("RUNS_PER_IP_PER_DAY", Infinity),
     total: () => setting("RUNS_PER_DAY", 200),
     overIp: "You've already had today's guesses. Each visitor gets one full run per day, to keep costs down.",
     overTotal: "The app has reached today's limit for live guesses. Please come back tomorrow.",
   },
   whatif: {
-    perIp: () => setting("WHATIFS_PER_IP_PER_DAY", IS_PRODUCTION ? 10 : Infinity),
+    perIp: () => setting("WHATIFS_PER_IP_PER_DAY", Infinity),
     total: () => setting("WHATIFS_PER_DAY", 1000),
     overIp:
-      "You've used today's live what-ifs. Each visitor gets 10 per day, to keep costs down. What-ifs we've already seen still work.",
+      "You've used today's live what-ifs, to keep costs down. What-ifs we've already seen still work.",
     overTotal: "The app has reached today's limit for live what-ifs. Please come back tomorrow.",
   },
 };

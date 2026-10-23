@@ -2,8 +2,8 @@
 //
 // Two ways in:
 //   "Change one thing": change one of your four facts, or your own words, and
-//     see how each chosen AI's guess and description shift. Live calls are
-//     capped (WHATIFS_PER_IP_PER_DAY); anything the study or the cache already
+//     see how each chosen AI's guess and description shift. Live calls count
+//     towards the site-wide daily limit; anything the study or the cache already
 //     has is free.
 //   "Slide through a fact": step through every value the study tested, on the
 //     study's test person. Always free (FactSlider.tsx).
@@ -237,19 +237,20 @@ function Explorer({ session, profile }: { session: Session; profile: UserProfile
           <p className="mt-1 text-ink-soft">Change one thing about yourself and watch the AIs change their minds.</p>
         </header>
 
-        <aside className="rounded-card border border-dashed border-ink-soft p-4 text-sm leading-relaxed">
-          <p className="font-medium">
-            {left === null
-              ? "Live guesses are limited to keep costs down."
-              : outOfLive
+        {/* Only when a per-visitor limit is set (WHATIFS_PER_IP_PER_DAY); none by default. */}
+        {left !== null && (
+          <aside className="rounded-card border border-dashed border-ink-soft p-4 text-sm leading-relaxed">
+            <p className="font-medium">
+              {outOfLive
                 ? "You've used today's live what-ifs."
                 : `You have ${left} live what-if${left === 1 ? "" : "s"} left today.`}
-          </p>
-          <p className="mt-1 text-ink-soft">
-            Anything our study or earlier visitors already covered is free and instant; anything new asks the AIs live
-            and uses one. Changing your own words always does.
-          </p>
-        </aside>
+            </p>
+            <p className="mt-1 text-ink-soft">
+              Anything our study or earlier visitors already covered is free and instant; anything new asks the AIs live
+              and uses one. Changing your own words always does.
+            </p>
+          </aside>
+        )}
 
         <section aria-labelledby="who">
           <h2 id="who" className="text-lg">

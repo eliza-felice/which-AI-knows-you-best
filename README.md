@@ -230,9 +230,9 @@ key file (`experiment/.env` and `web/.env.local`, both git-ignored).
   for each of the 60 statements; anything else counts as a failed answer rather
   than a guessed one. Quotes a model claims to have "noticed" in your
   description are dropped unless they're really in it.
-- **Cost and abuse limits.** Live AI use is capped per visitor per day (by a
-  one-way hash of the IP address, not the address itself) and site-wide per
-  day. Live calls can be switched off entirely with one setting
+- **Cost and abuse limits.** Live AI use is capped site-wide per day. Optional
+  per-visitor limits (off by default, since people on shared Wi-Fi share an IP
+  address) count by a one-way hash of the IP address, not the address itself. Live calls can be switched off entirely with one setting
   (`LIVE_CALLS_ENABLED=false`). Study and cached answers are reused wherever
   possible, so most visits make no live calls.
 - **Secrets.** API keys live only in git-ignored files and in Vercel's

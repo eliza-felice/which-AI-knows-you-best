@@ -23,9 +23,9 @@ profiling and accuracy vs confidence.
     guess slide. Always free (it's all study data). "Try this on me" runs the
     same change on your own profile as a normal what-if.
 
-  Live AI use is capped at 10 live what-ifs per visitor per day
-  (`WHATIFS_PER_IP_PER_DAY`), and the page shows how many are left before you
-  use one (`GET /api/whatif`). A what-if answered from the study or the cache
+  Live what-ifs count towards a site-wide daily limit (`WHATIFS_PER_DAY`);
+  there is no per-visitor limit unless `WHATIFS_PER_IP_PER_DAY` is set, in
+  which case the page shows how many are left (`GET /api/whatif`). A what-if answered from the study or the cache
   is free and says so. Changing your words is always live and never cached,
   but only the "after" guesses are asked: "before" is your reveal.
 - **Meet the AIs without a mask** (`/without-mask`): each AI's own answers
@@ -85,8 +85,9 @@ Other commands:
 | `node scripts/export-responses.mjs` | writes the saved live responses to `../experiment/experiment_data/_web_app/responses.csv` |
 | `npm run build` | production build |
 
-In development there is no daily limit. Set `RUNS_PER_IP_PER_DAY=1` in
-`.env.local` to try the limit.
+Full runs have no per-visitor limit by default, only the site-wide `RUNS_PER_DAY`
+(people on shared Wi-Fi share one IP). Set `RUNS_PER_IP_PER_DAY=1` in
+`.env.local` to try a per-visitor limit.
 
 ## How it connects to the experiment
 
